@@ -1,0 +1,9 @@
+{
+  "name": "dyeworks",
+  "version": "0.0.1",
+  "description": "Theme library: design tokens and day/night themes. Placeholder release holding the name; the first real release follows.",
+  "license": "MIT",
+  "repository": { "type": "git", "url": "git+https://github.com/vertix-solutions/dyeworks.git" },
+  "files": ["README.md", "LICENSE"],
+  "publishConfig": { "access": "public" }
+}
