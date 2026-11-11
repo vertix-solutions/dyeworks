@@ -1,9 +1,32 @@
 {
   "name": "dyeworks",
   "version": "0.0.1",
-  "description": "Theme library: design tokens and day/night themes. Placeholder release holding the name; the first real release follows.",
+  "description": "A theme library: one Token contract, a Slot vocabulary and Themes as directories, for any web framework.",
   "license": "MIT",
+  "type": "module",
   "repository": { "type": "git", "url": "git+https://github.com/vertix-solutions/dyeworks.git" },
-  "files": ["README.md", "LICENSE"],
+  "engines": { "node": ">=22" },
+  "sideEffects": ["*.css"],
+  "exports": {
+    "./tokens.css": "./dist/tokens.css",
+    "./themes.css": "./dist/themes.css",
+    "./slots.css": "./slots.css",
+    "./registry": { "types": "./dist/registry.d.ts", "default": "./dist/registry.js" },
+    "./tokens.json": "./tokens.json",
+    "./slots.json": "./slots.json",
+    "./themes/*": "./themes/*",
+    "./package.json": "./package.json"
+  },
+  "files": ["dist", "themes", "tokens.json", "slots.json", "slots.css", "README.md", "LICENSE"],
+  "scripts": {
+    "build": "node scripts/build.mjs",
+    "test": "vitest run",
+    "demo": "node scripts/build.mjs && node scripts/serve.mjs",
+    "screenshots": "node scripts/screenshots.mjs"
+  },
+  "devDependencies": {
+    "playwright": "1.64.1",
+    "vitest": "5.0.5"
+  },
   "publishConfig": { "access": "public" }
 }

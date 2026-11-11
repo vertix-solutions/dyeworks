@@ -1,0 +1,74 @@
+{
+  "format": "dyeworks-slots/1",
+  "slots": [
+    {
+      "kind": "backdrop",
+      "reads": [
+        "--asset-backdrop",
+        "--asset-opacity"
+      ],
+      "treatment": "The image covers the viewport, centred, below all content, at --asset-opacity."
+    },
+    {
+      "kind": "ornament",
+      "reads": [
+        "--asset-ornament",
+        "--asset-opacity"
+      ],
+      "treatment": "A 28 by 28 CSS px image at --asset-opacity; absent when --asset-ornament is none."
+    },
+    {
+      "kind": "wordmark",
+      "reads": [
+        "--font-display"
+      ],
+      "treatment": "The display face only; the colour stays --fg."
+    },
+    {
+      "kind": "heading",
+      "reads": [
+        "--font-display"
+      ],
+      "treatment": "The display face only."
+    },
+    {
+      "kind": "count",
+      "reads": [
+        "--font-display"
+      ],
+      "treatment": "The display face only, with tabular figures."
+    },
+    {
+      "kind": "primary_action",
+      "reads": [
+        "--accent-gradient",
+        "--glow",
+        "--accent-fg"
+      ],
+      "treatment": "Filled with --accent-gradient, --accent-fg text, --glow as its box-shadow."
+    },
+    {
+      "kind": "active_navigation",
+      "reads": [
+        "--accent-gradient",
+        "--glow"
+      ],
+      "treatment": "A 2 px underline painted with --accent-gradient, with --glow on the underline."
+    },
+    {
+      "kind": "selected_mark",
+      "reads": [
+        "--glow-svg",
+        "--selected"
+      ],
+      "treatment": "--glow-svg as the filter of the selected element only; --selected as its fill where it has one."
+    },
+    {
+      "kind": "empty_illustration",
+      "reads": [
+        "--asset-empty"
+      ],
+      "treatment": "--asset-empty shown at most 320 CSS px wide; not scaled by Intensity."
+    }
+  ]
+}

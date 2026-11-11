@@ -1,0 +1,7 @@
+{
+  "id": "default",
+  "label": "Default",
+  "schemes": ["light", "dark"],
+  "intensity": false,
+  "assets": {}
+}
