@@ -109,7 +109,17 @@ npm test                          # shape, manifest, contrast, provenance, Slot,
 npm run build                     # writes dist/: the generated files and the compiled src/
 npm run demo                      # builds, then serves the demo page at http://127.0.0.1:4173/demo/
 npm run screenshots -- <outdir>   # the demo page per Theme and Scheme at Intensity 0, 0.5 and 1
+npm run theme-assets              # a Theme author's step: generate missing images from the Prompt sheets
 ```
+
+`npm run theme-assets [-- --theme <id> --slot <slot> --force]` reads every Prompt sheet under
+`themes/<id>/prompts/`, asks the image API for each asset whose image is not yet shipped (or every one with
+`--force`), resizes and strips it, checks a transparent Slot's alpha (retrying the sheet up to three times),
+clamps a backdrop's luminance towards `--bg` in its Scheme's direction, fails an image over its budget, writes
+the image beside its fallback, updates `provenance.json`, and prints the manifest line to add. Its key is read
+from the environment of the machine that runs it; without it the script prints one line, exits non-zero and
+changes nothing. Nothing a consumer runs, and no test or build here, calls the image API: the images are
+committed.
 
 The Sweep checks the tracked tree for home paths, email addresses, key-shaped strings, colour literals
 outside `themes/` and `tokens.json`, and rasters or fonts outside `themes/`. Its private layer runs when
