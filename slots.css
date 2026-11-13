@@ -1,0 +1,90 @@
+/* dyeworks Slot treatments. Apply data-slot="<kind>" at each Slot, or write the same treatment yourself.
+   Each rule reads contract Tokens only; under the default Theme every decoration is inert. */
+
+[data-slot="backdrop"] {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background-image: var(--asset-backdrop);
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  opacity: var(--asset-opacity);
+}
+
+[data-slot="ornament"] {
+  display: inline-block;
+  flex: none;
+  width: 28px;
+  height: 28px;
+  background-image: var(--asset-ornament);
+  background-position: center;
+  background-size: contain;
+  background-repeat: no-repeat;
+  opacity: var(--asset-opacity);
+}
+
+[data-slot="wordmark"] {
+  font-family: var(--font-display);
+}
+
+[data-slot="heading"] {
+  font-family: var(--font-display);
+}
+
+[data-slot="count"] {
+  font-family: var(--font-display);
+  font-variant-numeric: tabular-nums;
+}
+
+[data-slot="primary_action"] {
+  background: var(--accent-gradient);
+  color: var(--accent-fg);
+  box-shadow: var(--glow);
+}
+
+[data-slot="active_navigation"] {
+  position: relative;
+}
+
+[data-slot="active_navigation"]::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 2px;
+  background: var(--accent-gradient);
+  box-shadow: var(--glow);
+  pointer-events: none;
+}
+
+[data-slot="selected_mark"][data-selected="true"] {
+  filter: var(--glow-svg);
+  fill: var(--selected);
+}
+
+[data-slot="empty_illustration"] {
+  display: block;
+  width: 100%;
+  max-width: 320px;
+  aspect-ratio: 3 / 2;
+  background-image: var(--asset-empty);
+  background-position: center;
+  background-size: contain;
+  background-repeat: no-repeat;
+}
+
+/* An image Slot whose Token is none takes no room (where style queries are supported). */
+@container style(--asset-ornament: none) {
+  [data-slot="ornament"] {
+    display: none;
+  }
+}
+
+@container style(--asset-empty: none) {
+  [data-slot="empty_illustration"] {
+    display: none;
+  }
+}

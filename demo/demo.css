@@ -1,0 +1,53 @@
+/* The demo page's own layout. It reads contract Tokens only and carries no colour of its own. */
+* { box-sizing: border-box; }
+html { background: var(--bg); }
+body { margin: 0; color: var(--fg); font-family: var(--font-sans); font-size: 15px; line-height: 1.5; }
+.bar { display: flex; flex-wrap: wrap; align-items: center; gap: 12px 32px; padding: 12px 32px; background: var(--bg-raised); border-bottom: 1px solid var(--border); }
+.brand { display: flex; align-items: center; gap: 10px; }
+.wordmark { font-size: 20px; font-weight: 700; letter-spacing: 0.02em; }
+.wordmark.big { font-size: 40px; margin: 0; }
+.nav { display: flex; gap: 20px; }
+.nav a { color: var(--muted); text-decoration: none; padding: 6px 0; }
+.nav a[data-slot="active_navigation"] { color: var(--fg); }
+.controls { display: flex; flex-wrap: wrap; gap: 16px; margin-left: auto; color: var(--muted); font-size: 13px; }
+.controls label { display: flex; align-items: center; gap: 6px; }
+.controls select, .controls input { font: inherit; color: var(--fg); background: var(--bg); border: 1px solid var(--border); border-radius: var(--radius); padding: 3px 6px; }
+main { max-width: 1180px; margin: 0 auto; padding: 24px 32px 48px; }
+.lede { color: var(--muted); margin: 0 0 20px; }
+.grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; }
+.card { position: relative; background: var(--bg-raised); border: 1px solid var(--border); border-radius: var(--radius); padding: 36px 18px 18px; min-height: 150px; }
+.card::before { content: attr(data-demo-kind); position: absolute; top: 10px; left: 18px; font-family: var(--font-mono); font-size: 12px; color: var(--muted); }
+.card h1 { font-size: 26px; line-height: 1.2; margin: 0 0 8px; }
+.card p { margin: 0; }
+.muted { color: var(--muted); }
+.row { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
+.counts { display: flex; gap: 12px; }
+.count-tile { flex: 1; display: flex; flex-direction: column; padding: 10px 12px; background: var(--bg); border: 1px solid var(--border); border-radius: var(--radius); }
+.count { font-size: 30px; font-weight: 700; line-height: 1.1; }
+.button { font: inherit; font-weight: 600; padding: 8px 16px; border-radius: var(--radius); border: 1px solid transparent; cursor: pointer; }
+.button.secondary { background: var(--bg); color: var(--fg); border-color: var(--border); }
+.marks { width: 100%; height: 90px; display: block; }
+.mark { stroke: var(--border); stroke-width: 1; }
+.mark.s1:not([data-selected="true"]) { fill: var(--series-1); }
+.mark.s2:not([data-selected="true"]) { fill: var(--series-2); }
+.mark.s3:not([data-selected="true"]) { fill: var(--series-3); }
+.mark[data-selected="true"] { stroke: var(--fg); stroke-width: 2; }
+.bars { list-style: none; margin: 10px 0 0; padding: 0; display: grid; gap: 6px; }
+.bars li { height: 14px; background: var(--bg-sunken); border-radius: var(--radius); }
+.bar-fill { display: block; height: 100%; border-radius: var(--radius); }
+.bar-fill.s1 { background: var(--series-1); }
+.bar-fill.s2 { background: var(--series-2); }
+.bar-fill.s3 { background: var(--series-3); }
+.bar-fill.selected { outline: 2px solid var(--fg); outline-offset: 1px; }
+#tokens { margin-top: 32px; }
+#tokens h2 { font-size: 22px; margin: 0 0 12px; }
+.pairs { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; margin-bottom: 16px; }
+.pair { padding: 14px 16px; border: 1px solid var(--border); border-radius: var(--radius); display: flex; flex-wrap: wrap; gap: 6px 14px; font-weight: 600; }
+.pair .label { flex-basis: 100%; font-family: var(--font-mono); font-size: 12px; font-weight: 400; color: var(--muted); }
+.swatches { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 10px; }
+.swatch { border: 1px solid var(--border); border-radius: var(--radius); overflow: hidden; background: var(--bg-raised); font-size: 12px; }
+.swatch .chip { height: 40px; border-bottom: 1px solid var(--border); }
+.swatch .name { padding: 6px 8px; font-family: var(--font-mono); }
+.notice { padding: 10px 14px; border-radius: var(--radius); background: var(--warning-bg); color: var(--warning-fg); }
+.danger { color: var(--danger); }
+@media (max-width: 900px) { .grid { grid-template-columns: 1fr; } }

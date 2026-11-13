@@ -1,0 +1,65 @@
+/* default: the plain Theme on system fonts, light and dark. Decoration Tokens stay at the contract defaults. */
+
+html[data-theme="default"] {
+  --radius: 8px;
+  --font-sans: system-ui, -apple-system, sans-serif;
+  --font-mono: ui-monospace, "SF Mono", Menlo, monospace;
+  --glow: none;
+  --glow-svg: none;
+  --accent-gradient: var(--accent);
+  --font-display: var(--font-sans);
+  --asset-backdrop: none;
+  --asset-ornament: none;
+  --asset-empty: none;
+  --asset-opacity: 1;
+}
+
+html[data-theme="default"][data-scheme="light"] {
+  color-scheme: light;
+  --bg: #fcfcfd;
+  --bg-raised: #f3f4f7;
+  --bg-sunken: #e9ebf0;
+  --fg: #16181d;
+  --muted: #656b7a;
+  --border: #d9dce3;
+  --accent: #3246c8;
+  --accent-fg: #ffffff;
+  --selected: #e6eafb;
+  --series-1: #3246c8;
+  --series-2: #1f7a45;
+  --series-3: #b83c0a;
+  --state-active: #1a63b8;
+  --state-quiet: #5f6572;
+  --state-attention: #a85400;
+  --state-success: #1f7a45;
+  --state-failure: #c22a2a;
+  --state-halted: #5b3cc4;
+  --danger: #c22a2a;
+  --warning-bg: #fff3df;
+  --warning-fg: #874800;
+}
+
+html[data-theme="default"][data-scheme="dark"] {
+  color-scheme: dark;
+  --bg: #14161c;
+  --bg-raised: #1c1f27;
+  --bg-sunken: #0f1116;
+  --fg: #eceef3;
+  --muted: #9aa1b0;
+  --border: #30343f;
+  --accent: #8a98ff;
+  --accent-fg: #0d0f14;
+  --selected: #2a2f4a;
+  --series-1: #8a98ff;
+  --series-2: #5fd38a;
+  --series-3: #ff9f66;
+  --state-active: #58aef5;
+  --state-quiet: #a3a9b6;
+  --state-attention: #ffb257;
+  --state-success: #5fd38a;
+  --state-failure: #ff6f6f;
+  --state-halted: #b59cff;
+  --danger: #ff6f6f;
+  --warning-bg: #3a2a12;
+  --warning-fg: #ffc47a;
+}

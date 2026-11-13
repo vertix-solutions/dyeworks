@@ -1,0 +1,104 @@
+<!doctype html>
+<html lang="en" data-theme="default" data-scheme="light">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>dyeworks demo</title>
+  <link rel="stylesheet" href="/dist/tokens.css">
+  <link rel="stylesheet" href="/dist/themes.css">
+  <link rel="stylesheet" href="/slots.css">
+  <link rel="stylesheet" href="/demo/demo.css">
+  <script type="module" src="/demo/demo.js"></script>
+</head>
+<body>
+  <div data-slot="backdrop"></div>
+
+  <header class="bar">
+    <div class="brand">
+      <span data-slot="ornament"></span>
+      <span class="wordmark" data-slot="wordmark">Specimen</span>
+    </div>
+    <nav class="nav" aria-label="Sample navigation">
+      <a href="#slots" data-slot="active_navigation" aria-current="page">Overview</a>
+      <a href="#tokens">Tokens</a>
+      <a href="#empty">Archive</a>
+    </nav>
+    <form class="controls" id="controls">
+      <label>Theme <select id="theme"></select></label>
+      <label>Scheme <select id="scheme"></select></label>
+      <label>Intensity <input id="intensity" type="range" min="0" max="1" step="0.05"> <output id="intensity-value"></output></label>
+    </form>
+  </header>
+
+  <main>
+    <p class="lede" id="lede"></p>
+
+    <section id="slots" aria-label="Slot kinds" class="grid">
+      <article class="card" data-demo-kind="heading">
+        <h1 data-slot="heading">A heading in the display face</h1>
+        <p>Body text stays in the body face. The quick brown fox jumps over the lazy dog.</p>
+      </article>
+
+      <article class="card" data-demo-kind="count">
+        <div class="counts">
+          <div class="count-tile"><span class="count" data-slot="count">128</span><span class="muted">items</span></div>
+          <div class="count-tile"><span class="count" data-slot="count">7</span><span class="muted">active</span></div>
+          <div class="count-tile"><span class="count" data-slot="count">3,041</span><span class="muted">total</span></div>
+        </div>
+      </article>
+
+      <article class="card" data-demo-kind="primary_action">
+        <div class="row">
+          <button type="button" class="button" data-slot="primary_action">Primary action</button>
+          <button type="button" class="button secondary">Secondary</button>
+        </div>
+      </article>
+
+      <article class="card" data-demo-kind="active_navigation">
+        <nav class="nav" aria-label="Sample tabs">
+          <a href="#slots" data-slot="active_navigation">Active</a>
+          <a href="#slots">Inactive</a>
+          <a href="#slots">Inactive</a>
+        </nav>
+      </article>
+
+      <article class="card" data-demo-kind="selected_mark">
+        <svg class="marks" viewBox="0 0 320 90" role="img" aria-label="Four marks, the second selected">
+          <circle data-slot="selected_mark" data-selected="false" class="mark s1" cx="40" cy="45" r="22"></circle>
+          <circle data-slot="selected_mark" data-selected="true" class="mark s2" cx="120" cy="45" r="22"></circle>
+          <circle data-slot="selected_mark" data-selected="false" class="mark s3" cx="200" cy="45" r="22"></circle>
+          <rect data-slot="selected_mark" data-selected="false" class="mark s1" x="258" y="23" width="44" height="44" rx="6"></rect>
+        </svg>
+        <ul class="bars">
+          <li><span class="bar-fill s1" data-slot="selected_mark" data-selected="false" style="width: 70%"></span></li>
+          <li><span class="bar-fill s2 selected" data-slot="selected_mark" data-selected="true" style="width: 45%"></span></li>
+          <li><span class="bar-fill s3" data-slot="selected_mark" data-selected="false" style="width: 85%"></span></li>
+        </ul>
+      </article>
+
+      <article class="card" data-demo-kind="empty_illustration" id="empty">
+        <div data-slot="empty_illustration" role="img" aria-label="An illustration for an empty list"></div>
+        <p class="muted">Nothing here yet.</p>
+      </article>
+
+      <article class="card" data-demo-kind="wordmark">
+        <p class="wordmark big" data-slot="wordmark">Specimen</p>
+      </article>
+
+      <article class="card" data-demo-kind="ornament">
+        <div class="row"><span data-slot="ornament"></span><span class="muted">An ornament beside a label</span></div>
+      </article>
+
+      <article class="card" data-demo-kind="backdrop">
+        <p class="muted">The backdrop covers the viewport behind every card on this page.</p>
+      </article>
+    </section>
+
+    <section id="tokens" aria-label="Tokens">
+      <h2 data-slot="heading">Tokens</h2>
+      <div class="pairs" id="pairs"></div>
+      <div class="swatches" id="swatches"></div>
+    </section>
+  </main>
+</body>
+</html>
