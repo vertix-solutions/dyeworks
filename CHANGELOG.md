@@ -4,6 +4,12 @@ Versions are git tags `v<semver>`, published to the npm registry by `release.yml
 kind with an inert default is a minor; generated images are a patch; a renamed or removed Token, a changed
 Slot treatment or a changed manifest shape is a major, recorded here.
 
+## Unreleased
+
+- `npm run theme-assets`: the development-time asset generation script, with its alpha check, backdrop
+  luminance clamp, budgets and `provenance.json` (`dyeworks-provenance/1`). It is not part of the published
+  package; `sharp` is a development dependency.
+
 ## 1.0.0
 
 The first release for consumers.
