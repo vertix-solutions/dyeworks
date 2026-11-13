@@ -1,32 +1,83 @@
 {
   "name": "dyeworks",
-  "version": "0.0.1",
+  "version": "1.0.0",
   "description": "A theme library: one Token contract, a Slot vocabulary and Themes as directories, for any web framework.",
   "license": "MIT",
   "type": "module",
-  "repository": { "type": "git", "url": "git+https://github.com/vertix-solutions/dyeworks.git" },
-  "engines": { "node": ">=22" },
-  "sideEffects": ["*.css"],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/vertix-solutions/dyeworks.git"
+  },
+  "engines": {
+    "node": ">=22"
+  },
+  "sideEffects": [
+    "*.css"
+  ],
   "exports": {
     "./tokens.css": "./dist/tokens.css",
     "./themes.css": "./dist/themes.css",
     "./slots.css": "./slots.css",
-    "./registry": { "types": "./dist/registry.d.ts", "default": "./dist/registry.js" },
+    "./registry": {
+      "types": "./dist/registry.d.ts",
+      "default": "./dist/registry.js"
+    },
+    "./chooser": {
+      "types": "./dist/chooser.d.ts",
+      "default": "./dist/chooser.js"
+    },
+    "./boot": {
+      "types": "./dist/boot.d.ts",
+      "default": "./dist/boot.js"
+    },
+    "./react": {
+      "types": "./dist/react/index.d.ts",
+      "default": "./dist/react/index.js"
+    },
+    "./contract-check": {
+      "types": "./dist/contract-check.d.ts",
+      "default": "./dist/contract-check.js"
+    },
     "./tokens.json": "./tokens.json",
     "./slots.json": "./slots.json",
     "./themes/*": "./themes/*",
     "./package.json": "./package.json"
   },
-  "files": ["dist", "themes", "tokens.json", "slots.json", "slots.css", "README.md", "LICENSE"],
+  "files": [
+    "dist",
+    "themes",
+    "tokens.json",
+    "slots.json",
+    "slots.css",
+    "README.md",
+    "CHANGELOG.md",
+    "LICENSE"
+  ],
   "scripts": {
     "build": "node scripts/build.mjs",
     "test": "vitest run",
     "demo": "node scripts/build.mjs && node scripts/serve.mjs",
     "screenshots": "node scripts/screenshots.mjs"
   },
+  "peerDependencies": {
+    "react": ">=18"
+  },
+  "peerDependenciesMeta": {
+    "react": {
+      "optional": true
+    }
+  },
   "devDependencies": {
+    "@types/react": "19.3.0",
+    "@types/react-dom": "19.3.0",
+    "happy-dom": "21.0.4",
     "playwright": "1.64.1",
+    "react": "19.3.1",
+    "react-dom": "19.3.1",
+    "typescript": "7.0.2",
     "vitest": "5.0.5"
   },
-  "publishConfig": { "access": "public" }
+  "publishConfig": {
+    "access": "public"
+  }
 }
