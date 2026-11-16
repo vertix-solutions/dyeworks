@@ -5,6 +5,8 @@ on:
   push:
     tags:
       - "v*.*.*"
+  # Re-run a release by hand on its tag: gh workflow run release.yml --ref v<semver>
+  workflow_dispatch:
 
 permissions:
   contents: read
@@ -28,4 +30,5 @@ jobs:
       - run: npm ci
       - run: npm run build
       - run: npm test
-      - run: npm publish --provenance --access public
+      # Verbose, so a refused OIDC exchange prints the registry's answer instead of a bare ENEEDAUTH.
+      - run: npm publish --provenance --access public --loglevel verbose
