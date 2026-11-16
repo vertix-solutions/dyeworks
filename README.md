@@ -4,7 +4,7 @@ A theme library for web projects on any framework: one **Token contract**, a **S
 **Themes** as directories that set nothing but Tokens. A page reads the Tokens; a Theme changes their
 values; the page's layout, components and meanings stay its own.
 
-Status: `1.0.0`, the first release for consumers. See `CHANGELOG.md`.
+Status: `1.1.0`. Themes: `default` (light and dark) and `neon` (dark). See `CHANGELOG.md`.
 
 ## What is in the package
 
@@ -12,7 +12,7 @@ Status: `1.0.0`, the first release for consumers. See `CHANGELOG.md`.
 |---|---|
 | `tokens.json` | The Token contract (`dyeworks-tokens/1`): every Token with its tier, type, one-sentence meaning and default. The whole surface between a Theme and a page. |
 | `slots.json`, `slots.css` | The Slot vocabulary (`dyeworks-slots/1`): nine kinds of place where decoration may appear, the Tokens each reads, and an optional stylesheet implementing each treatment on `[data-slot="<kind>"]`. |
-| `themes/<id>/` | One directory per Theme: `theme.css` (Token declarations only) and `theme.json` (the manifest). |
+| `themes/<id>/` | One directory per Theme: `theme.css` (Token declarations only), `theme.json` (the manifest), and for an expressive Theme its SVG fallbacks, Prompt sheets under `prompts/`, and one display face as woff2 with `OFL.txt` beside it. |
 | `dist/tokens.css` | Every contract default on `:root`, so a page with no Theme attribute renders as `default` light. |
 | `dist/themes.css` | Every Theme's declarations. |
 | `dist/registry.js` | The generated registry: `themes` (directory order, `default` first) and `options()` for a Theme menu. |
@@ -24,7 +24,7 @@ Status: `1.0.0`, the first release for consumers. See `CHANGELOG.md`.
 
 ## Consuming it
 
-Install an exact version (`npm install --save-exact dyeworks@1.0.0`) and import the stylesheets:
+Install an exact version (`npm install --save-exact dyeworks@1.1.0`) and import the stylesheets:
 
 ```css
 @import "dyeworks/tokens.css";
@@ -121,7 +121,8 @@ from the environment of the machine that runs it; without it the script prints o
 changes nothing. Nothing a consumer runs, and no test or build here, calls the image API: the images are
 committed.
 
-The Sweep checks the tracked tree for home paths, email addresses, key-shaped strings, colour literals
+The Sweep checks the tracked tree for home paths, email addresses (outside `LICENSE` and a face's
+`themes/<id>/OFL.txt`, whose copyright notice the licence keeps verbatim), key-shaped strings, colour literals
 outside `themes/` and `tokens.json`, and rasters or fonts outside `themes/`. Its private layer runs when
 `DYEWORKS_SWEEP_PRIVATE` names a file outside the repository holding one string per line.
 

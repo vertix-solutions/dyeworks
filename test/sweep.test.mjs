@@ -68,6 +68,12 @@ describe("the generic rules", () => {
     expect(rules({ "x.txt": `token ${key}\n` })).toContain(`key_shape:${name}`);
   });
 
+  test("allow an email address in a bundled face's OFL.txt, whose copyright notice the licence keeps verbatim", () => {
+    expect(rules({ "themes/sample/OFL.txt": `Copyright (c) 2014 A Foundry (${email})\n` })).toEqual([]);
+    expect(rules({ "OFL.txt": `${email}\n` })).toContain("email");
+    expect(rules({ "themes/sample/notes.txt": `${email}\n` })).toContain("email");
+  });
+
   test("find an email address but not a reserved one", () => {
     expect(rules({ "x.md": `${email}\n` })).toContain("email");
     expect(rules({ "x.md": `${"a" + "@" + "b.invalid"}\n` })).toEqual([]);

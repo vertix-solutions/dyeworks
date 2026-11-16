@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 28 28" width="28" height="28">
+<!-- neon ornament fallback: the synthwave sun, a disc in the neon Tokens accent (#ff2bd6) cut by three
+     horizontal gaps in theme-second (#00e5ff). Token names are written without their leading dashes,
+     which an XML comment cannot hold. -->
+<defs>
+<clipPath id="sun"><circle cx="14" cy="14" r="11"/></clipPath>
+</defs>
+<circle cx="14" cy="14" r="11" fill="#ff2bd6"/>
+<g clip-path="url(#sun)" fill="#00e5ff">
+<rect x="2" y="15" width="24" height="1.2"/>
+<rect x="2" y="18.4" width="24" height="1.6"/>
+<rect x="2" y="21.8" width="24" height="2"/>
+</g>
+</svg>
