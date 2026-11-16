@@ -86,8 +86,11 @@ export function keyFindings(path, text) {
   );
 }
 
+// A bundled face's OFL.txt keeps the font's copyright notice verbatim, as the licence requires, address and all.
+const FACE_LICENCE = /^themes\/[^/]+\/OFL\.txt$/;
+
 export function emailFindings(path, text) {
-  if (path === "LICENSE") return [];
+  if (path === "LICENSE" || FACE_LICENCE.test(path)) return [];
   return [...text.matchAll(EMAIL)]
     .filter((m) => !m[0].toLowerCase().endsWith(EMAIL_RESERVED_TLD))
     .map((m) => ({ rule: "email", path, detail: `line ${lineOf(text, m.index)}: ${m[0]}` }));

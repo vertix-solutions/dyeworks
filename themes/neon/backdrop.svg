@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1536 1024" width="1536" height="1024" preserveAspectRatio="xMidYMid slice">
+<!-- neon backdrop fallback. Mirrors the neon Tokens bg (#0a0d1f) for the field and theme-second (#00e5ff)
+     for the floor grid at 6 % alpha; the haze is a dark tint of accent (#ff2bd6) toward violet (#2a0f4a).
+     Token names are written without their leading dashes, which an XML comment cannot hold. -->
+<defs>
+<radialGradient id="haze" cx="1080" cy="660" r="620" gradientTransform="translate(1080 660) scale(1 0.42) translate(-1080 -660)" gradientUnits="userSpaceOnUse">
+<stop offset="0" stop-color="#2a0f4a"/>
+<stop offset="0.55" stop-color="#2a0f4a" stop-opacity="0.45"/>
+<stop offset="1" stop-color="#2a0f4a" stop-opacity="0"/>
+</radialGradient>
+<linearGradient id="fade" x1="0" y1="640" x2="0" y2="1024" gradientUnits="userSpaceOnUse">
+<stop offset="0" stop-color="#00e5ff" stop-opacity="0"/>
+<stop offset="1" stop-color="#00e5ff" stop-opacity="0.06"/>
+</linearGradient>
+</defs>
+<rect width="1536" height="1024" fill="#0a0d1f"/>
+<rect width="1536" height="1024" fill="url(#haze)"/>
+<g stroke="url(#fade)" stroke-width="1.5" fill="none">
+<path d="M768 1500L-1200 640M768 1500L-700 640M768 1500L-300 640M768 1500L60 640M768 1500L400 640M768 1500L768 640M768 1500L1136 640M768 1500L1476 640M768 1500L1836 640M768 1500L2236 640M768 1500L2736 640"/>
+<path d="M0 652H1536M0 668H1536M0 690H1536M0 720H1536M0 760H1536M0 812H1536M0 878H1536M0 960H1536"/>
+</g>
+</svg>

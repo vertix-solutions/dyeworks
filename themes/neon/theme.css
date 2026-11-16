@@ -1,0 +1,45 @@
+/* neon: synthwave. A magenta accent and a cyan second colour on deep navy; dark only. Display face Rajdhani.
+   Decoration is written in var(--intensity); the design is its look at 0.5. */
+
+@font-face {
+  font-family: "Rajdhani";
+  src: url(/themes/neon/rajdhani-600.woff2) format("woff2");
+  font-display: swap;
+  font-style: normal;
+  font-weight: 500 700;
+}
+
+html[data-theme="neon"] {
+  --radius: 4px;
+  --font-display: "Rajdhani", var(--font-sans);
+  --theme-second: #00e5ff;
+  --glow: 0 0 calc(var(--intensity) * 28px) calc(var(--intensity) * 2px) color-mix(in srgb, var(--accent) min(100%, calc(var(--intensity) * 130%)), transparent);
+  --glow-svg: drop-shadow(0 0 calc(var(--intensity) * 14px) color-mix(in srgb, var(--accent) min(100%, calc(var(--intensity) * 160%)), transparent));
+  --accent-gradient: linear-gradient(90deg, var(--accent), color-mix(in srgb, var(--theme-second) min(100%, calc(var(--intensity) * 160%)), var(--accent)));
+  --asset-opacity: min(1, calc(var(--intensity) * 1.6));
+}
+
+html[data-theme="neon"][data-scheme="dark"] {
+  color-scheme: dark;
+  --bg: #0a0d1f;
+  --bg-raised: #10152e;
+  --bg-sunken: #070914;
+  --fg: #e8f3ff;
+  --muted: #8c9bc4;
+  --border: #27306a;
+  --accent: #ff2bd6;
+  --accent-fg: #0a0d1f;
+  --selected: #2a1250;
+  --series-1: #00e5ff;
+  --series-2: #3dff9a;
+  --series-3: #ff8f3d;
+  --state-active: #00e5ff;
+  --state-quiet: #8c9bc4;
+  --state-attention: #ffd23d;
+  --state-success: #3dff9a;
+  --state-failure: #ff3d6e;
+  --state-halted: #b36bff;
+  --danger: #ff3d6e;
+  --warning-bg: #2a1a05;
+  --warning-fg: #ffd23d;
+}

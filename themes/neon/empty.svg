@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 768 512" width="768" height="512">
+<!-- neon empty-state fallback: a thin floor grid in the neon Tokens theme-second (#00e5ff) and, standing on it,
+     one empty frame outlined in accent (#ff2bd6); strokes only. Token names are written without their
+     leading dashes, which an XML comment cannot hold. -->
+<g fill="none" stroke="#00e5ff" stroke-width="2" stroke-opacity="0.55" stroke-linecap="round">
+<path d="M84 470L264 330M204 470L314 330M324 470L364 330M444 470L404 330M564 470L454 330M684 470L504 330"/>
+<path d="M264 330H504M222 362H546M174 400H594M118 444H650M84 470H684"/>
+</g>
+<g fill="none" stroke="#ff2bd6" stroke-linejoin="round">
+<rect x="314" y="150" width="140" height="210" rx="4" stroke-width="10" stroke-opacity="0.18"/>
+<rect x="314" y="150" width="140" height="210" rx="4" stroke-width="3"/>
+</g>
+</svg>
