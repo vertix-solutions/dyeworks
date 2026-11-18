@@ -108,7 +108,7 @@ npm ci
 npm test                          # shape, manifest, contrast, provenance, Slot, build and Sweep tests
 npm run build                     # writes dist/: the generated files and the compiled src/
 npm run demo                      # builds, then serves the demo page at http://127.0.0.1:4173/demo/
-npm run screenshots -- <outdir>   # the demo page per Theme, Scheme and Intensity 0, 0.5, 1: whole page, 1440 × 900, 1280 × 800
+npm run screenshots -- <outdir>   # the demo page per Theme, Scheme and Intensity 0, 0.5, 1: whole page, 1920 × 1080, 1440 × 900, 1280 × 800
 npm run theme-assets              # a Theme author's step: generate missing images from the Prompt sheets
 ```
 

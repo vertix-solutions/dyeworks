@@ -1,28 +1,10 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1536 1024" width="1536" height="1024" preserveAspectRatio="xMidYMid slice">
 <!-- pylon day backdrop fallback (light Scheme). Mirrors the pylon light Tokens bg (#f7f1e4) for the sand field
-     and bg-raised (#efe6d3) and bg-sunken (#e6dcc6) for two broad dunes low in the frame. Four small pale
-     crystals (#a9cdee, a facet in #7fb2e0) float in the far margins, two at the left edge and two at the right,
-     each over a small ellipse of the light accent (#1860ad) at 35 % on the dune below it: a crystal's shadow at
-     noon. Every figure stays within 56 units of an edge, so the middle of the frame, where a page's content sits,
-     is plain sand and sky.
+     and bg-raised (#efe6d3) and bg-sunken (#e6dcc6) for two broad dunes low in the frame, and nothing else: no
+     crystal, shadow or other shape anywhere in the frame, so whatever part of it a page's content covers is plain
+     sand and sky. The crystal lives in the ornament and the empty illustration.
      Token names are written without their leading dashes, which an XML comment cannot hold. -->
-<defs>
-<g id="crystal">
-<path d="M0 -24L-9 -14V14L0 24L9 14V-14Z" fill="#a9cdee"/>
-<path d="M0 -24L-9 -14V14L0 24Z" fill="#7fb2e0"/>
-</g>
-</defs>
 <rect width="1536" height="1024" fill="#f7f1e4"/>
 <path d="M0 700C260 628 560 640 860 702S1300 742 1536 664V1024H0Z" fill="#efe6d3"/>
 <path d="M0 872C320 808 700 820 1000 868S1390 900 1536 846V1024H0Z" fill="#e6dcc6"/>
-<g fill="#1860ad" fill-opacity="0.35">
-<ellipse cx="28" cy="700" rx="11" ry="2.8"/>
-<ellipse cx="46" cy="697" rx="7" ry="2"/>
-<ellipse cx="1494" cy="672" rx="6" ry="1.8"/>
-<ellipse cx="1510" cy="668" rx="9" ry="2.4"/>
-</g>
-<use href="#crystal" transform="translate(28 560)"/>
-<use href="#crystal" transform="translate(46 628) scale(0.6)"/>
-<use href="#crystal" transform="translate(1494 600) scale(0.62)"/>
-<use href="#crystal" transform="translate(1510 520) scale(0.86)"/>
 </svg>

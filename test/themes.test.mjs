@@ -252,47 +252,54 @@ describe.each(designed)("the %s Theme", (id, design, theme) => {
   });
 });
 
-// pylon's backdrops are viewport covers under content with no opaque surface of its own, so a crystal or its ground
-// shadow in the middle of the frame sits behind text and reads as a mark in a chart. Every figure stays in a far
-// margin: within MARGIN units of either edge of the 1536-unit frame, which a cover at 1280 CSS px or wider keeps
-// outside a centred 1180 px column, and which a narrower or taller viewport crops away.
+// pylon's backdrops are viewport-fixed covers under content that may have no opaque surface of its own, and a
+// consumer's content reaches close to every edge (a full-width page padded 24 CSS px). No strip of the frame stays
+// clear of content at every viewport, since the cover's scale follows the viewport and the padding does not. So a
+// fallback holds its field, its dunes and, at night, its haze, and no other shape anywhere in the frame: no
+// crystal, ground shadow or pool of light (spec 07 §5).
 describe.each(["light", "dark"])("pylon's %s backdrop", (scheme) => {
-  const WIDTH = 1536;
-  const MARGIN = 56;
   const svg = readFileSync(join(themes.find((t) => t.id === "pylon").path, `backdrop.${scheme}.svg`), "utf8");
-  const number = (attrs, name) => Number(new RegExp(`\\b${name}="(-?[\\d.]+)"`).exec(attrs)?.[1]);
-  const crystal = /id="crystal"[^>]*\bd="([^"]+)"|<path d="([^"]+)"[^>]*id="crystal"/.exec(svg) ?? /<g id="crystal">([^]*?)<\/g>/.exec(svg);
-  const halfWidth = Math.max(...[...(crystal[1] ?? crystal[2] ?? crystal[0]).matchAll(/[MLHVZ]?\s*(-?[\d.]+)(?:\s+(-?[\d.]+))?/g)]
-    .filter((m) => m[2] !== undefined).map((m) => Math.abs(Number(m[1]))));
-  const figures = [
-    ...[...svg.matchAll(/<use [^>]*translate\((-?[\d.]+)[ ,]+(-?[\d.]+)\)(?:\s*scale\(([\d.]+)\))?/g)].map((m) => {
-      const s = Number(m[3] ?? 1);
-      return { what: `crystal at ${m[1]}`, left: Number(m[1]) - halfWidth * s, right: Number(m[1]) + halfWidth * s };
-    }),
-    ...[...svg.matchAll(/<ellipse ([^>]*)>/g)].map((m) => {
-      const cx = number(m[1], "cx");
-      const rx = number(m[1], "rx");
-      return { what: `ground shadow at ${cx}`, left: cx - rx, right: cx + rx };
-    }),
-  ];
+  const body = svg.replace(/<!--[^]*?-->/g, "").replace(/<defs>[^]*?<\/defs>/g, "");
+  const elements = [...body.matchAll(/<([a-zA-Z]+)\b([^>]*)>/g)].map((m) => ({ name: m[1], attrs: m[2] }));
 
-  test("draws its crystals and their ground shadows", () => {
-    expect(halfWidth).toBeGreaterThan(0);
-    expect(figures.filter((f) => f.what.startsWith("crystal")).length).toBeGreaterThan(0);
-    expect(figures.filter((f) => f.what.startsWith("ground")).length).toBeGreaterThan(0);
+  test("holds no crystal, shadow, pool or other shape", () => {
+    for (const name of ["use", "ellipse", "circle", "polygon", "polyline", "line", "image", "g", "symbol"])
+      expect(svg, `a <${name}>`).not.toMatch(new RegExp(`<${name}\\b`));
+    expect(svg).not.toMatch(/id="crystal"/);
   });
 
-  test("keeps every crystal and ground shadow in a far margin, out of the content area", () => {
-    for (const f of figures)
-      expect(f.right <= MARGIN || f.left >= WIDTH - MARGIN, `${f.what} spans ${f.left} to ${f.right}`).toBe(true);
+  test("draws only its field, two dunes reaching the foot of the frame and, at night, the haze", () => {
+    const rects = elements.filter((e) => e.name === "rect");
+    const paths = elements.filter((e) => e.name === "path");
+    const others = elements.filter((e) => !["svg", "rect", "path"].includes(e.name));
+    expect(others.map((e) => e.name)).toEqual([]);
+    for (const r of rects) {
+      expect(r.attrs).toMatch(/\bwidth="1536"/);
+      expect(r.attrs).toMatch(/\bheight="1024"/);
+      expect(r.attrs).not.toMatch(/\b[xy]="/);
+    }
+    expect(rects.map((r) => /\bfill="([^"]+)"/.exec(r.attrs)[1])).toEqual(
+      scheme === "light" ? ["#f7f1e4"] : ["#171224", "url(#haze)"],
+    );
+    expect(paths).toHaveLength(2);
+    for (const d of paths) expect(d.attrs, "a dune runs edge to edge down to the foot").toMatch(/\bd="M0 [^"]*V1024H0Z"/);
+    if (scheme === "dark") {
+      const defs = /<defs>([^]*?)<\/defs>/.exec(svg)[1];
+      expect([...defs.matchAll(/<(radialGradient|linearGradient)\b[^>]*\bid="([^"]+)"/g)].map((m) => m[2])).toEqual(["haze"]);
+    }
   });
 });
 
 describe.each(["light", "dark"])("pylon's %s backdrop Prompt sheet", (scheme) => {
   const sheet = readFileSync(join(themes.find((t) => t.id === "pylon").path, `prompts/backdrop.${scheme}.md`), "utf8");
+  const section = (name) => new RegExp(`^## ${name}\\n([^]*?)(?=^## |(?![^]))`, "m").exec(sheet)[1];
 
-  test("asks for the crystals at the far edges and the middle of the frame left plain", () => {
-    expect(sheet).toMatch(/far\s+(?:left\s+and\s+right\s+)?edges/i);
-    expect(sheet).toMatch(/centre[^.]*plain|plain[^.]*centre/i);
+  test("asks for no object anywhere in the frame", () => {
+    expect(section("Prompt")).not.toMatch(/crystal|shadow|pool/i);
+    expect(section("Prompt")).toMatch(/no\s+object\s+anywhere\s+in\s+the\s+frame/i);
+  });
+
+  test("lists crystals, shadows and pools of light under Must not", () => {
+    expect(section("Must not")).toMatch(/crystals,\s+shadows,\s+pools\s+of\s+light/);
   });
 });

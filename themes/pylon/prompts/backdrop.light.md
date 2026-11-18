@@ -8,18 +8,13 @@ ship: 1536x1024
 ## Prompt
 A wide, very pale abstract desert backdrop for a light software interface. Sun-bleached sand
 dunes (#f7f1e4 to #e6dcc6) under a hazy white-gold sky, the horizon low and almost washed
-out, like a watercolour left in the sun. Three or four small faceted blue crystals (deep lapis
-#1860ad fading to pale sky blue) float only at the far left and right edges of the frame, inside
-a narrow strip at each edge, each casting one small sharp blue shadow on the sand directly below
-it; the centre of the frame, between the two strips and from top to bottom, is plain sand and
-sky with no crystal and no shadow. Grainy paper texture, soft, calm, mostly empty; nothing
-darker than light sand except the crystals and their shadows.
+out, like a watercolour left in the sun. Only sand and sky from edge to edge, with no object
+anywhere in the frame. Grainy paper texture, soft, calm, empty; nothing darker than light sand.
 
 ## Must not
 Text, letters, logos, people, animals, buildings, ruins, books, roads, vegetation, water, a
-sun disc, hard-edged clouds, strong contrast, a glow around the crystals, any area darker than
-pale sand outside the crystals and their shadows, a crystal or a shadow anywhere between the
-two edge strips.
+sun disc, hard-edged clouds, strong contrast, crystals, shadows, pools of light, any object on
+or above the sand, any area darker than pale sand.
 
 ## Accept
 luminance clamp against the pylon light Tokens (a light Scheme: the darkest 0.1 % of pixels is

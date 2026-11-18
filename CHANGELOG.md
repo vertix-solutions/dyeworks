@@ -6,20 +6,25 @@ Slot treatment or a changed manifest shape is a major, recorded here.
 
 ## 1.4.1
 
-- `pylon`'s backdrops keep their crystals and ground shadows in the far margins, within 56 units of either edge
-  of the 1536-unit frame, so the middle of the viewport, where a page's content sits, is plain sand and sky by
-  day and plain dune and sky by night; on a page whose content has no opaque surface no figure sits behind text,
-  a control or a bar. The two backdrop Prompt sheets ask the same of a generated image. A test holds every
-  crystal and shadow of both fallbacks to the margins.
+- `pylon`'s backdrops carry no crystal, ground shadow or pool of light anywhere in the frame: they are sand, dunes
+  and sky by day, and dunes, sky and a cerulean haze by night. A backdrop is a viewport-fixed cover, and a page's
+  content may run full width to within 24 px of each edge with no opaque surface of its own; since the cover's
+  scale follows the viewport and the padding does not, no strip of the frame stays clear of content at every
+  viewport, so any shape in it would sit behind text, a control or a bar somewhere. The crystal lives in the
+  `ornament` and the `empty_illustration`. Both backdrop Prompt sheets ask for no object anywhere in the frame and
+  list crystals, shadows and pools of light under Must not. A test holds each fallback to its field, its two dunes
+  and, at night, its haze.
 - `pylon`'s display face is now Forum Regular (`forum-400.woff2`, one static Latin-subset woff2 of 23.8 kB,
-  declared for weights 400 to 700, `OFL.txt` replaced with Forum's), in place of Marcellus, whose zero is its
-  capital O and whose one is a bare stem, so that "Run 00000002" read as letters. Forum is an inscriptional
-  Roman with a lowercase in the same spirit, with lining figures: an oval zero narrower than its O, a flagged
-  one. `--font-display` is `"Forum", var(--font-sans)` on both Schemes.
-- The demo page sets a heading, two counts and a row of bars straight on the backdrop with no surface behind
-  them. `npm run screenshots` also takes the first screen at 1440 × 900 and 1280 × 800, and fails when the
-  `heading` or `count` Slot draws a zero like O or o, or a one like I or l; `neon` (zero like O) and
-  `psychedelic` (one like I) are reported as known and do not fail it until their own fix.
+  declared for weights 400 to 700, `OFL.txt` replaced with Forum's from the upstream font repository), in place of
+  Marcellus, whose zero is its capital O and whose one is a bare stem, so that "Run 00000002" read as letters.
+  Forum is an inscriptional Roman with a lowercase in the same spirit, with lining figures: an oval zero narrower
+  than its O, a flagged one. `--font-display` is `"Forum", var(--font-sans)` on both Schemes.
+- The demo page sets a full-width table padded 24 px at each side, with text at its left edge and right-aligned
+  numbers at its right, and a heading, two counts and a row of bars, all straight on the backdrop with no surface
+  behind them. `npm run screenshots` also takes the first screen at 1920 × 1080, 1440 × 900 and 1280 × 800, and,
+  once per Theme and Scheme that bundles a face, fails when the face did not load or when the `heading` or `count`
+  Slot draws a zero like O or o, or a one like I or l. `neon` (zero like O) and `psychedelic` (one like I and l)
+  are reported as known pairs and do not fail it until their own fix; a known pair that no longer shows fails it.
 - Not in this release: an `ornament` Slot that takes no room at Intensity 0. Collapsing it would change the
   Slot's treatment, which is a major; it keeps its 28 px box through `1.x`.
 
