@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 28 28" width="28" height="28">
+<!-- circuit ornament fallback: a hexagonal node in the circuit Tokens accent (#19f0a8) with three short
+     traces leaving it to the right, each ending in a pad; stroke only. Token names are written without
+     their leading dashes, which an XML comment cannot hold. -->
+<g fill="none" stroke="#19f0a8" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round">
+<path d="M9 7.5L14.6 10.75V17.25L9 20.5L3.4 17.25V10.75Z"/>
+<path d="M14.6 10.75L18 8H22.2M14.6 14H22.2M14.6 17.25L18 20H22.2"/>
+<circle cx="24" cy="8" r="1.8"/>
+<circle cx="24" cy="14" r="1.8"/>
+<circle cx="24" cy="20" r="1.8"/>
+</g>
+</svg>

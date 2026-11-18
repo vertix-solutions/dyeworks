@@ -48,6 +48,40 @@ const DESIGNS = {
       "prompts/ornament.md", "rajdhani-600.woff2", "theme.css", "theme.json",
     ],
   },
+  circuit: {
+    manifest: {
+      id: "circuit",
+      label: "Circuit",
+      schemes: ["dark"],
+      intensity: true,
+      assets: { backdrop: { fallback: "backdrop.svg" }, ornament: { fallback: "ornament.svg" }, empty: { fallback: "empty.svg" } },
+    },
+    tokens: {
+      dark: {
+        "--bg": "#060a09", "--bg-raised": "#0b1411", "--bg-sunken": "#030605",
+        "--fg": "#d7f5e9", "--muted": "#7fae9a", "--border": "#164237",
+        "--accent": "#19f0a8", "--accent-fg": "#03110c", "--selected": "#0f3a2c",
+        "--series-1": "#19f0a8", "--series-2": "#5fd4ff", "--series-3": "#f5a524",
+        "--state-active": "#5fd4ff", "--state-quiet": "#7fae9a", "--state-attention": "#f5a524",
+        "--state-success": "#19f0a8", "--state-failure": "#ff5c5c", "--state-halted": "#b39dff",
+        "--danger": "#ff5c5c", "--warning-bg": "#2a1e05", "--warning-fg": "#f5c660",
+        "--radius": "2px",
+        "--font-sans": '"Exo 2", system-ui, -apple-system, sans-serif',
+        "--font-display": "var(--font-sans)",
+        "--theme-second": "#5fd4ff",
+        // circuit's glow has no spread: a fixed 0, not a calc.
+        "--glow": "0 0 calc(var(--intensity) * 16px) 0 color-mix(in srgb, var(--accent) min(100%, calc(var(--intensity) * 100%)), transparent)",
+        "--glow-svg": glowSvg(10, 120),
+        "--accent-gradient": gradient(120),
+        "--asset-opacity": "min(1, calc(var(--intensity) * 1.4))",
+      },
+    },
+    face: { family: '"Exo 2"', file: "exo2-variable.woff2", weight: "100 900" },
+    files: [
+      "OFL.txt", "backdrop.svg", "empty.svg", "exo2-variable.woff2", "ornament.svg", "prompts/backdrop.md",
+      "prompts/empty.md", "prompts/ornament.md", "theme.css", "theme.json",
+    ],
+  },
 };
 
 const norm = (v) => v.replace(/\s+/g, " ").replace(/'/g, '"').trim();

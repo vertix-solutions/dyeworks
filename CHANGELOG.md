@@ -4,6 +4,16 @@ Versions are git tags `v<semver>`, published to the npm registry by `release.yml
 kind with an inert default is a minor; generated images are a patch; a renamed or removed Token, a changed
 Slot treatment or a changed manifest shape is a major, recorded here.
 
+## 1.2.0
+
+- The `circuit` Theme (dark only, `intensity: true`): a teal accent and an ice-blue second colour on
+  near-black, 2 px corners; glow, gradient and image opacity written in `var(--intensity)`, the quietest of
+  the expressive Themes.
+- Its hand-written SVG fallbacks for `backdrop`, `ornament` and `empty`, and their three Prompt sheets under
+  `themes/circuit/prompts/`.
+- Its face, Exo 2 as one variable Latin-subset woff2 (`exo2-variable.woff2`, weights 100 to 900), with
+  `OFL.txt` beside it. The face fills `--font-sans` as well as `--font-display`, so it carries the whole page.
+
 ## 1.1.0
 
 - The `neon` Theme (dark only, `intensity: true`): magenta accent and cyan second colour on deep navy; glow,

@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1536 1024" width="1536" height="1024" preserveAspectRatio="xMidYMid slice">
+<!-- circuit backdrop fallback. Mirrors the circuit Tokens bg (#060a09) for the field and accent (#19f0a8)
+     for a 28 px grid at 4.5 % alpha and a radial glow at the top right at 8 % alpha.
+     Token names are written without their leading dashes, which an XML comment cannot hold. -->
+<defs>
+<pattern id="grid" width="28" height="28" patternUnits="userSpaceOnUse">
+<path d="M28 0H0V28" fill="none" stroke="#19f0a8" stroke-opacity="0.045" stroke-width="1"/>
+</pattern>
+<radialGradient id="glow" cx="1536" cy="0" r="900" gradientUnits="userSpaceOnUse">
+<stop offset="0" stop-color="#19f0a8" stop-opacity="0.08"/>
+<stop offset="1" stop-color="#19f0a8" stop-opacity="0"/>
+</radialGradient>
+</defs>
+<rect width="1536" height="1024" fill="#060a09"/>
+<rect width="1536" height="1024" fill="url(#grid)"/>
+<rect width="1536" height="1024" fill="url(#glow)"/>
+</svg>

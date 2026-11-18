@@ -1,0 +1,47 @@
+/* circuit: traces on near-black. A teal accent and an ice-blue second colour, sharp corners; dark only.
+   Exo 2, a variable face, carries the whole page as well as the display places.
+   Decoration is written in var(--intensity); the design is its look at 0.5, the quietest of the expressive Themes. */
+
+@font-face {
+  font-family: "Exo 2";
+  src: url(/themes/circuit/exo2-variable.woff2) format("woff2");
+  font-display: swap;
+  font-style: normal;
+  font-weight: 100 900;
+}
+
+html[data-theme="circuit"] {
+  --radius: 2px;
+  --font-sans: "Exo 2", system-ui, -apple-system, sans-serif;
+  --font-display: var(--font-sans);
+  --theme-second: #5fd4ff;
+  --glow: 0 0 calc(var(--intensity) * 16px) 0 color-mix(in srgb, var(--accent) min(100%, calc(var(--intensity) * 100%)), transparent);
+  --glow-svg: drop-shadow(0 0 calc(var(--intensity) * 10px) color-mix(in srgb, var(--accent) min(100%, calc(var(--intensity) * 120%)), transparent));
+  --accent-gradient: linear-gradient(90deg, var(--accent), color-mix(in srgb, var(--theme-second) min(100%, calc(var(--intensity) * 120%)), var(--accent)));
+  --asset-opacity: min(1, calc(var(--intensity) * 1.4));
+}
+
+html[data-theme="circuit"][data-scheme="dark"] {
+  color-scheme: dark;
+  --bg: #060a09;
+  --bg-raised: #0b1411;
+  --bg-sunken: #030605;
+  --fg: #d7f5e9;
+  --muted: #7fae9a;
+  --border: #164237;
+  --accent: #19f0a8;
+  --accent-fg: #03110c;
+  --selected: #0f3a2c;
+  --series-1: #19f0a8;
+  --series-2: #5fd4ff;
+  --series-3: #f5a524;
+  --state-active: #5fd4ff;
+  --state-quiet: #7fae9a;
+  --state-attention: #f5a524;
+  --state-success: #19f0a8;
+  --state-failure: #ff5c5c;
+  --state-halted: #b39dff;
+  --danger: #ff5c5c;
+  --warning-bg: #2a1e05;
+  --warning-fg: #f5c660;
+}
