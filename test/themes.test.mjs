@@ -82,6 +82,41 @@ const DESIGNS = {
       "prompts/empty.md", "prompts/ornament.md", "theme.css", "theme.json",
     ],
   },
+  psychedelic: {
+    manifest: {
+      id: "psychedelic",
+      label: "Psychedelic",
+      schemes: ["dark"],
+      intensity: true,
+      assets: { backdrop: { fallback: "backdrop.svg" }, ornament: { fallback: "ornament.svg" }, empty: { fallback: "empty.svg" } },
+    },
+    tokens: {
+      dark: {
+        "--bg": "#1b0a2e", "--bg-raised": "rgba(255, 255, 255, 0.08)", "--bg-sunken": "rgba(0, 0, 0, 0.25)",
+        "--fg": "#fff4e6", "--muted": "#d4b4f5", "--border": "rgba(255, 255, 255, 0.18)",
+        "--accent": "#ff6f3c", "--accent-fg": "#1b0a2e", "--selected": "rgba(255, 111, 60, 0.25)",
+        "--series-1": "#c084fc", "--series-2": "#fde047", "--series-3": "#fb7185",
+        "--state-active": "#60a5fa", "--state-quiet": "#c9bdd6", "--state-attention": "#fbbf24",
+        "--state-success": "#4ade80", "--state-failure": "#fb7185", "--state-halted": "#c084fc",
+        "--danger": "#fb7185", "--warning-bg": "rgba(251, 191, 36, 0.18)", "--warning-fg": "#fde68a",
+        "--radius": "14px",
+        "--font-display": '"Righteous", var(--font-sans)',
+        "--theme-second": "#fde047",
+        "--theme-third": "#c084fc",
+        "--glow": glow(40, 4, 150),
+        "--glow-svg": glowSvg(18, 180),
+        // psychedelic's gradient runs through three colours at 100deg, the loudest of the expressive Themes.
+        "--accent-gradient":
+          "linear-gradient(100deg, var(--accent) 0%, color-mix(in srgb, var(--theme-second) min(100%, calc(var(--intensity) * 200%)), var(--accent)) 50%, color-mix(in srgb, var(--theme-third) min(100%, calc(var(--intensity) * 200%)), var(--accent)) 100%)",
+        "--asset-opacity": "min(1, calc(var(--intensity) * 2))",
+      },
+    },
+    face: { family: '"Righteous"', file: "righteous-400.woff2", weight: "400 700" },
+    files: [
+      "OFL.txt", "backdrop.svg", "empty.svg", "ornament.svg", "prompts/backdrop.md", "prompts/empty.md",
+      "prompts/ornament.md", "righteous-400.woff2", "theme.css", "theme.json",
+    ],
+  },
 };
 
 const norm = (v) => v.replace(/\s+/g, " ").replace(/'/g, '"').trim();

@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 28 28" width="28" height="28">
+<!-- psychedelic ornament fallback: a sun of three concentric rings in the psychedelic Tokens accent
+     (#ff6f3c) outside, theme-second (#fde047) and theme-third (#c084fc) within, and eight short wavy rays
+     alternating accent and theme-second; filled shapes, no stroke. Token names are written without their leading dashes, which an
+     XML comment cannot hold. -->
+<defs>
+<path id="ray" d="M-1.6 -7.6C-2.9 -10.1 0.3 -11.3 -0.9 -13.2Q0 -14.2 0.9 -13.3C2.1 -11.3 -1.1 -10.2 1.6 -7.6Z"/>
+</defs>
+<g transform="translate(14 14)">
+<g fill="#ff6f3c">
+<use href="#ray"/><use href="#ray" transform="rotate(90)"/><use href="#ray" transform="rotate(180)"/><use href="#ray" transform="rotate(270)"/>
+</g>
+<g fill="#fde047">
+<use href="#ray" transform="rotate(45)"/><use href="#ray" transform="rotate(135)"/><use href="#ray" transform="rotate(225)"/><use href="#ray" transform="rotate(315)"/>
+</g>
+<circle r="8.2" fill="#ff6f3c"/>
+<circle r="5.9" fill="#fde047"/>
+<circle r="3.4" fill="#c084fc"/>
+</g>
+</svg>
