@@ -86,10 +86,11 @@ export function checkThemeShape({ id, css, manifest, contract }) {
   }
 
   if (manifest.intensity === true) {
+    // Every declaration counts: a Theme on both Schemes may set its glow per Scheme block, and each must scale.
     for (const name of ["--glow", "--glow-svg"]) {
       const decls = decorationSet.get(name) ?? [];
-      if (!decls.some((d) => /var\(\s*--intensity\b/.test(d.value)))
-        add(decls[0]?.line ?? 1, "intensity", `${name} must read --intensity in a Theme declaring intensity: true`);
+      const flat = decls.length === 0 ? [{ line: 1 }] : decls.filter((d) => !/var\(\s*--intensity\b/.test(d.value));
+      for (const d of flat) add(d.line, "intensity", `${name} must read --intensity in a Theme declaring intensity: true`);
     }
   } else {
     for (const [name, decls] of decorationSet) {

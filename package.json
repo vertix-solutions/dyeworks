@@ -1,6 +1,6 @@
 {
   "name": "dyeworks",
-  "version": "1.3.0",
+  "version": "1.4.0",
   "description": "A theme library: one Token contract, a Slot vocabulary and Themes as directories, for any web framework.",
   "license": "MIT",
   "type": "module",

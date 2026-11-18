@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 28 28" width="28" height="28">
+<!-- pylon ornament fallback, shared by both Schemes: one crystal, an elongated hexagon pointed top and bottom,
+     floating over a small ochre mound (#c9a46a). Its three facets mirror the pylon Tokens: the day accent
+     (#1860ad) on the shaded left, the night accent (#4fc3ff) on the lower right and the night theme-second
+     (#9fe0ff) on the lit upper right; a 1-unit lapis ellipse on the mound is its shadow. Fills only, no stroke.
+     Token names are written without their leading dashes, which an XML comment cannot hold. -->
+<path d="M4.5 27C6.5 22.6 9.8 21 14 21S21.5 22.6 23.5 27Z" fill="#c9a46a"/>
+<ellipse cx="14" cy="23" rx="3.4" ry="1" fill="#1860ad"/>
+<path d="M14 1.5L9.6 6.2V13.8L14 18.5Z" fill="#1860ad"/>
+<path d="M14 1.5L18.4 6.2L14 9.6Z" fill="#9fe0ff"/>
+<path d="M14 9.6L18.4 6.2V13.8L14 18.5Z" fill="#4fc3ff"/>
+</svg>

@@ -1,0 +1,78 @@
+/* pylon: a desert that holds knowledge, on both Schemes. Day (light) is sun-bleached sand with lapis crystals
+   that cast a small hard shadow; night (dark) is indigo dusk with cerulean crystals and a quiet glow, between
+   circuit's and neon's. One display face, Marcellus, on both. Decoration is written in var(--intensity) and
+   differs per Scheme only in its values; each Scheme's design is its look at 0.5. */
+
+@font-face {
+  font-family: "Marcellus";
+  src: url(/themes/pylon/marcellus-400.woff2) format("woff2");
+  font-display: swap;
+  font-style: normal;
+  font-weight: 400 700;
+}
+
+html[data-theme="pylon"] {
+  --radius: 6px;
+  --font-display: "Marcellus", var(--font-sans);
+}
+
+html[data-theme="pylon"][data-scheme="light"] {
+  color-scheme: light;
+  --bg: #f7f1e4;
+  --bg-raised: #efe6d3;
+  --bg-sunken: #e6dcc6;
+  --fg: #2b2316;
+  --muted: #6e5d40;
+  --border: #d8cbb0;
+  --accent: #1860ad;
+  --accent-fg: #ffffff;
+  --selected: #d6e6f7;
+  --series-1: #1860ad;
+  --series-2: #1f6f52;
+  --series-3: #a24f1b;
+  --state-active: #1860ad;
+  --state-quiet: #6e5d40;
+  --state-attention: #805700;
+  --state-success: #1f6f52;
+  --state-failure: #b03227;
+  --state-halted: #6447b0;
+  --danger: #b03227;
+  --warning-bg: #f3e4bd;
+  --warning-fg: #6e4f08;
+  --theme-second: #134e8c;
+  /* Day's glow is a crystal's hard shadow on sand at noon: offset, no blur. */
+  --glow: calc(var(--intensity) * 2px) calc(var(--intensity) * 4px) 0 0 color-mix(in srgb, var(--accent) min(100%, calc(var(--intensity) * 90%)), transparent);
+  --glow-svg: drop-shadow(calc(var(--intensity) * 2px) calc(var(--intensity) * 4px) 0 color-mix(in srgb, var(--accent) min(100%, calc(var(--intensity) * 90%)), transparent));
+  --accent-gradient: linear-gradient(180deg, var(--accent), color-mix(in srgb, var(--theme-second) min(100%, calc(var(--intensity) * 120%)), var(--accent)));
+  --asset-opacity: min(1, calc(var(--intensity) * 1.4));
+}
+
+html[data-theme="pylon"][data-scheme="dark"] {
+  color-scheme: dark;
+  --bg: #171224;
+  --bg-raised: rgba(34, 26, 51, 0.88);
+  --bg-sunken: #110d1b;
+  --fg: #f2e9d8;
+  --muted: #a48f6e;
+  --border: #3a2f4d;
+  --accent: #4fc3ff;
+  --accent-fg: #0b1620;
+  --selected: #1d3550;
+  --series-1: #4fc3ff;
+  --series-2: #6fd3a6;
+  --series-3: #e8945a;
+  --state-active: #4fc3ff;
+  --state-quiet: #a48f6e;
+  --state-attention: #f0c050;
+  --state-success: #6fd3a6;
+  --state-failure: #ff6b6b;
+  --state-halted: #b39dff;
+  --danger: #ff6b6b;
+  --warning-bg: #3a2a10;
+  --warning-fg: #f0c050;
+  --theme-second: #9fe0ff;
+  --glow: 0 0 calc(var(--intensity) * 18px) 0 color-mix(in srgb, var(--accent) min(100%, calc(var(--intensity) * 110%)), transparent);
+  --glow-svg: drop-shadow(0 0 calc(var(--intensity) * 10px) color-mix(in srgb, var(--accent) min(100%, calc(var(--intensity) * 130%)), transparent));
+  --accent-gradient: linear-gradient(180deg, color-mix(in srgb, var(--theme-second) min(100%, calc(var(--intensity) * 120%)), var(--accent)), var(--accent));
+  --asset-opacity: min(1, calc(var(--intensity) * 1.6));
+}

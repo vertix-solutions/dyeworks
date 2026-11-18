@@ -116,6 +116,14 @@ html[data-theme="sample"][data-scheme="dark"] {\n  color-scheme: dark;\n  --bg: 
     expect(findings).toContainEqual(expect.objectContaining({ rule: "intensity", detail: expect.stringContaining("--glow-svg") }));
   });
 
+  test("declaring intensity: true with a Scheme block whose --glow ignores --intensity fails on that line", () => {
+    const m = { ...manifest, intensity: true };
+    const block = (scheme, glow) =>
+      `html[data-theme="sample"][data-scheme="${scheme}"] {\n  --glow: ${glow};\n  --glow-svg: drop-shadow(0 0 calc(var(--intensity) * 4px) red);\n}\n`;
+    const css = base("") + block("light", "0 0 calc(var(--intensity) * 4px) red") + block("dark", "0 0 18px red");
+    expect(check(css, m)).toEqual([expect.objectContaining({ line: 10, rule: "intensity", detail: expect.stringContaining("--glow ") })]);
+  });
+
   test("with a nested block fails", () => {
     const css = `html[data-theme="sample"] {\n  --bg: #ffffff;\n  & .x {\n    --fg: #000000;\n  }\n}\n`;
     expect(check(css)).toContainEqual(expect.objectContaining({ line: 3, rule: "nesting" }));
