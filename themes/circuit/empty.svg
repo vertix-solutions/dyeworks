@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 768 512" width="768" height="512">
+<!-- circuit empty-state fallback: one trace in the circuit Tokens accent (#19f0a8) entering from the left,
+     turning once at a right angle and ending at an open, unconnected pad in the centre; a dot in
+     theme-second (#5fd4ff) marks where the trace starts. Strokes only, no glow. Token names are written
+     without their leading dashes, which an XML comment cannot hold. -->
+<g fill="none" stroke="#19f0a8" stroke-width="3" stroke-linejoin="miter" stroke-linecap="round">
+<path d="M72 150H384V230"/>
+<circle cx="384" cy="256" r="26"/>
+</g>
+<circle cx="72" cy="150" r="7" fill="#5fd4ff"/>
+</svg>
