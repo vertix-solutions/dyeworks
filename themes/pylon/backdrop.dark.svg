@@ -1,8 +1,10 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1536 1024" width="1536" height="1024" preserveAspectRatio="xMidYMid slice">
 <!-- pylon night backdrop fallback (dark Scheme). Mirrors the pylon dark Tokens bg (#171224) for the indigo field,
      with two dunes in warm dark (#2a1e2e, then #231a2b) and a haze of the dark accent (#4fc3ff) at 10 % to
-     transparent at the upper right. Three small crystals in the accent at 60 % float above the dunes, each over
-     a radial pool of the accent at 12 % on the dune beneath it.
+     transparent at the upper right. Three small crystals in the accent at 60 % float in the far margins, two at
+     the left edge and one at the right, each over a radial pool of the accent at 12 % on the dune beneath it.
+     Every figure stays within 56 units of an edge, so the middle of the frame, where a page's content sits, is
+     plain dune and sky.
      Token names are written without their leading dashes, which an XML comment cannot hold. -->
 <defs>
 <radialGradient id="haze" cx="1300" cy="120" r="620" gradientUnits="userSpaceOnUse">
@@ -19,12 +21,12 @@
 <rect width="1536" height="1024" fill="url(#haze)"/>
 <path d="M0 690C280 618 600 630 900 690S1320 724 1536 652V1024H0Z" fill="#2a1e2e"/>
 <path d="M0 864C340 798 720 812 1020 860S1400 892 1536 838V1024H0Z" fill="#231a2b"/>
-<ellipse cx="260" cy="668" rx="90" ry="20" fill="url(#pool)"/>
-<ellipse cx="760" cy="676" rx="76" ry="17" fill="url(#pool)"/>
-<ellipse cx="1220" cy="704" rx="84" ry="18" fill="url(#pool)"/>
+<ellipse cx="30" cy="694" rx="22" ry="6" fill="url(#pool)"/>
+<ellipse cx="48" cy="700" rx="8" ry="3" fill="url(#pool)"/>
+<ellipse cx="1506" cy="662" rx="22" ry="5" fill="url(#pool)"/>
 <g fill="#4fc3ff" fill-opacity="0.6">
-<use href="#crystal" transform="translate(260 430)"/>
-<use href="#crystal" transform="translate(760 360) scale(0.8)"/>
-<use href="#crystal" transform="translate(1220 470) scale(0.9)"/>
+<use href="#crystal" transform="translate(30 470)"/>
+<use href="#crystal" transform="translate(48 590) scale(0.7)"/>
+<use href="#crystal" transform="translate(1506 430) scale(0.9)"/>
 </g>
 </svg>

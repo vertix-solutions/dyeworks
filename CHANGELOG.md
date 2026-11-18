@@ -4,6 +4,25 @@ Versions are git tags `v<semver>`, published to the npm registry by `release.yml
 kind with an inert default is a minor; generated images are a patch; a renamed or removed Token, a changed
 Slot treatment or a changed manifest shape is a major, recorded here.
 
+## 1.4.1
+
+- `pylon`'s backdrops keep their crystals and ground shadows in the far margins, within 56 units of either edge
+  of the 1536-unit frame, so the middle of the viewport, where a page's content sits, is plain sand and sky by
+  day and plain dune and sky by night; on a page whose content has no opaque surface no figure sits behind text,
+  a control or a bar. The two backdrop Prompt sheets ask the same of a generated image. A test holds every
+  crystal and shadow of both fallbacks to the margins.
+- `pylon`'s display face is now Forum Regular (`forum-400.woff2`, one static Latin-subset woff2 of 23.8 kB,
+  declared for weights 400 to 700, `OFL.txt` replaced with Forum's), in place of Marcellus, whose zero is its
+  capital O and whose one is a bare stem, so that "Run 00000002" read as letters. Forum is an inscriptional
+  Roman with a lowercase in the same spirit, with lining figures: an oval zero narrower than its O, a flagged
+  one. `--font-display` is `"Forum", var(--font-sans)` on both Schemes.
+- The demo page sets a heading, two counts and a row of bars straight on the backdrop with no surface behind
+  them. `npm run screenshots` also takes the first screen at 1440 × 900 and 1280 × 800, and fails when the
+  `heading` or `count` Slot draws a zero like O or o, or a one like I or l; `neon` (zero like O) and
+  `psychedelic` (one like I) are reported as known and do not fail it until their own fix.
+- Not in this release: an `ornament` Slot that takes no room at Intensity 0. Collapsing it would change the
+  Slot's treatment, which is a major; it keeps its 28 px box through `1.x`.
+
 ## 1.4.0
 
 - The `pylon` Theme (light and dark, `intensity: true`), the first expressive Theme on both Schemes and so the

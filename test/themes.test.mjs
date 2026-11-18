@@ -140,7 +140,7 @@ const DESIGNS = {
         "--state-success": "#1f6f52", "--state-failure": "#b03227", "--state-halted": "#6447b0",
         "--danger": "#b03227", "--warning-bg": "#f3e4bd", "--warning-fg": "#6e4f08",
         "--radius": "6px",
-        "--font-display": '"Marcellus", var(--font-sans)',
+        "--font-display": '"Forum", var(--font-sans)',
         "--theme-second": "#134e8c",
         "--glow": "calc(var(--intensity) * 2px) calc(var(--intensity) * 4px) 0 0 color-mix(in srgb, var(--accent) min(100%, calc(var(--intensity) * 90%)), transparent)",
         "--glow-svg": "drop-shadow(calc(var(--intensity) * 2px) calc(var(--intensity) * 4px) 0 color-mix(in srgb, var(--accent) min(100%, calc(var(--intensity) * 90%)), transparent))",
@@ -157,7 +157,7 @@ const DESIGNS = {
         "--state-success": "#6fd3a6", "--state-failure": "#ff6b6b", "--state-halted": "#b39dff",
         "--danger": "#ff6b6b", "--warning-bg": "#3a2a10", "--warning-fg": "#f0c050",
         "--radius": "6px",
-        "--font-display": '"Marcellus", var(--font-sans)',
+        "--font-display": '"Forum", var(--font-sans)',
         "--theme-second": "#9fe0ff",
         "--glow": "0 0 calc(var(--intensity) * 18px) 0 color-mix(in srgb, var(--accent) min(100%, calc(var(--intensity) * 110%)), transparent)",
         "--glow-svg": glowSvg(10, 130),
@@ -165,9 +165,9 @@ const DESIGNS = {
         "--asset-opacity": "min(1, calc(var(--intensity) * 1.6))",
       },
     },
-    face: { family: '"Marcellus"', file: "marcellus-400.woff2", weight: "400 700" },
+    face: { family: '"Forum"', file: "forum-400.woff2", weight: "400 700" },
     files: [
-      "OFL.txt", "backdrop.dark.svg", "backdrop.light.svg", "empty.svg", "marcellus-400.woff2", "ornament.svg",
+      "OFL.txt", "backdrop.dark.svg", "backdrop.light.svg", "empty.svg", "forum-400.woff2", "ornament.svg",
       "prompts/backdrop.dark.md", "prompts/backdrop.light.md", "prompts/empty.md", "prompts/ornament.md",
       "theme.css", "theme.json",
     ],
@@ -249,5 +249,50 @@ describe.each(designed)("the %s Theme", (id, design, theme) => {
       expect(svg, `${key}.svg`).toMatch(/#[0-9a-f]{6}/i);
       expect(svg, `${key}.svg`).not.toMatch(/var\(|url\((?!#)|<image|<script|<text/);
     }
+  });
+});
+
+// pylon's backdrops are viewport covers under content with no opaque surface of its own, so a crystal or its ground
+// shadow in the middle of the frame sits behind text and reads as a mark in a chart. Every figure stays in a far
+// margin: within MARGIN units of either edge of the 1536-unit frame, which a cover at 1280 CSS px or wider keeps
+// outside a centred 1180 px column, and which a narrower or taller viewport crops away.
+describe.each(["light", "dark"])("pylon's %s backdrop", (scheme) => {
+  const WIDTH = 1536;
+  const MARGIN = 56;
+  const svg = readFileSync(join(themes.find((t) => t.id === "pylon").path, `backdrop.${scheme}.svg`), "utf8");
+  const number = (attrs, name) => Number(new RegExp(`\\b${name}="(-?[\\d.]+)"`).exec(attrs)?.[1]);
+  const crystal = /id="crystal"[^>]*\bd="([^"]+)"|<path d="([^"]+)"[^>]*id="crystal"/.exec(svg) ?? /<g id="crystal">([^]*?)<\/g>/.exec(svg);
+  const halfWidth = Math.max(...[...(crystal[1] ?? crystal[2] ?? crystal[0]).matchAll(/[MLHVZ]?\s*(-?[\d.]+)(?:\s+(-?[\d.]+))?/g)]
+    .filter((m) => m[2] !== undefined).map((m) => Math.abs(Number(m[1]))));
+  const figures = [
+    ...[...svg.matchAll(/<use [^>]*translate\((-?[\d.]+)[ ,]+(-?[\d.]+)\)(?:\s*scale\(([\d.]+)\))?/g)].map((m) => {
+      const s = Number(m[3] ?? 1);
+      return { what: `crystal at ${m[1]}`, left: Number(m[1]) - halfWidth * s, right: Number(m[1]) + halfWidth * s };
+    }),
+    ...[...svg.matchAll(/<ellipse ([^>]*)>/g)].map((m) => {
+      const cx = number(m[1], "cx");
+      const rx = number(m[1], "rx");
+      return { what: `ground shadow at ${cx}`, left: cx - rx, right: cx + rx };
+    }),
+  ];
+
+  test("draws its crystals and their ground shadows", () => {
+    expect(halfWidth).toBeGreaterThan(0);
+    expect(figures.filter((f) => f.what.startsWith("crystal")).length).toBeGreaterThan(0);
+    expect(figures.filter((f) => f.what.startsWith("ground")).length).toBeGreaterThan(0);
+  });
+
+  test("keeps every crystal and ground shadow in a far margin, out of the content area", () => {
+    for (const f of figures)
+      expect(f.right <= MARGIN || f.left >= WIDTH - MARGIN, `${f.what} spans ${f.left} to ${f.right}`).toBe(true);
+  });
+});
+
+describe.each(["light", "dark"])("pylon's %s backdrop Prompt sheet", (scheme) => {
+  const sheet = readFileSync(join(themes.find((t) => t.id === "pylon").path, `prompts/backdrop.${scheme}.md`), "utf8");
+
+  test("asks for the crystals at the far edges and the middle of the frame left plain", () => {
+    expect(sheet).toMatch(/far\s+(?:left\s+and\s+right\s+)?edges/i);
+    expect(sheet).toMatch(/centre[^.]*plain|plain[^.]*centre/i);
   });
 });

@@ -4,7 +4,7 @@ A theme library for web projects on any framework: one **Token contract**, a **S
 **Themes** as directories that set nothing but Tokens. A page reads the Tokens; a Theme changes their
 values; the page's layout, components and meanings stay its own.
 
-Status: `1.4.0`. Themes: `default` and `pylon` (light and dark), `neon`, `circuit` and `psychedelic` (dark). See `CHANGELOG.md`.
+Status: `1.4.1`. Themes: `default` and `pylon` (light and dark), `neon`, `circuit` and `psychedelic` (dark). See `CHANGELOG.md`.
 
 ## What is in the package
 
@@ -24,7 +24,7 @@ Status: `1.4.0`. Themes: `default` and `pylon` (light and dark), `neon`, `circui
 
 ## Consuming it
 
-Install an exact version (`npm install --save-exact dyeworks@1.4.0`) and import the stylesheets:
+Install an exact version (`npm install --save-exact dyeworks@1.4.1`) and import the stylesheets:
 
 ```css
 @import "dyeworks/tokens.css";
@@ -108,7 +108,7 @@ npm ci
 npm test                          # shape, manifest, contrast, provenance, Slot, build and Sweep tests
 npm run build                     # writes dist/: the generated files and the compiled src/
 npm run demo                      # builds, then serves the demo page at http://127.0.0.1:4173/demo/
-npm run screenshots -- <outdir>   # the demo page per Theme and Scheme at Intensity 0, 0.5 and 1
+npm run screenshots -- <outdir>   # the demo page per Theme, Scheme and Intensity 0, 0.5, 1: whole page, 1440 × 900, 1280 × 800
 npm run theme-assets              # a Theme author's step: generate missing images from the Prompt sheets
 ```
 

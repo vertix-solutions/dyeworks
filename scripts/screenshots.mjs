@@ -1,5 +1,6 @@
-// Screenshot the demo page per Theme and Scheme at Intensity 0, 0.5 and 1, for the quality gate's reviewer.
-// No pixel fixtures: the images are for a person to look at.
+// Screenshot the demo page per Theme and Scheme at Intensity 0, 0.5 and 1, for the quality gate's reviewer: the whole
+// page at 1280 px wide, and the first screen at 1440 × 900 and 1280 × 800, where a viewport-fixed backdrop sits
+// behind the content exactly as a visitor sees it. No pixel fixtures: the images are for a person to look at.
 // Usage: node scripts/screenshots.mjs <outdir> [port]   (builds first; serves the repository itself unless a port is given)
 import { mkdirSync } from "node:fs";
 import { dirname, join } from "node:path";
@@ -78,25 +79,85 @@ async function decorationProblems(page, theme, intensity) {
   }, { responds: theme.intensity, intensity });
 }
 
+// The display face sets figures that read as figures (07 §4): at the heading and count Slots a zero is not drawn
+// as the capital O or the lowercase o, and a one not as the capital I or the lowercase l. Themes whose face is known
+// to fail are reported without failing the run until their own fix lands; the set only ever shrinks.
+const FIGURES_KNOWN_TO_FAIL = new Set(["neon", "psychedelic"]);
+
+async function figureProblems(page) {
+  return page.evaluate(async () => {
+    const problems = [];
+    const body = getComputedStyle(document.body).fontFamily;
+    for (const sel of ['[data-slot="heading"]', '[data-slot="count"]']) {
+      const s = getComputedStyle(document.querySelector(sel));
+      if (s.fontFamily === body) continue;
+      // A canvas does not wait for a face the page has not drawn yet; load it at the size and weight drawn below.
+      await document.fonts.load(`${s.fontWeight} 48px ${s.fontFamily}`, "0O1Il");
+      const canvas = document.createElement("canvas");
+      canvas.width = canvas.height = 64;
+      const ctx = canvas.getContext("2d", { willReadFrequently: true });
+      const ink = (glyph) => {
+        ctx.clearRect(0, 0, 64, 64);
+        ctx.font = `${s.fontWeight} 48px ${s.fontFamily}`;
+        ctx.fillText(glyph, 8, 52);
+        return ctx.getImageData(0, 0, 64, 64).data.filter((_, i) => i % 4 === 3).map((a) => (a > 128 ? 1 : 0));
+      };
+      // Two glyphs read alike when nearly every inked pixel of each has ink of the other within 2 px: a figure drawn
+      // as its letter differs only in antialiasing and stroke weight, a distinct one by a flag, a width or a bowl.
+      const near = (bits, i) => {
+        const x = i % 64;
+        const y = (i - x) / 64;
+        for (let dy = -2; dy <= 2; dy++)
+          for (let dx = -2; dx <= 2; dx++) if (bits[(y + dy) * 64 + x + dx] && x + dx >= 0 && x + dx < 64) return true;
+        return false;
+      };
+      for (const [figure, letters] of [["0", ["O", "o"]], ["1", ["I", "l"]]]) {
+        const a = ink(figure);
+        for (const letter of letters) {
+          const b = ink(letter);
+          let differ = 0;
+          let inked = 0;
+          for (let i = 0; i < a.length; i++) {
+            if (a[i] || b[i]) inked++;
+            if ((a[i] && !near(b, i)) || (b[i] && !near(a, i))) differ++;
+          }
+          if (differ < inked * 0.03) problems.push(`${sel} draws "${figure}" like "${letter}"`);
+        }
+      }
+    }
+    return problems;
+  });
+}
+
 const browser = await chromium.launch();
 let failed = false;
 try {
   for (const theme of themes) {
     for (const scheme of theme.schemes) {
-      const context = await browser.newContext({ viewport: { width: 1280, height: 900 }, colorScheme: scheme });
-      const page = await context.newPage();
-      for (const intensity of [0, 0.5, 1]) {
-        await page.goto(`${base}/demo/?theme=${theme.id}&scheme=${scheme}&intensity=${intensity}`);
-        await page.waitForSelector("body[data-ready=true]");
-        await page.evaluate(() => document.fonts.ready);
-        const file = join(out, `${theme.id}-${scheme}-${intensity}.png`);
-        await page.screenshot({ path: file, fullPage: true });
-        console.log(`wrote ${file}`);
-        const problems = await decorationProblems(page, theme, intensity);
-        for (const p of problems) console.error(`${theme.id} ${scheme} ${intensity}: ${p}`);
-        failed ||= problems.length > 0;
+      for (const { width, height, full } of [
+        { width: 1280, height: 900, full: true },
+        { width: 1440, height: 900, full: false },
+        { width: 1280, height: 800, full: false },
+      ]) {
+        const context = await browser.newContext({ viewport: { width, height }, colorScheme: scheme });
+        const page = await context.newPage();
+        for (const intensity of [0, 0.5, 1]) {
+          await page.goto(`${base}/demo/?theme=${theme.id}&scheme=${scheme}&intensity=${intensity}`);
+          await page.waitForSelector("body[data-ready=true]");
+          await page.evaluate(() => document.fonts.ready);
+          const file = join(out, `${theme.id}-${scheme}-${intensity}${full ? "" : `-${width}x${height}`}.png`);
+          await page.screenshot({ path: file, fullPage: full });
+          console.log(`wrote ${file}`);
+          const problems = await decorationProblems(page, theme, intensity);
+          const figures = await figureProblems(page);
+          if (FIGURES_KNOWN_TO_FAIL.has(theme.id)) {
+            for (const p of figures) console.warn(`${theme.id} ${scheme} ${intensity} ${width}x${height}: known: ${p}`);
+          } else problems.push(...figures);
+          for (const p of problems) console.error(`${theme.id} ${scheme} ${intensity} ${width}x${height}: ${p}`);
+          failed ||= problems.length > 0;
+        }
+        await context.close();
       }
-      await context.close();
     }
   }
 } finally {
@@ -104,6 +165,6 @@ try {
   server?.close();
 }
 if (failed) {
-  console.error("decoration appears outside a Slot, or a Slot does not follow its Theme and Intensity");
+  console.error("decoration appears outside a Slot, a Slot does not follow its Theme and Intensity, or a figure reads as a letter");
   process.exit(1);
 }
