@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 768 512" width="768" height="512">
+<!-- pylon empty-state fallback, shared by both Schemes: one low ochre dune (#c9a46a) across the lower third,
+     its ends fading to transparent, and above its crest the three-facet crystal of the ornament, in the pylon
+     Tokens day accent (#1860ad), night accent (#4fc3ff) and night theme-second (#9fe0ff), with a lapis ellipse
+     shadow on the sand beneath it. Fills only. Token names are written without their leading dashes, which an
+     XML comment cannot hold. -->
+<defs>
+<linearGradient id="sand" x1="40" y1="0" x2="728" y2="0" gradientUnits="userSpaceOnUse">
+<stop offset="0" stop-color="#c9a46a" stop-opacity="0"/>
+<stop offset="0.28" stop-color="#c9a46a"/>
+<stop offset="0.72" stop-color="#c9a46a"/>
+<stop offset="1" stop-color="#c9a46a" stop-opacity="0"/>
+</linearGradient>
+</defs>
+<path d="M40 470C190 470 270 362 384 362S578 470 728 470Z" fill="url(#sand)"/>
+<ellipse cx="384" cy="380" rx="34" ry="6" fill="#1860ad"/>
+<path d="M384 132L342 176V272L384 316Z" fill="#1860ad"/>
+<path d="M384 132L426 176L384 208Z" fill="#9fe0ff"/>
+<path d="M384 208L426 176V272L384 316Z" fill="#4fc3ff"/>
+</svg>

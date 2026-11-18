@@ -4,6 +4,21 @@ Versions are git tags `v<semver>`, published to the npm registry by `release.yml
 kind with an inert default is a minor; generated images are a patch; a renamed or removed Token, a changed
 Slot treatment or a changed manifest shape is a major, recorded here.
 
+## 1.4.0
+
+- The `pylon` Theme (light and dark, `intensity: true`), the first expressive Theme on both Schemes and so the
+  first to follow the operating system under `auto`. Day is sun-bleached sand with a lapis accent whose
+  `--glow` and `--glow-svg` are a hard offset shadow with no blur; night is indigo dusk with a cerulean accent,
+  a translucent raised surface and a glow between circuit's and neon's. 6 px corners. Glow, gradient and image
+  opacity are written in `var(--intensity)` in each Scheme's block.
+- Its hand-written SVG fallbacks: a backdrop per Scheme (`backdrop.light.svg`, `backdrop.dark.svg`, the first
+  per-Scheme asset entry in a shipped manifest) and an `ornament` and `empty` shared by both, with their four
+  Prompt sheets under `themes/pylon/prompts/`.
+- Its face, Marcellus Regular as one static Latin-subset woff2 (`marcellus-400.woff2`, declared for weights
+  400 to 700), with `OFL.txt` beside it. The face fills `--font-display` only.
+- The shape test now requires every declaration of `--glow` and `--glow-svg` in an Intensity Theme to read
+  `--intensity`, not just one, so a Scheme block cannot leave its glow fixed.
+
 ## 1.3.0
 
 - The `psychedelic` Theme (dark only, `intensity: true`): an orange accent with yellow and violet second and

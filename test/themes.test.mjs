@@ -117,6 +117,61 @@ const DESIGNS = {
       "prompts/ornament.md", "righteous-400.woff2", "theme.css", "theme.json",
     ],
   },
+  pylon: {
+    manifest: {
+      id: "pylon",
+      label: "Pylon",
+      schemes: ["light", "dark"],
+      intensity: true,
+      assets: {
+        backdrop: { light: { fallback: "backdrop.light.svg" }, dark: { fallback: "backdrop.dark.svg" } },
+        ornament: { fallback: "ornament.svg" },
+        empty: { fallback: "empty.svg" },
+      },
+    },
+    tokens: {
+      // Day: sun-bleached sand, lapis crystals; its glow is a hard offset shadow with no blur.
+      light: {
+        "--bg": "#f7f1e4", "--bg-raised": "#efe6d3", "--bg-sunken": "#e6dcc6",
+        "--fg": "#2b2316", "--muted": "#6e5d40", "--border": "#d8cbb0",
+        "--accent": "#1860ad", "--accent-fg": "#ffffff", "--selected": "#d6e6f7",
+        "--series-1": "#1860ad", "--series-2": "#1f6f52", "--series-3": "#a24f1b",
+        "--state-active": "#1860ad", "--state-quiet": "#6e5d40", "--state-attention": "#805700",
+        "--state-success": "#1f6f52", "--state-failure": "#b03227", "--state-halted": "#6447b0",
+        "--danger": "#b03227", "--warning-bg": "#f3e4bd", "--warning-fg": "#6e4f08",
+        "--radius": "6px",
+        "--font-display": '"Marcellus", var(--font-sans)',
+        "--theme-second": "#134e8c",
+        "--glow": "calc(var(--intensity) * 2px) calc(var(--intensity) * 4px) 0 0 color-mix(in srgb, var(--accent) min(100%, calc(var(--intensity) * 90%)), transparent)",
+        "--glow-svg": "drop-shadow(calc(var(--intensity) * 2px) calc(var(--intensity) * 4px) 0 color-mix(in srgb, var(--accent) min(100%, calc(var(--intensity) * 90%)), transparent))",
+        "--accent-gradient": "linear-gradient(180deg, var(--accent), color-mix(in srgb, var(--theme-second) min(100%, calc(var(--intensity) * 120%)), var(--accent)))",
+        "--asset-opacity": "min(1, calc(var(--intensity) * 1.4))",
+      },
+      // Night: indigo dusk, cerulean crystals; a translucent raised surface and a glow between circuit's and neon's.
+      dark: {
+        "--bg": "#171224", "--bg-raised": "rgba(34, 26, 51, 0.88)", "--bg-sunken": "#110d1b",
+        "--fg": "#f2e9d8", "--muted": "#a48f6e", "--border": "#3a2f4d",
+        "--accent": "#4fc3ff", "--accent-fg": "#0b1620", "--selected": "#1d3550",
+        "--series-1": "#4fc3ff", "--series-2": "#6fd3a6", "--series-3": "#e8945a",
+        "--state-active": "#4fc3ff", "--state-quiet": "#a48f6e", "--state-attention": "#f0c050",
+        "--state-success": "#6fd3a6", "--state-failure": "#ff6b6b", "--state-halted": "#b39dff",
+        "--danger": "#ff6b6b", "--warning-bg": "#3a2a10", "--warning-fg": "#f0c050",
+        "--radius": "6px",
+        "--font-display": '"Marcellus", var(--font-sans)',
+        "--theme-second": "#9fe0ff",
+        "--glow": "0 0 calc(var(--intensity) * 18px) 0 color-mix(in srgb, var(--accent) min(100%, calc(var(--intensity) * 110%)), transparent)",
+        "--glow-svg": glowSvg(10, 130),
+        "--accent-gradient": "linear-gradient(180deg, color-mix(in srgb, var(--theme-second) min(100%, calc(var(--intensity) * 120%)), var(--accent)), var(--accent))",
+        "--asset-opacity": "min(1, calc(var(--intensity) * 1.6))",
+      },
+    },
+    face: { family: '"Marcellus"', file: "marcellus-400.woff2", weight: "400 700" },
+    files: [
+      "OFL.txt", "backdrop.dark.svg", "backdrop.light.svg", "empty.svg", "marcellus-400.woff2", "ornament.svg",
+      "prompts/backdrop.dark.md", "prompts/backdrop.light.md", "prompts/empty.md", "prompts/ornament.md",
+      "theme.css", "theme.json",
+    ],
+  },
 };
 
 const norm = (v) => v.replace(/\s+/g, " ").replace(/'/g, '"').trim();
@@ -130,6 +185,12 @@ function declared(theme, scheme) {
       for (const d of b.declarations) if (d.property.startsWith("--")) out[d.property] = norm(d.value);
   return out;
 }
+
+/** Every asset a design declares, as `<slot>` when shared or `<slot>.<scheme>` per Scheme. */
+const assetKeys = (design) =>
+  Object.entries(design.manifest.assets).flatMap(([slot, entry]) =>
+    "fallback" in entry ? [slot] : Object.keys(entry).map((scheme) => `${slot}.${scheme}`),
+  );
 
 const designed = Object.entries(DESIGNS).map(([id, design]) => [id, design, themes.find((t) => t.id === id)]);
 
@@ -164,23 +225,29 @@ describe.each(designed)("the %s Theme", (id, design, theme) => {
     expect([...theme.files].sort()).toEqual([...design.files].sort());
   });
 
-  test("has a Prompt sheet for every asset its manifest declares", () => {
+  test("fills only --font-display with a static face, and --font-sans too only with a variable one", () => {
+    const variable = /variable/.test(design.face.file);
+    for (const scheme of Object.keys(design.tokens))
+      expect("--font-sans" in declared(theme, scheme), `--font-sans on ${scheme}`).toBe(variable);
+  });
+
+  test("has a Prompt sheet for every asset its manifest declares, one per Scheme for a per-Scheme asset", () => {
     const sheets = theme.files
       .filter((f) => f.startsWith("prompts/"))
       .map((f) => parseSheet(readFileSync(join(theme.path, f), "utf8"), f.slice("prompts/".length)));
-    expect(sheets.map((s) => s.slot).sort()).toEqual(Object.keys(design.manifest.assets).sort());
+    expect(sheets.map((s) => (s.scheme ? `${s.slot}.${s.scheme}` : s.slot)).sort()).toEqual(assetKeys(design).sort());
   });
 
   test("has fallbacks that carry their own colours and name the Tokens they mirror", () => {
-    for (const slot of Object.keys(design.manifest.assets)) {
-      const svg = readFileSync(join(theme.path, `${slot}.svg`), "utf8");
-      expect(svg, `${slot}.svg`).toMatch(/^<svg [^>]*xmlns="http:\/\/www\.w3\.org\/2000\/svg"/);
+    for (const key of assetKeys(design)) {
+      const svg = readFileSync(join(theme.path, `${key}.svg`), "utf8");
+      expect(svg, `${key}.svg`).toMatch(/^<svg [^>]*xmlns="http:\/\/www\.w3\.org\/2000\/svg"/);
       // An XML comment cannot hold "--", so a fallback names a Token without its leading dashes.
       const comments = [...svg.matchAll(/<!--([^]*?)-->/g)].map((m) => m[1]);
-      expect(comments.join(" "), `${slot}.svg`).toMatch(/\bTokens\b[^]*\b(?:bg|accent|theme-second)\b/);
-      for (const c of comments) expect(c, `${slot}.svg comment`).not.toContain("--");
-      expect(svg, `${slot}.svg`).toMatch(/#[0-9a-f]{6}/i);
-      expect(svg, `${slot}.svg`).not.toMatch(/var\(|url\((?!#)|<image|<script|<text/);
+      expect(comments.join(" "), `${key}.svg`).toMatch(/\bTokens\b[^]*\b(?:bg|accent|theme-second)\b/);
+      for (const c of comments) expect(c, `${key}.svg comment`).not.toContain("--");
+      expect(svg, `${key}.svg`).toMatch(/#[0-9a-f]{6}/i);
+      expect(svg, `${key}.svg`).not.toMatch(/var\(|url\((?!#)|<image|<script|<text/);
     }
   });
 });

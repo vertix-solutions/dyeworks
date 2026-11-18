@@ -4,7 +4,7 @@ A theme library for web projects on any framework: one **Token contract**, a **S
 **Themes** as directories that set nothing but Tokens. A page reads the Tokens; a Theme changes their
 values; the page's layout, components and meanings stay its own.
 
-Status: `1.3.0`. Themes: `default` (light and dark), `neon`, `circuit` and `psychedelic` (dark). See `CHANGELOG.md`.
+Status: `1.4.0`. Themes: `default` and `pylon` (light and dark), `neon`, `circuit` and `psychedelic` (dark). See `CHANGELOG.md`.
 
 ## What is in the package
 
@@ -24,7 +24,7 @@ Status: `1.3.0`. Themes: `default` (light and dark), `neon`, `circuit` and `psyc
 
 ## Consuming it
 
-Install an exact version (`npm install --save-exact dyeworks@1.3.0`) and import the stylesheets:
+Install an exact version (`npm install --save-exact dyeworks@1.4.0`) and import the stylesheets:
 
 ```css
 @import "dyeworks/tokens.css";
