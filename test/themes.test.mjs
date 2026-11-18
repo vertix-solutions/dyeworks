@@ -140,7 +140,7 @@ const DESIGNS = {
         "--state-success": "#1f6f52", "--state-failure": "#b03227", "--state-halted": "#6447b0",
         "--danger": "#b03227", "--warning-bg": "#f3e4bd", "--warning-fg": "#6e4f08",
         "--radius": "6px",
-        "--font-display": '"Marcellus", var(--font-sans)',
+        "--font-display": '"Forum", var(--font-sans)',
         "--theme-second": "#134e8c",
         "--glow": "calc(var(--intensity) * 2px) calc(var(--intensity) * 4px) 0 0 color-mix(in srgb, var(--accent) min(100%, calc(var(--intensity) * 90%)), transparent)",
         "--glow-svg": "drop-shadow(calc(var(--intensity) * 2px) calc(var(--intensity) * 4px) 0 color-mix(in srgb, var(--accent) min(100%, calc(var(--intensity) * 90%)), transparent))",
@@ -157,7 +157,7 @@ const DESIGNS = {
         "--state-success": "#6fd3a6", "--state-failure": "#ff6b6b", "--state-halted": "#b39dff",
         "--danger": "#ff6b6b", "--warning-bg": "#3a2a10", "--warning-fg": "#f0c050",
         "--radius": "6px",
-        "--font-display": '"Marcellus", var(--font-sans)',
+        "--font-display": '"Forum", var(--font-sans)',
         "--theme-second": "#9fe0ff",
         "--glow": "0 0 calc(var(--intensity) * 18px) 0 color-mix(in srgb, var(--accent) min(100%, calc(var(--intensity) * 110%)), transparent)",
         "--glow-svg": glowSvg(10, 130),
@@ -165,9 +165,9 @@ const DESIGNS = {
         "--asset-opacity": "min(1, calc(var(--intensity) * 1.6))",
       },
     },
-    face: { family: '"Marcellus"', file: "marcellus-400.woff2", weight: "400 700" },
+    face: { family: '"Forum"', file: "forum-400.woff2", weight: "400 700" },
     files: [
-      "OFL.txt", "backdrop.dark.svg", "backdrop.light.svg", "empty.svg", "marcellus-400.woff2", "ornament.svg",
+      "OFL.txt", "backdrop.dark.svg", "backdrop.light.svg", "empty.svg", "forum-400.woff2", "ornament.svg",
       "prompts/backdrop.dark.md", "prompts/backdrop.light.md", "prompts/empty.md", "prompts/ornament.md",
       "theme.css", "theme.json",
     ],
@@ -249,5 +249,57 @@ describe.each(designed)("the %s Theme", (id, design, theme) => {
       expect(svg, `${key}.svg`).toMatch(/#[0-9a-f]{6}/i);
       expect(svg, `${key}.svg`).not.toMatch(/var\(|url\((?!#)|<image|<script|<text/);
     }
+  });
+});
+
+// pylon's backdrops are viewport-fixed covers under content that may have no opaque surface of its own, and a
+// consumer's content reaches close to every edge (a full-width page padded 24 CSS px). No strip of the frame stays
+// clear of content at every viewport, since the cover's scale follows the viewport and the padding does not. So a
+// fallback holds its field, its dunes and, at night, its haze, and no other shape anywhere in the frame: no
+// crystal, ground shadow or pool of light (spec 07 §5).
+describe.each(["light", "dark"])("pylon's %s backdrop", (scheme) => {
+  const svg = readFileSync(join(themes.find((t) => t.id === "pylon").path, `backdrop.${scheme}.svg`), "utf8");
+  const body = svg.replace(/<!--[^]*?-->/g, "").replace(/<defs>[^]*?<\/defs>/g, "");
+  const elements = [...body.matchAll(/<([a-zA-Z]+)\b([^>]*)>/g)].map((m) => ({ name: m[1], attrs: m[2] }));
+
+  test("holds no crystal, shadow, pool or other shape", () => {
+    for (const name of ["use", "ellipse", "circle", "polygon", "polyline", "line", "image", "g", "symbol"])
+      expect(svg, `a <${name}>`).not.toMatch(new RegExp(`<${name}\\b`));
+    expect(svg).not.toMatch(/id="crystal"/);
+  });
+
+  test("draws only its field, two dunes reaching the foot of the frame and, at night, the haze", () => {
+    const rects = elements.filter((e) => e.name === "rect");
+    const paths = elements.filter((e) => e.name === "path");
+    const others = elements.filter((e) => !["svg", "rect", "path"].includes(e.name));
+    expect(others.map((e) => e.name)).toEqual([]);
+    for (const r of rects) {
+      expect(r.attrs).toMatch(/\bwidth="1536"/);
+      expect(r.attrs).toMatch(/\bheight="1024"/);
+      expect(r.attrs).not.toMatch(/\b[xy]="/);
+    }
+    expect(rects.map((r) => /\bfill="([^"]+)"/.exec(r.attrs)[1])).toEqual(
+      scheme === "light" ? ["#f7f1e4"] : ["#171224", "url(#haze)"],
+    );
+    expect(paths).toHaveLength(2);
+    for (const d of paths) expect(d.attrs, "a dune runs edge to edge down to the foot").toMatch(/\bd="M0 [^"]*V1024H0Z"/);
+    if (scheme === "dark") {
+      const defs = /<defs>([^]*?)<\/defs>/.exec(svg)[1];
+      expect([...defs.matchAll(/<(radialGradient|linearGradient)\b[^>]*\bid="([^"]+)"/g)].map((m) => m[2])).toEqual(["haze"]);
+    }
+  });
+});
+
+describe.each(["light", "dark"])("pylon's %s backdrop Prompt sheet", (scheme) => {
+  const sheet = readFileSync(join(themes.find((t) => t.id === "pylon").path, `prompts/backdrop.${scheme}.md`), "utf8");
+  const section = (name) => new RegExp(`^## ${name}\\n([^]*?)(?=^## |(?![^]))`, "m").exec(sheet)[1];
+
+  test("asks for no object anywhere in the frame", () => {
+    expect(section("Prompt")).not.toMatch(/crystal|shadow|pool/i);
+    expect(section("Prompt")).toMatch(/no\s+object\s+anywhere\s+in\s+the\s+frame/i);
+  });
+
+  test("lists crystals, shadows and pools of light under Must not", () => {
+    expect(section("Must not")).toMatch(/crystals,\s+shadows,\s+pools\s+of\s+light/);
   });
 });

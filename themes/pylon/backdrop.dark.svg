@@ -1,30 +1,18 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1536 1024" width="1536" height="1024" preserveAspectRatio="xMidYMid slice">
 <!-- pylon night backdrop fallback (dark Scheme). Mirrors the pylon dark Tokens bg (#171224) for the indigo field,
      with two dunes in warm dark (#2a1e2e, then #231a2b) and a haze of the dark accent (#4fc3ff) at 10 % to
-     transparent at the upper right. Three small crystals in the accent at 60 % float above the dunes, each over
-     a radial pool of the accent at 12 % on the dune beneath it.
+     transparent at the upper right, and nothing else: no crystal, pool of light or other shape anywhere in the
+     frame, so whatever part of it a page's content covers is plain dune and sky. The crystal lives in the
+     ornament and the empty illustration.
      Token names are written without their leading dashes, which an XML comment cannot hold. -->
 <defs>
 <radialGradient id="haze" cx="1300" cy="120" r="620" gradientUnits="userSpaceOnUse">
 <stop offset="0" stop-color="#4fc3ff" stop-opacity="0.1"/>
 <stop offset="1" stop-color="#4fc3ff" stop-opacity="0"/>
 </radialGradient>
-<radialGradient id="pool">
-<stop offset="0" stop-color="#4fc3ff" stop-opacity="0.12"/>
-<stop offset="1" stop-color="#4fc3ff" stop-opacity="0"/>
-</radialGradient>
-<path id="crystal" d="M0 -22L-8 -13V13L0 22L8 13V-13Z"/>
 </defs>
 <rect width="1536" height="1024" fill="#171224"/>
 <rect width="1536" height="1024" fill="url(#haze)"/>
 <path d="M0 690C280 618 600 630 900 690S1320 724 1536 652V1024H0Z" fill="#2a1e2e"/>
 <path d="M0 864C340 798 720 812 1020 860S1400 892 1536 838V1024H0Z" fill="#231a2b"/>
-<ellipse cx="260" cy="668" rx="90" ry="20" fill="url(#pool)"/>
-<ellipse cx="760" cy="676" rx="76" ry="17" fill="url(#pool)"/>
-<ellipse cx="1220" cy="704" rx="84" ry="18" fill="url(#pool)"/>
-<g fill="#4fc3ff" fill-opacity="0.6">
-<use href="#crystal" transform="translate(260 430)"/>
-<use href="#crystal" transform="translate(760 360) scale(0.8)"/>
-<use href="#crystal" transform="translate(1220 470) scale(0.9)"/>
-</g>
 </svg>

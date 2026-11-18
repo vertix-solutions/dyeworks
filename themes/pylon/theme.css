@@ -1,11 +1,12 @@
 /* pylon: a desert that holds knowledge, on both Schemes. Day (light) is sun-bleached sand with lapis crystals
    that cast a small hard shadow; night (dark) is indigo dusk with cerulean crystals and a quiet glow, between
-   circuit's and neon's. One display face, Marcellus, on both. Decoration is written in var(--intensity) and
-   differs per Scheme only in its values; each Scheme's design is its look at 0.5. */
+   circuit's and neon's. One display face, Forum, on both, whose lining figures (an oval zero, a flagged one) read
+   as numerals beside its capitals. Decoration is written in var(--intensity) and differs per Scheme only in its
+   values; each Scheme's design is its look at 0.5. */
 
 @font-face {
-  font-family: "Marcellus";
-  src: url(/themes/pylon/marcellus-400.woff2) format("woff2");
+  font-family: "Forum";
+  src: url(/themes/pylon/forum-400.woff2) format("woff2");
   font-display: swap;
   font-style: normal;
   font-weight: 400 700;
@@ -13,7 +14,7 @@
 
 html[data-theme="pylon"] {
   --radius: 6px;
-  --font-display: "Marcellus", var(--font-sans);
+  --font-display: "Forum", var(--font-sans);
 }
 
 html[data-theme="pylon"][data-scheme="light"] {
