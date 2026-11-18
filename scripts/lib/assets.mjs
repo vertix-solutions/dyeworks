@@ -21,8 +21,9 @@ const HEADER_FIELDS = ["slot", "output", "size", "background", "ship"];
 export const ALPHA_RETRIES = 3;
 const AA = 4.5;
 const WEBP_QUALITY = 80;
-/** How many tightenings of the clamp the encoded backdrop may need before the sheet fails; the last pulls the
- * bound half the way from its limit to --bg. */
+/** How many passes of the clamp the encoded backdrop may need before the sheet fails: the first clamps against
+ * the true bounds, and each later one pulls them a further equal share of the way towards --bg, the last
+ * (pass WEBP_PASSES - 1) MAX_TIGHTENING of the way from each limit to --bg. */
 const WEBP_PASSES = 16;
 const MAX_TIGHTENING = 0.5;
 /** The share of pixels the clamp may leave beyond its bound: the brightest (or darkest) 0.1 %. */
@@ -196,6 +197,14 @@ function tailLuminance(data, channels, high) {
 const meets = (data, channels, bound) =>
   bound.direction === "darken" ? tailLuminance(data, channels, true) <= bound.limit : tailLuminance(data, channels, false) >= bound.limit;
 
+/**
+ * Whether a backdrop's raw pixels already meet every bound: the yes-or-no question the clamp asks before it
+ * moves anything, with no side effect and no throw, for checking a decoded file.
+ * @param {{data: Buffer, channels: number}} raw
+ * @param {ReturnType<typeof backdropBound>[]} bounds
+ */
+export const meetsBounds = ({ data, channels }, bounds) => bounds.every((b) => meets(data, channels, b));
+
 /** Every pixel moved the fraction `t` of the way to `toward`, rounded to 8 bits. */
 function blend(data, channels, toward, t) {
   const out = Buffer.from(data);
@@ -206,11 +215,16 @@ function blend(data, channels, toward, t) {
 }
 
 const CLAMP_STEPS = 256;
+/** How many sweeps over the bounds the clamp may take: one for a single bound; for a shared backdrop on a
+ * two-Scheme Theme, lightening for one bound can undo darkening for the other, so the sweeps alternate until
+ * both hold. Each sweep narrows the image's range, so a picture that fits the window converges in a few. */
+const CLAMP_SWEEPS = 32;
 
 /**
  * The deterministic clamp of a backdrop's raw pixels against each bound in turn: the smallest step of
- * blending towards the bound's `--bg` (in 1/256ths) after which its brightest or darkest 0.1 % meets it.
- * A compliant image comes back unchanged. Throws when the bounds cannot all be met at once.
+ * blending towards the bound's `--bg` (in 1/256ths) after which its brightest or darkest 0.1 % meets it,
+ * swept again over the bounds while any is missed. A compliant image comes back unchanged. Throws when the
+ * bounds cannot all be met at once.
  * @param {{data: Buffer, width: number, height: number, channels: number}} raw
  * @param {ReturnType<typeof backdropBound>[]} bounds
  */
@@ -218,20 +232,20 @@ export function clampBackdrop(raw, bounds) {
   const { channels } = raw;
   let data = raw.data;
   let changed = false;
-  for (const bound of bounds) {
-    if (meets(data, channels, bound)) continue;
-    let lo = 0;
-    let hi = CLAMP_STEPS; // the whole way is --bg itself, which meets its own Scheme's bound
-    while (hi - lo > 1) {
-      const mid = (lo + hi) >> 1;
-      if (meets(blend(data, channels, bound.toward, mid / CLAMP_STEPS), channels, bound)) hi = mid;
-      else lo = mid;
+  for (let sweep = 0; sweep < CLAMP_SWEEPS && !meetsBounds({ data, channels }, bounds); sweep++)
+    for (const bound of bounds) {
+      if (meets(data, channels, bound)) continue;
+      let lo = 0;
+      let hi = CLAMP_STEPS; // the whole way is --bg itself, which meets its own Scheme's bound
+      while (hi - lo > 1) {
+        const mid = (lo + hi) >> 1;
+        if (meets(blend(data, channels, bound.toward, mid / CLAMP_STEPS), channels, bound)) hi = mid;
+        else lo = mid;
+      }
+      data = blend(data, channels, bound.toward, hi / CLAMP_STEPS);
+      changed = true;
     }
-    data = blend(data, channels, bound.toward, hi / CLAMP_STEPS);
-    changed = true;
-  }
-  const missed = bounds.filter((b) => !meets(data, channels, b));
-  if (missed.length) {
+  if (!meetsBounds({ data, channels }, bounds)) {
     const schemes = bounds.map((b) => b.scheme).join(" and ");
     throw new Error(`no clamp meets the bounds of both Schemes (${schemes}) at once; make the backdrop per Scheme`);
   }
@@ -261,20 +275,33 @@ async function postProcess(source, sheet, bounds) {
     // 256-colour palette that keeps alpha (fully transparent pixels stay fully transparent).
     const png = await pixels().png({ compressionLevel: 9, adaptiveFiltering: true }).toBuffer();
     if (png.length <= SLOT_TABLE[sheet.slot].budget) return { bytes: png };
-    return { bytes: await pixels().png({ compressionLevel: 9, palette: true, quality: 100, effort: 10 }).toBuffer() };
+    // Quantisation is lossy too: the file that ships is the one checked, decoded.
+    const palette = await pixels().png({ compressionLevel: 9, palette: true, quality: 100, effort: 10 }).toBuffer();
+    const shipped = await sharp(palette).ensureAlpha().raw().toBuffer({ resolveWithObject: true });
+    const after = checkAlpha({ data: shipped.data, width: shipped.info.width, height: shipped.info.height, channels: shipped.info.channels }, sheet.threshold);
+    if (!after.ok) return { retry: true, reason: `the alpha check failed on the palette PNG (${after.detail})` };
+    return { bytes: palette };
   }
   const { data, info } = await sharp(source).resize(width, height, { fit: "cover" }).removeAlpha().raw().toBuffer({ resolveWithObject: true });
   const shape = { width: info.width, height: info.height, channels: info.channels };
   // WebP is lossy: a pixel the clamp put at its bound can come back a step over it. The shipped file is what a
   // page shows, so its decoded pixels must hold the true bounds; while they do not, the original pixels are
   // clamped again against bounds pulled a further share of the way towards --bg.
+  // The first pass clamps against the true bounds, and its failure is the picture's own; a later pass that finds
+  // no clamp has run out of room between the tightened bounds, which is the compression's failure.
   for (let pass = 0; pass < WEBP_PASSES; pass++) {
-    const pixels = clampBackdrop({ data, ...shape }, bounds.map((b) => tightened(b, pass / WEBP_PASSES))).data;
+    let pixels;
+    try {
+      pixels = clampBackdrop({ data, ...shape }, bounds.map((b) => tightened(b, pass / (WEBP_PASSES - 1)))).data;
+    } catch (e) {
+      if (pass === 0) throw e;
+      break;
+    }
     const webp = await sharp(pixels, { raw: shape }).webp({ quality: WEBP_QUALITY }).toBuffer();
     const decoded = await sharp(webp).removeAlpha().raw().toBuffer();
-    if (!clampBackdrop({ data: decoded, ...shape }, bounds).changed) return { bytes: webp };
+    if (meetsBounds({ data: decoded, channels: shape.channels }, bounds)) return { bytes: webp };
   }
-  throw new Error(`the backdrop does not hold its clamp through WebP compression after ${WEBP_PASSES} passes`);
+  throw new Error(`the backdrop does not hold its clamp through WebP compression within ${WEBP_PASSES} passes`);
 }
 
 /** Write or replace one image's entry in the Theme's `provenance.json`, keeping every other entry. */

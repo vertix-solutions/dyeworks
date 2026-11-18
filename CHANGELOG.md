@@ -10,7 +10,8 @@ Slot treatment or a changed manifest shape is a major, recorded here.
   `circuit` and `psychedelic`, and `backdrop.light.webp`, `backdrop.dark.webp`, `ornament.png` and `empty.png`
   for `pylon`. Each manifest now names an `image` beside every fallback, and each Theme's `provenance.json`
   lists its images with the model, date, the Prompt sheet's digest and the file's digest and size. The
-  fallbacks stay, and still show wherever an image does not load.
+  fallbacks stay in the tree; a manifest entry that names an image resolves to it, one that does not
+  resolves to its fallback.
 - `npm run theme-assets` asks for the image API's current model (the one it named before was retired); quantises a
   transparent Slot's PNG to a 256-colour palette with alpha when the lossless file is over its budget; and
   keeps a backdrop within its clamp after WebP compression, tightening the clamp on the original pixels until
