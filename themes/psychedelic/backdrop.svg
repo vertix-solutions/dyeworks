@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1536 1024" width="1536" height="1024" preserveAspectRatio="xMidYMid slice">
+<!-- psychedelic backdrop fallback. Mirrors the psychedelic Tokens bg (#1b0a2e) as the middle of a 160 degree
+     gradient from #2b0b4a to #3a0f3f, with three soft blooms: accent (#ff6f3c) at the top left at 35 % alpha,
+     theme-third (#c084fc) at the right at 45 %, theme-second (#fde047) below the bottom edge at 25 %.
+     Token names are written without their leading dashes, which an XML comment cannot hold. -->
+<defs>
+<linearGradient id="ground" x1="514" y1="-187" x2="1022" y2="1211" gradientUnits="userSpaceOnUse">
+<stop offset="0" stop-color="#2b0b4a"/>
+<stop offset="0.5" stop-color="#1b0a2e"/>
+<stop offset="1" stop-color="#3a0f3f"/>
+</linearGradient>
+<radialGradient id="orange" cx="180" cy="120" r="720" gradientUnits="userSpaceOnUse">
+<stop offset="0" stop-color="#ff6f3c" stop-opacity="0.35"/>
+<stop offset="1" stop-color="#ff6f3c" stop-opacity="0"/>
+</radialGradient>
+<radialGradient id="violet" cx="1480" cy="460" r="760" gradientUnits="userSpaceOnUse">
+<stop offset="0" stop-color="#c084fc" stop-opacity="0.45"/>
+<stop offset="1" stop-color="#c084fc" stop-opacity="0"/>
+</radialGradient>
+<radialGradient id="yellow" cx="700" cy="1180" r="620" gradientUnits="userSpaceOnUse">
+<stop offset="0" stop-color="#fde047" stop-opacity="0.25"/>
+<stop offset="1" stop-color="#fde047" stop-opacity="0"/>
+</radialGradient>
+</defs>
+<rect width="1536" height="1024" fill="url(#ground)"/>
+<rect width="1536" height="1024" fill="url(#orange)"/>
+<rect width="1536" height="1024" fill="url(#violet)"/>
+<rect width="1536" height="1024" fill="url(#yellow)"/>
+</svg>

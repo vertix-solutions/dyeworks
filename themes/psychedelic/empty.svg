@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 768 512" width="768" height="512">
+<!-- psychedelic empty-state fallback: a loose spiral unwinding from the centre as one thick ribbon that
+     shifts from the psychedelic Tokens accent (#ff6f3c) through theme-second (#fde047) to theme-third
+     (#c084fc) and fades to transparent at its end; no background. Token names are written without their
+     leading dashes, which an XML comment cannot hold. -->
+<defs>
+<linearGradient id="s0" x1="384" y1="248" x2="419" y2="252" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#ff6f3c" stop-opacity="1.00"/><stop offset="1" stop-color="#fe8e3f" stop-opacity="1.00"/></linearGradient>
+<linearGradient id="s1" x1="419" y1="252" x2="399" y2="317" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#fe8e3f" stop-opacity="1.00"/><stop offset="1" stop-color="#feae42" stop-opacity="1.00"/></linearGradient>
+<linearGradient id="s2" x1="399" y1="317" x2="299" y2="287" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#feae42" stop-opacity="1.00"/><stop offset="1" stop-color="#fdcd45" stop-opacity="1.00"/></linearGradient>
+<linearGradient id="s3" x1="299" y1="287" x2="330" y2="150" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#fdcd45" stop-opacity="1.00"/><stop offset="1" stop-color="#f3d165" stop-opacity="1.00"/></linearGradient>
+<linearGradient id="s4" x1="330" y1="150" x2="505" y2="175" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#f3d165" stop-opacity="1.00"/><stop offset="1" stop-color="#d9aab1" stop-opacity="1.00"/></linearGradient>
+<linearGradient id="s5" x1="505" y1="175" x2="497" y2="388" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#d9aab1" stop-opacity="1.00"/><stop offset="1" stop-color="#c084fc" stop-opacity="1.00"/></linearGradient>
+<linearGradient id="s6" x1="497" y1="388" x2="247" y2="404" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#c084fc" stop-opacity="1.00"/><stop offset="1" stop-color="#c084fc" stop-opacity="0.50"/></linearGradient>
+<linearGradient id="s7" x1="247" y1="404" x2="199" y2="121" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#c084fc" stop-opacity="0.50"/><stop offset="1" stop-color="#c084fc" stop-opacity="0.00"/></linearGradient>
+</defs>
+<g fill="none" stroke-width="22" stroke-linejoin="round">
+<path d="M384 248 385 246 386 244 388 243 390 241 393 240 396 240 398 240 402 240 405 241 408 242 411 244 414 246 417 249 419 252" stroke="url(#s0)" stroke-linecap="round"/>
+<path d="M419 252 422 255 423 260 425 264 426 269 426 274 426 279 425 284 423 290 421 295 418 300 414 305 409 310 404 314 399 317" stroke="url(#s1)" stroke-linecap="round"/>
+<path d="M399 317 393 321 386 323 379 325 371 326 364 326 356 325 348 324 340 321 332 318 324 314 317 308 310 302 304 295 299 287" stroke="url(#s2)" stroke-linecap="round"/>
+<path d="M299 287 294 279 290 270 287 260 285 250 285 239 285 229 287 218 289 207 293 196 298 186 305 176 312 167 321 158 330 150" stroke="url(#s3)" stroke-linecap="round"/>
+<path d="M330 150 341 144 352 138 364 133 377 130 390 128 404 127 417 128 431 130 445 134 458 139 471 146 483 154 495 164 505 175" stroke="url(#s4)" stroke-linecap="round"/>
+<path d="M505 175 515 187 523 200 530 214 536 229 540 245 542 261 542 278 541 295 538 311 533 328 527 344 518 360 508 374 497 388" stroke="url(#s5)" stroke-linecap="round"/>
+<path d="M497 388 484 401 469 412 453 422 436 430 418 436 400 441 380 443 361 444 341 442 321 439 302 433 283 425 265 416 247 404" stroke="url(#s6)" stroke-linecap="butt"/>
+<path d="M247 404 231 390 217 375 204 358 192 339 183 320 175 299 170 277 167 255 166 232 168 209 172 187 179 164 188 142 199 121" stroke="url(#s7)" stroke-linecap="butt"/>
+</g>
+</svg>

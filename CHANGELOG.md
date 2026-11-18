@@ -4,6 +4,17 @@ Versions are git tags `v<semver>`, published to the npm registry by `release.yml
 kind with an inert default is a minor; generated images are a patch; a renamed or removed Token, a changed
 Slot treatment or a changed manifest shape is a major, recorded here.
 
+## 1.3.0
+
+- The `psychedelic` Theme (dark only, `intensity: true`): an orange accent with yellow and violet second and
+  third colours on deep violet, translucent raised, sunken, border, selected and warning surfaces so the
+  backdrop shows through, 14 px corners; glow, gradient and image opacity written in `var(--intensity)`, the
+  loudest of the expressive Themes (the backdrop fully on from 0.5, the widest glow, a three-colour gradient).
+- Its hand-written SVG fallbacks for `backdrop`, `ornament` and `empty`, and their three Prompt sheets under
+  `themes/psychedelic/prompts/`.
+- Its face, Righteous Regular as one static Latin-subset woff2 (`righteous-400.woff2`, declared for weights
+  400 to 700), with `OFL.txt` beside it. The face fills `--font-display` only.
+
 ## 1.2.0
 
 - The `circuit` Theme (dark only, `intensity: true`): a teal accent and an ice-blue second colour on
