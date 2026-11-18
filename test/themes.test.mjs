@@ -22,7 +22,11 @@ const DESIGNS = {
       label: "Neon",
       schemes: ["dark"],
       intensity: true,
-      assets: { backdrop: { fallback: "backdrop.svg" }, ornament: { fallback: "ornament.svg" }, empty: { fallback: "empty.svg" } },
+      assets: {
+        backdrop: { fallback: "backdrop.svg", image: "backdrop.webp" },
+        ornament: { fallback: "ornament.svg", image: "ornament.png" },
+        empty: { fallback: "empty.svg", image: "empty.png" },
+      },
     },
     tokens: {
       dark: {
@@ -46,6 +50,7 @@ const DESIGNS = {
     files: [
       "OFL.txt", "backdrop.svg", "empty.svg", "ornament.svg", "prompts/backdrop.md", "prompts/empty.md",
       "prompts/ornament.md", "rajdhani-600.woff2", "theme.css", "theme.json",
+      "backdrop.webp", "ornament.png", "empty.png", "provenance.json",
     ],
   },
   circuit: {
@@ -54,7 +59,11 @@ const DESIGNS = {
       label: "Circuit",
       schemes: ["dark"],
       intensity: true,
-      assets: { backdrop: { fallback: "backdrop.svg" }, ornament: { fallback: "ornament.svg" }, empty: { fallback: "empty.svg" } },
+      assets: {
+        backdrop: { fallback: "backdrop.svg", image: "backdrop.webp" },
+        ornament: { fallback: "ornament.svg", image: "ornament.png" },
+        empty: { fallback: "empty.svg", image: "empty.png" },
+      },
     },
     tokens: {
       dark: {
@@ -80,6 +89,7 @@ const DESIGNS = {
     files: [
       "OFL.txt", "backdrop.svg", "empty.svg", "exo2-variable.woff2", "ornament.svg", "prompts/backdrop.md",
       "prompts/empty.md", "prompts/ornament.md", "theme.css", "theme.json",
+      "backdrop.webp", "ornament.png", "empty.png", "provenance.json",
     ],
   },
   psychedelic: {
@@ -88,7 +98,11 @@ const DESIGNS = {
       label: "Psychedelic",
       schemes: ["dark"],
       intensity: true,
-      assets: { backdrop: { fallback: "backdrop.svg" }, ornament: { fallback: "ornament.svg" }, empty: { fallback: "empty.svg" } },
+      assets: {
+        backdrop: { fallback: "backdrop.svg", image: "backdrop.webp" },
+        ornament: { fallback: "ornament.svg", image: "ornament.png" },
+        empty: { fallback: "empty.svg", image: "empty.png" },
+      },
     },
     tokens: {
       dark: {
@@ -115,6 +129,7 @@ const DESIGNS = {
     files: [
       "OFL.txt", "backdrop.svg", "empty.svg", "ornament.svg", "prompts/backdrop.md", "prompts/empty.md",
       "prompts/ornament.md", "righteous-400.woff2", "theme.css", "theme.json",
+      "backdrop.webp", "ornament.png", "empty.png", "provenance.json",
     ],
   },
   pylon: {
@@ -124,9 +139,12 @@ const DESIGNS = {
       schemes: ["light", "dark"],
       intensity: true,
       assets: {
-        backdrop: { light: { fallback: "backdrop.light.svg" }, dark: { fallback: "backdrop.dark.svg" } },
-        ornament: { fallback: "ornament.svg" },
-        empty: { fallback: "empty.svg" },
+        backdrop: {
+          light: { fallback: "backdrop.light.svg", image: "backdrop.light.webp" },
+          dark: { fallback: "backdrop.dark.svg", image: "backdrop.dark.webp" },
+        },
+        ornament: { fallback: "ornament.svg", image: "ornament.png" },
+        empty: { fallback: "empty.svg", image: "empty.png" },
       },
     },
     tokens: {
@@ -170,6 +188,7 @@ const DESIGNS = {
       "OFL.txt", "backdrop.dark.svg", "backdrop.light.svg", "empty.svg", "marcellus-400.woff2", "ornament.svg",
       "prompts/backdrop.dark.md", "prompts/backdrop.light.md", "prompts/empty.md", "prompts/ornament.md",
       "theme.css", "theme.json",
+      "backdrop.light.webp", "backdrop.dark.webp", "ornament.png", "empty.png", "provenance.json",
     ],
   },
 };
@@ -221,7 +240,7 @@ describe.each(designed)("the %s Theme", (id, design, theme) => {
     });
   });
 
-  test("holds its fallbacks, Prompt sheets, face and licence, and no raster", () => {
+  test("holds its fallbacks, generated images, provenance, Prompt sheets, face and licence", () => {
     expect([...theme.files].sort()).toEqual([...design.files].sort());
   });
 

@@ -4,7 +4,7 @@ A theme library for web projects on any framework: one **Token contract**, a **S
 **Themes** as directories that set nothing but Tokens. A page reads the Tokens; a Theme changes their
 values; the page's layout, components and meanings stay its own.
 
-Status: `1.4.0`. Themes: `default` and `pylon` (light and dark), `neon`, `circuit` and `psychedelic` (dark). See `CHANGELOG.md`.
+Status: `1.4.1`. Themes: `default` and `pylon` (light and dark), `neon`, `circuit` and `psychedelic` (dark). See `CHANGELOG.md`.
 
 ## What is in the package
 
@@ -12,7 +12,7 @@ Status: `1.4.0`. Themes: `default` and `pylon` (light and dark), `neon`, `circui
 |---|---|
 | `tokens.json` | The Token contract (`dyeworks-tokens/1`): every Token with its tier, type, one-sentence meaning and default. The whole surface between a Theme and a page. |
 | `slots.json`, `slots.css` | The Slot vocabulary (`dyeworks-slots/1`): nine kinds of place where decoration may appear, the Tokens each reads, and an optional stylesheet implementing each treatment on `[data-slot="<kind>"]`. |
-| `themes/<id>/` | One directory per Theme: `theme.css` (Token declarations only), `theme.json` (the manifest), and for an expressive Theme its SVG fallbacks, Prompt sheets under `prompts/`, and one display face as woff2 with `OFL.txt` beside it. |
+| `themes/<id>/` | One directory per Theme: `theme.css` (Token declarations only), `theme.json` (the manifest), and for an expressive Theme its SVG fallbacks, the generated image beside each (`.webp` backdrop, `.png` ornament and empty illustration) with `provenance.json` listing them, Prompt sheets under `prompts/`, and one display face as woff2 with `OFL.txt` beside it. |
 | `dist/tokens.css` | Every contract default on `:root`, so a page with no Theme attribute renders as `default` light. |
 | `dist/themes.css` | Every Theme's declarations. |
 | `dist/registry.js` | The generated registry: `themes` (directory order, `default` first) and `options()` for a Theme menu. |
@@ -24,7 +24,7 @@ Status: `1.4.0`. Themes: `default` and `pylon` (light and dark), `neon`, `circui
 
 ## Consuming it
 
-Install an exact version (`npm install --save-exact dyeworks@1.4.0`) and import the stylesheets:
+Install an exact version (`npm install --save-exact dyeworks@1.4.1`) and import the stylesheets:
 
 ```css
 @import "dyeworks/tokens.css";
@@ -115,7 +115,9 @@ npm run theme-assets              # a Theme author's step: generate missing imag
 `npm run theme-assets [-- --theme <id> --slot <slot> --force]` reads every Prompt sheet under
 `themes/<id>/prompts/`, asks the image API for each asset whose image is not yet shipped (or every one with
 `--force`), resizes and strips it, checks a transparent Slot's alpha (retrying the sheet up to three times),
-clamps a backdrop's luminance towards `--bg` in its Scheme's direction, fails an image over its budget, writes
+quantises a transparent PNG to a palette with alpha when the lossless file is over its budget, clamps a
+backdrop's luminance towards `--bg` in its Scheme's direction so the shipped WebP, decoded, holds the clamp,
+fails an image over its budget, writes
 the image beside its fallback, updates `provenance.json`, and prints the manifest line to add. Its key is read
 from the environment of the machine that runs it; without it the script prints one line, exits non-zero and
 changes nothing. Nothing a consumer runs, and no test or build here, calls the image API: the images are

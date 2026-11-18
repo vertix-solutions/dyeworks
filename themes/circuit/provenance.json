@@ -1,0 +1,32 @@
+{
+  "format": "dyeworks-provenance/1",
+  "images": [
+    {
+      "file": "backdrop.webp",
+      "generator": "openai-images",
+      "model": "gpt-image-2.6-flare",
+      "generated_at": "2026-11-18",
+      "prompt_sha256": "37b0e622e1154498e7315005e4f2018af78b4f130a90dae73e9abbf353886620",
+      "sha256": "1ae0b2fb85da5f57acb525227925b372553b7330ad7855d7813c06b58f45af2e",
+      "bytes": 12678
+    },
+    {
+      "file": "empty.png",
+      "generator": "openai-images",
+      "model": "gpt-image-2.6-flare",
+      "generated_at": "2026-11-18",
+      "prompt_sha256": "79c1348860aed8d6cb851915242e5f99a7ef57be28cb463a04dfe17712259fd3",
+      "sha256": "cbf35b4b8416df8d12118840ea987de943b84c710e73672b24fcbeec6fe836bc",
+      "bytes": 9176
+    },
+    {
+      "file": "ornament.png",
+      "generator": "openai-images",
+      "model": "gpt-image-2.6-flare",
+      "generated_at": "2026-11-18",
+      "prompt_sha256": "80a0c39a4efd3c65895a99281756b803c031b474914654abf5997a05b372deec",
+      "sha256": "757982bb4581bcb8a0fdea1094a89f969b20f8e999432cf09e90576eff7a9958",
+      "bytes": 15711
+    }
+  ]
+}

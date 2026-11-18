@@ -1,0 +1,32 @@
+{
+  "format": "dyeworks-provenance/1",
+  "images": [
+    {
+      "file": "backdrop.webp",
+      "generator": "openai-images",
+      "model": "gpt-image-2.6-flare",
+      "generated_at": "2026-11-18",
+      "prompt_sha256": "d5a359f26a71518daf847fd1969bd19bb8165426b9d935e770994cf6d7539e6b",
+      "sha256": "9d29c36f6aa6a3b6f65fb949df0e73c48b745c7e4e77f4859c19ac20208b4480",
+      "bytes": 10662
+    },
+    {
+      "file": "empty.png",
+      "generator": "openai-images",
+      "model": "gpt-image-2.6-flare",
+      "generated_at": "2026-11-18",
+      "prompt_sha256": "7e154d7ea3911ca78f86b0c3e4044b52bf1aa03786fbf61bc30785c5d67fb07c",
+      "sha256": "ba7302ce50b57f50c59bdddba6aae685e36dd52fd32ab3499b9efd8761ef162c",
+      "bytes": 132507
+    },
+    {
+      "file": "ornament.png",
+      "generator": "openai-images",
+      "model": "gpt-image-2.6-flare",
+      "generated_at": "2026-11-18",
+      "prompt_sha256": "ad6ee1e9c6612ef882bdef13a4a6e2fb384613ea44d75cd7a83a12008c763db8",
+      "sha256": "ae48c12bc0bb238d9e09b06261ef6fbb52c9718518b59d34182d8f8a0842f4db",
+      "bytes": 22617
+    }
+  ]
+}

@@ -1,0 +1,41 @@
+{
+  "format": "dyeworks-provenance/1",
+  "images": [
+    {
+      "file": "backdrop.dark.webp",
+      "generator": "openai-images",
+      "model": "gpt-image-2.6-flare",
+      "generated_at": "2026-11-18",
+      "prompt_sha256": "c4efea37886ebedf18e65eb1974842a8abb6a17bc8fa28595a9018adad7fcb5f",
+      "sha256": "a3b66fb52d5bdf248870f051be80419cd9f7bbca4a4e804ade8992f72886b955",
+      "bytes": 21594
+    },
+    {
+      "file": "backdrop.light.webp",
+      "generator": "openai-images",
+      "model": "gpt-image-2.6-flare",
+      "generated_at": "2026-11-18",
+      "prompt_sha256": "69aae86956da129554ad5ebca9d584c0ce522b892412a5741b2e6bff2491b77c",
+      "sha256": "3430d7ed3953952db7a3b7ccc2ecfea03063c7383ac04f1659f1375515e89a03",
+      "bytes": 32340
+    },
+    {
+      "file": "empty.png",
+      "generator": "openai-images",
+      "model": "gpt-image-2.6-flare",
+      "generated_at": "2026-11-18",
+      "prompt_sha256": "7d5b671a03af5578692230170702e226ec149fda484109f506139a0badc91800",
+      "sha256": "46aa0b16548767ee54172229e31649098f54354e5e603dff43a9e696241ea9db",
+      "bytes": 102891
+    },
+    {
+      "file": "ornament.png",
+      "generator": "openai-images",
+      "model": "gpt-image-2.6-flare",
+      "generated_at": "2026-11-18",
+      "prompt_sha256": "53752b6f496f7bc4d243d4fbf36d3956379cd451b275b882531f47fd6919aeea",
+      "sha256": "e43bd43b8e3aa228cbe9b24c7388548012ba61bdeddf3acd2043e3e40ce69538",
+      "bytes": 19117
+    }
+  ]
+}

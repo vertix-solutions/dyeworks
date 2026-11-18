@@ -2,7 +2,7 @@
 // npm run theme-assets [-- --theme <id> --slot <slot> --force]
 //
 // Generates each Theme asset's picture from its Prompt sheet (07 §6). This is the one file that names the
-// image API: OpenAI's Images API, model gpt-image-1, chosen for PNG output with a transparent background.
+// image API: OpenAI's Images API, model gpt-image-2.6-flare, chosen for PNG output with a transparent background.
 // The key is read from OPENAI_API_KEY in the environment of the machine that runs it; without it the script
 // prints one line and exits non-zero, changing nothing. Nothing a consumer runs, and none of the library's
 // tests or builds, imports this file.
@@ -12,7 +12,7 @@ import { parseArgs } from "node:util";
 
 const KEY = "OPENAI_API_KEY";
 const ENDPOINT = "https://api.openai.com/v1/images/generations";
-const MODEL = "gpt-image-1";
+const MODEL = "gpt-image-2.6-flare";
 
 const key = process.env[KEY];
 if (!key) {

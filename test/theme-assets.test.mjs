@@ -15,6 +15,7 @@ import {
   composePrompt,
   generateAssets,
   imageFileName,
+  meetsBounds,
   parseSheet,
 } from "../scripts/lib/assets.mjs";
 import { resolveTokens } from "../scripts/lib/contrast.mjs";
@@ -33,6 +34,13 @@ const sampleCss = (id) =>
   `\nhtml[data-theme="${id}"][data-scheme="dark"] {\n  --bg-raised: rgba(255, 255, 255, 0.08);\n}\n` +
   `html[data-theme="${id}"][data-scheme="light"] {\n  --bg-raised: rgba(0, 0, 0, 0.04);\n}\n`;
 const tokensFor = (scheme) => resolveTokens({ contract, css: sampleCss("sample"), id: "sample", scheme, intensity: 0.5 });
+// `default`'s palette with raised surfaces nearly opaque in each Scheme's --bg, so a backdrop is bounded on both
+// Schemes and a window lies between the light floor and the dark ceiling.
+// The more opaque the surfaces, the wider the window.
+const windowCss = (id, opacity = 0.84) =>
+  defaultCss.replaceAll('data-theme="default"', `data-theme="${id}"`) +
+  `\nhtml[data-theme="${id}"][data-scheme="dark"] {\n  --bg-raised: rgba(20, 22, 28, ${opacity});\n}\n` +
+  `html[data-theme="${id}"][data-scheme="light"] {\n  --bg-raised: rgba(252, 252, 253, ${opacity});\n}\n`;
 
 const sheetText = ({ slot, scheme, output, size, background, ship, accept }) =>
   [
@@ -80,11 +88,45 @@ async function iconPng({ size = 1024, square = 400, fill = [200, 40, 160], noise
   return sharp(data, { raw: { width: size, height: size, channels: 4 } }).png().toBuffer();
 }
 
+/** An RGBA image like `iconPng` whose opaque square is a gradient with fine noise: too big as a lossless PNG at
+ * 256 × 256, well under the ornament budget as a palette PNG. */
+async function gradientIconPng({ size = 256, square = 200 } = {}) {
+  const data = Buffer.alloc(size * size * 4);
+  const lo = (size - square) >> 1;
+  let seed = 7;
+  const rand = () => ((seed = (Math.imul(seed, 1103515245) + 12345) >>> 0) >>> 16) & 7;
+  for (let y = lo; y < lo + square; y++)
+    for (let x = lo; x < lo + square; x++) {
+      const i = (y * size + x) * 4;
+      data[i] = Math.min(255, x + rand());
+      data[i + 1] = Math.min(255, y + rand());
+      data[i + 2] = 128 + rand();
+      data[i + 3] = 255;
+    }
+  return sharp(data, { raw: { width: size, height: size, channels: 4 } }).png().toBuffer();
+}
+
 /** An opaque RGB raw image of one grey level with a small patch of another. */
 function greyRaw({ width = 120, height = 80, level, patch = level, patchShare = 0 }) {
   const data = Buffer.alloc(width * height * 3, level);
   const n = Math.round(width * height * patchShare);
   for (let p = 0; p < n; p++) data.fill(patch, p * 3, p * 3 + 3);
+  return { data, width, height, channels: 3 };
+}
+/** A 1536 × 1024 grey backdrop at a light floor, crossed every 16 px by a one-pixel line at a dark ceiling:
+ * within both bounds as it stands, with both tails at their edges and hard edges for WebP to ring on. */
+function windowLines(bounds) {
+  const floor = bounds.find((b) => b.direction === "lighten").limit;
+  const ceiling = bounds.find((b) => b.direction === "darken").limit;
+  const grey = (v) => relativeLuminance({ r: v, g: v, b: v });
+  let lo = 0;
+  while (grey(lo) < floor) lo++;
+  let hi = 255;
+  while (grey(hi) > ceiling) hi--;
+  const width = 1536;
+  const height = 1024;
+  const data = Buffer.alloc(width * height * 3);
+  for (let p = 0; p < width * height; p++) data.fill(p % width % 16 === 0 ? hi : lo, p * 3, p * 3 + 3);
   return { data, width, height, channels: 3 };
 }
 const opaquePng = async (raw) => sharp(raw.data, { raw: { width: raw.width, height: raw.height, channels: 3 } }).png().toBuffer();
@@ -102,14 +144,14 @@ afterEach(() => {
   for (const d of dirs.splice(0)) rmSync(d, { recursive: true, force: true });
 });
 /** A library root in a temporary directory: the real contract and one Theme with the given sheets. */
-function libraryRoot({ id = "sample", schemes = ["light", "dark"], sheets = {}, files = {} }) {
+function libraryRoot({ id = "sample", schemes = ["light", "dark"], sheets = {}, files = {}, css = sampleCss(id) }) {
   const dir = mkdtempSync(join(tmpdir(), "dyeworks-assets-"));
   dirs.push(dir);
   copyFileSync(join(root, "tokens.json"), join(dir, "tokens.json"));
   const themeDir = join(dir, "themes", id);
   mkdirSync(join(themeDir, "prompts"), { recursive: true });
   writeFileSync(join(themeDir, "theme.json"), JSON.stringify({ id, label: "Sample", schemes, intensity: true, assets: {} }, null, 2));
-  writeFileSync(join(themeDir, "theme.css"), sampleCss(id));
+  writeFileSync(join(themeDir, "theme.css"), css);
   for (const [name, text] of Object.entries(sheets)) writeFileSync(join(themeDir, "prompts", name), text);
   for (const [name, content] of Object.entries(files)) writeFileSync(join(themeDir, name), content);
   return { dir, themeDir };
@@ -250,6 +292,28 @@ describe("the backdrop clamp", () => {
     const raw = greyRaw({ level: 90, patch: 250, patchShare: 0.2 });
     expect(clampBackdrop(raw, [bound]).data.equals(clampBackdrop(raw, [bound]).data)).toBe(true);
   });
+
+  test("tells whether an image meets every bound, and never throws where no clamp could", () => {
+    const bounds = ["light", "dark"].map((s) => backdropBound(tokensFor(s), s, contract));
+    const dark = backdropBound(tokensFor("dark"), "dark", contract);
+    expect(meetsBounds(greyRaw({ level: 18 }), [dark])).toBe(true);
+    expect(meetsBounds(greyRaw({ level: 30, patch: 240, patchShare: 0.05 }), [dark])).toBe(false);
+    // the sample's light floor sits above its dark ceiling: the clamp throws, the predicate answers
+    const grey = greyRaw({ level: 128 });
+    expect(() => clampBackdrop(grey, bounds)).toThrow(/both Schemes/);
+    expect(meetsBounds(grey, bounds)).toBe(false);
+  });
+
+  test("sweeps a shared backdrop over both bounds until it meets them together", () => {
+    const css = windowCss("sample");
+    const bounds = ["light", "dark"].map((s) => backdropBound(resolveTokens({ contract, css, id: "sample", scheme: s, intensity: 0.5 }), s, contract));
+    // lightening for the light floor lifts the brightest pixels over the dark ceiling, and darkening them back
+    // drops the darkest under the floor again: one pass over the bounds is not enough
+    const raw = greyRaw({ level: 60, patch: 250, patchShare: 0.3 });
+    const out = clampBackdrop(raw, bounds);
+    expect(out.changed).toBe(true);
+    expect(meetsBounds(out, bounds)).toBe(true);
+  });
 });
 
 // ---------- the pipeline, with the API stubbed ----------
@@ -298,9 +362,33 @@ describe("generating a Theme's assets", () => {
     expect(existsSync(join(themeDir, "ornament.png"))).toBe(true);
   });
 
+  test("quantises a transparent Slot's PNG to a palette with alpha when the lossless PNG is over its budget", async () => {
+    const source = await gradientIconPng();
+    const lossless = await sharp(source).png({ compressionLevel: 9, adaptiveFiltering: true }).toBuffer();
+    expect(lossless.length).toBeGreaterThan(40_000);
+    const { dir, themeDir } = libraryRoot({ sheets: { "ornament.md": ornamentSheet() } });
+    const { failures } = await run(dir, stub(source).generator);
+
+    expect(failures).toEqual([]);
+    const png = readFileSync(join(themeDir, "ornament.png"));
+    expect(png.length).toBeLessThanOrEqual(40_000);
+    const { data, info } = await sharp(png).ensureAlpha().raw().toBuffer({ resolveWithObject: true });
+    expect([info.width, info.height]).toEqual([256, 256]);
+    expect(checkAlpha({ data, width: info.width, height: info.height, channels: info.channels }, 0.3).ok).toBe(true);
+    expect(checkThemeFiles(themeDir)).toEqual([]);
+  });
+
+  test("keeps a transparent Slot's PNG lossless when it is under its budget", async () => {
+    const { dir, themeDir } = libraryRoot({ sheets: { "ornament.md": ornamentSheet() } });
+    await run(dir, stub(await iconPng()).generator);
+    const { data } = await sharp(readFileSync(join(themeDir, "ornament.png"))).raw().toBuffer({ resolveWithObject: true });
+    const centre = (128 * 256 + 128) * 4;
+    expect([...data.subarray(centre, centre + 4)]).toEqual([200, 40, 160, 255]);
+  });
+
   test("fails an image over its budget after compression and writes nothing", async () => {
     const { dir, themeDir } = libraryRoot({ sheets: { "ornament.md": ornamentSheet() } });
-    const { generator } = stub(await iconPng({ size: 256, square: 180, noise: true }));
+    const { generator } = stub(await iconPng({ size: 256, square: 214, noise: true }));
     const { failures } = await run(dir, generator);
 
     expect(failures).toEqual([expect.stringMatching(/themes\/sample\/prompts\/ornament\.md.*over its budget of 40000 bytes/)]);
@@ -322,12 +410,63 @@ describe("generating a Theme's assets", () => {
       expect([info.width, info.height]).toEqual([1536, 1024]);
       return { data, channels: 3 };
     };
-    // the clamp ran on the raw pixels; WebP at quality 80 may move a pixel by a step, never by the clamp's margin
     expect(percentile(await raw("backdrop.dark.webp"), 0.999)).toBeLessThan(percentile(await raw("backdrop.light.webp"), 0.001));
-    expect(percentile(await raw("backdrop.dark.webp"), 0.999)).toBeLessThanOrEqual(backdropBound(tokensFor("dark"), "dark", contract).limit * 1.1);
+    // the shipped file itself, decoded after WebP's lossy step, sits within its Scheme's clamp
+    for (const scheme of ["dark", "light"]) {
+      const { data, info } = await sharp(join(themeDir, `backdrop.${scheme}.webp`)).removeAlpha().raw().toBuffer({ resolveWithObject: true });
+      expect(meetsBounds({ data, channels: info.channels }, [backdropBound(tokensFor(scheme), scheme, contract)]), scheme).toBe(true);
+    }
     const provenance = JSON.parse(readFileSync(join(themeDir, "provenance.json"), "utf8"));
     expect(provenance.images.map((e) => e.file).sort()).toEqual(["backdrop.dark.webp", "backdrop.light.webp"]);
     expect(checkThemeFiles(themeDir)).toEqual([]);
+  });
+
+  test("ships a noisy bright backdrop whose decoded WebP still sits within the dark clamp", async () => {
+    const { dir, themeDir } = libraryRoot({ schemes: ["dark"], sheets: { "backdrop.md": backdropSheet() } });
+    const width = 1536;
+    const height = 1024;
+    const data = Buffer.alloc(width * height * 3);
+    let seed = 11;
+    const rand = () => ((seed = (Math.imul(seed, 1103515245) + 12345) >>> 0) >>> 16) & 255;
+    for (let i = 0; i < data.length; i++) data[i] = rand();
+    const { failures } = await run(dir, stub(await opaquePng({ data, width, height })).generator);
+
+    expect(failures).toEqual([]);
+    const decoded = await sharp(join(themeDir, "backdrop.webp")).removeAlpha().raw().toBuffer({ resolveWithObject: true });
+    expect(meetsBounds({ data: decoded.data, channels: decoded.info.channels }, [backdropBound(tokensFor("dark"), "dark", contract)])).toBe(true);
+  });
+
+  test("ships a shared backdrop on a two-Scheme Theme whose first WebP misses a bound, after a tightening pass", async () => {
+    // Raised surfaces nearly opaque in --bg's own colour leave a window between the light floor and the dark
+    // ceiling wide enough for one picture to serve both Schemes.
+    const css = windowCss("sample");
+    const { dir, themeDir } = libraryRoot({ sheets: { "backdrop.md": backdropSheet() }, css });
+    const bounds = ["light", "dark"].map((s) => backdropBound(resolveTokens({ contract, css, id: "sample", scheme: s, intensity: 0.5 }), s, contract));
+    const raw = windowLines(bounds);
+    // The first pass, against the true bounds: the clamped pixels fit, the decoded WebP misses by a step.
+    const first = clampBackdrop(raw, bounds);
+    expect(meetsBounds(first, bounds)).toBe(true);
+    const firstWebp = await sharp(first.data, { raw: { width: raw.width, height: raw.height, channels: 3 } }).webp({ quality: 80 }).toBuffer();
+    expect(meetsBounds({ data: await sharp(firstWebp).removeAlpha().raw().toBuffer(), channels: 3 }, bounds)).toBe(false);
+
+    const { failures, lines } = await run(dir, stub(await opaquePng(raw)).generator);
+    expect(failures).toEqual([]);
+    expect(lines).toContain('themes/sample/theme.json, assets.backdrop: "image": "backdrop.webp"');
+    const decoded = await sharp(join(themeDir, "backdrop.webp")).removeAlpha().raw().toBuffer({ resolveWithObject: true });
+    expect([decoded.info.width, decoded.info.height]).toEqual([1536, 1024]);
+    expect(meetsBounds({ data: decoded.data, channels: decoded.info.channels }, bounds)).toBe(true);
+  });
+
+  test("fails a shared backdrop whose tightened bounds leave no room before the decoded WebP holds, naming the compression", async () => {
+    const css = windowCss("sample", 0.8);
+    const { dir, themeDir } = libraryRoot({ sheets: { "backdrop.md": backdropSheet() }, css });
+    const bounds = ["light", "dark"].map((s) => backdropBound(resolveTokens({ contract, css, id: "sample", scheme: s, intensity: 0.5 }), s, contract));
+    const raw = windowLines(bounds);
+    expect(meetsBounds(raw, bounds)).toBe(true);
+    const { failures, written } = await run(dir, stub(await opaquePng(raw)).generator);
+    expect(written).toEqual([]);
+    expect(failures).toEqual([expect.stringMatching(/themes\/sample\/prompts\/backdrop\.md: the backdrop does not hold its clamp through WebP compression within 16 passes$/)]);
+    expect(listFiles(themeDir).sort()).toEqual(["prompts/backdrop.md", "theme.css", "theme.json"]);
   });
 
   test("fails a shared backdrop on a two-Scheme Theme that cannot meet both bounds", async () => {

@@ -26,7 +26,7 @@ const themeDir = (files) => {
   return dir;
 };
 const sha = (b) => createHash("sha256").update(b).digest("hex");
-const entry = (file, bytes) => ({ file, generator: "openai-images", model: "gpt-image-1", generated_at: "2026-11-11", prompt_sha256: sha("sheet"), sha256: sha(bytes), bytes: bytes.length });
+const entry = (file, bytes) => ({ file, generator: "openai-images", model: "gpt-image-2.6-flare", generated_at: "2026-11-11", prompt_sha256: sha("sheet"), sha256: sha(bytes), bytes: bytes.length });
 const provenance = (...images) => JSON.stringify({ format: "dyeworks-provenance/1", images });
 const rules = (dir) => checkThemeFiles(dir).map((f) => f.rule);
 
