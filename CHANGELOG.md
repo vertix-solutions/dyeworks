@@ -16,7 +16,7 @@ Slot treatment or a changed manifest shape is a major, recorded here.
   and, at night, its haze.
 - `pylon`'s display face is now Forum Regular (`forum-400.woff2`, one static Latin-subset woff2 of 23.8 kB,
   declared for weights 400 to 700, `OFL.txt` replaced with Forum's from the upstream font repository), in place of
-  Marcellus, whose zero is its capital O and whose one is a bare stem, so that "Run 00000002" read as letters.
+  Marcellus, whose zero is its capital O and whose one is a bare stem, so that an id such as "00000002" in a heading read as letters.
   Forum is an inscriptional Roman with a lowercase in the same spirit, with lining figures: an oval zero narrower
   than its O, a flagged one. `--font-display` is `"Forum", var(--font-sans)` on both Schemes.
 - The demo page sets a full-width table padded 24 px at each side, with text at its left edge and right-aligned

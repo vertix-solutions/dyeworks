@@ -7,6 +7,7 @@ import { dirname, join } from "node:path";
 import { fileURLToPath, pathToFileURL } from "node:url";
 import { chromium } from "playwright";
 import { build } from "./build.mjs";
+import { ALIKE_BELOW, figureProblems, glyphsApart } from "./lib/figures.mjs";
 import { serve } from "./serve.mjs";
 
 const root = join(dirname(fileURLToPath(import.meta.url)), "..");
@@ -87,17 +88,14 @@ async function decorationProblems(page, theme, intensity) {
   }, { responds: theme.intensity, intensity });
 }
 
-// The display face sets figures that read as figures (07 §4): at the heading and count Slots a zero is not drawn
-// as the capital O or the lowercase o, and a one not as the capital I or the lowercase l. A pair a Theme's face is
-// known to fail is reported without failing the run until its own fix lands ("Theme library: `neon`'s Rajdhani zero
-// reads as O and `psychedelic`'s Righteous one reads as I", localbench ticket 136). Any other pair fails, and so does
-// a listed pair that no longer shows, so the set only ever shrinks.
-const FIGURES_KNOWN_TO_FAIL = { neon: ["0/O"], psychedelic: ["1/I", "1/l"] };
-
+// The display face sets figures that read as figures (07 §4); `scripts/lib/figures.mjs` judges the result and
+// holds the pairs a face is known to fail. The page draws the glyphs and measures them with that module's
+// `glyphsApart`, handed over as source.
 // Returns the pairs drawn alike, as "figure/letter", and problems that stop the check itself (a face that did not
 // load). A Theme whose theme.css bundles no face (`default`) sets its Slots in the body face and is not checked.
 async function figureCheck(page) {
-  return page.evaluate(async () => {
+  return page.evaluate(async ({ apartSource, alikeBelow }) => {
+    const glyphsApart = new Function(`return (${apartSource})`)();
     const alike = new Set();
     const problems = [];
     const SIZE = 128;
@@ -133,52 +131,21 @@ async function figureCheck(page) {
           const y = (i - x) / SIZE;
           left = Math.min(left, x); right = Math.max(right, x); top = Math.min(top, y); bottom = Math.max(bottom, y);
         }
-        return { alpha, left, top, width: right - left + 1, height: bottom - top + 1 };
+        return { alpha, size: SIZE, left, top, width: right - left + 1, height: bottom - top + 1 };
       };
-      const at = (g, x, y) => x >= 0 && y >= 0 && x < g.width && y < g.height && g.alpha[(y + g.top) * SIZE + x + g.left] > 128;
       // Two glyphs read alike when nearly every inked pixel of each has ink of the other within 2 px: a figure drawn
       // as its letter differs only in antialiasing and stroke weight, a distinct one by a flag, a width or a bowl.
       // The ink boxes are aligned at their top and at their left, then at their top and right, and the closer fit
       // counts: a one that is I's stem with a small nub at one side is then compared stem on stem, while a zero
       // narrower than its O by more than the 2 px tolerance still differs whichever side is aligned.
-      const near = (g, x, y) => {
-        for (let dy = -2; dy <= 2; dy++) for (let dx = -2; dx <= 2; dx++) if (at(g, x + dx, y + dy)) return true;
-        return false;
-      };
-      const apart = (a, b, ox) => {
-        let differ = 0;
-        let inked = 0;
-        for (let y = 0; y < Math.max(a.height, b.height); y++)
-          for (let x = Math.min(0, ox); x < Math.max(a.width, b.width + ox); x++) {
-            const ia = at(a, x, y);
-            const ib = at(b, x - ox, y);
-            if (ia || ib) inked++;
-            if ((ia && !near(b, x - ox, y)) || (ib && !near(a, x, y))) differ++;
-          }
-        return differ / inked;
-      };
-      const closest = (a, b) => Math.min(apart(a, b, 0), apart(a, b, a.width - b.width));
+      const closest = (a, b) => Math.min(glyphsApart(a, b, 0), glyphsApart(a, b, a.width - b.width));
       for (const [figure, letters] of [["0", ["O", "o"]], ["1", ["I", "l"]]]) {
         const a = ink(figure);
-        for (const letter of letters) if (closest(a, ink(letter)) < 0.03) alike.add(`${figure}/${letter}`);
+        for (const letter of letters) if (closest(a, ink(letter)) < alikeBelow) alike.add(`${figure}/${letter}`);
       }
     }
     return { alike: [...alike], problems };
-  });
-}
-
-// The figure check depends on neither viewport nor Intensity, so it runs once per Theme and Scheme.
-function figureProblems(theme, scheme, { alike, problems }) {
-  const known = FIGURES_KNOWN_TO_FAIL[theme.id] ?? [];
-  const where = `${theme.id} ${scheme}`;
-  for (const pair of alike) {
-    const [figure, letter] = pair.split("/");
-    if (known.includes(pair)) console.warn(`${where}: known: the display face draws "${figure}" like "${letter}"`);
-    else problems.push(`the display face draws "${figure}" like "${letter}"`);
-  }
-  for (const pair of known)
-    if (!alike.includes(pair)) problems.push(`${pair} is listed as known to fail but no longer does: remove it from FIGURES_KNOWN_TO_FAIL`);
-  return problems;
+  }, { apartSource: glyphsApart.toString(), alikeBelow: ALIKE_BELOW });
 }
 
 const browser = await chromium.launch();
@@ -201,9 +168,11 @@ try {
           for (const p of problems) console.error(`${theme.id} ${scheme} ${intensity} ${width}x${height}: ${p}`);
           failed ||= problems.length > 0;
           if (full && intensity === 0 && bundlesFace) {
-            const figures = figureProblems(theme, scheme, await figureCheck(page));
-            for (const p of figures) console.error(`${theme.id} ${scheme}: ${p}`);
-            failed ||= figures.length > 0;
+            // The figure check depends on neither viewport nor Intensity, so it runs once per Theme and Scheme.
+            const figures = figureProblems(theme.id, await figureCheck(page));
+            for (const n of figures.notes) console.warn(`${theme.id} ${scheme}: ${n}`);
+            for (const p of figures.problems) console.error(`${theme.id} ${scheme}: ${p}`);
+            failed ||= figures.problems.length > 0;
           }
         }
         await context.close();
