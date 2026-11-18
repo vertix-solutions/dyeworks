@@ -4,8 +4,8 @@
   "schemes": ["dark"],
   "intensity": true,
   "assets": {
-    "backdrop": { "fallback": "backdrop.svg" },
-    "ornament": { "fallback": "ornament.svg" },
-    "empty": { "fallback": "empty.svg" }
+    "backdrop": { "fallback": "backdrop.svg", "image": "backdrop.webp" },
+    "ornament": { "fallback": "ornament.svg", "image": "ornament.png" },
+    "empty": { "fallback": "empty.svg", "image": "empty.png" }
   }
 }

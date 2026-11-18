@@ -5,10 +5,10 @@
   "intensity": true,
   "assets": {
     "backdrop": {
-      "light": { "fallback": "backdrop.light.svg" },
-      "dark": { "fallback": "backdrop.dark.svg" }
+      "light": { "fallback": "backdrop.light.svg", "image": "backdrop.light.webp" },
+      "dark": { "fallback": "backdrop.dark.svg", "image": "backdrop.dark.webp" }
     },
-    "ornament": { "fallback": "ornament.svg" },
-    "empty": { "fallback": "empty.svg" }
+    "ornament": { "fallback": "ornament.svg", "image": "ornament.png" },
+    "empty": { "fallback": "empty.svg", "image": "empty.png" }
   }
 }

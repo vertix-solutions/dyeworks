@@ -21,6 +21,10 @@ const HEADER_FIELDS = ["slot", "output", "size", "background", "ship"];
 export const ALPHA_RETRIES = 3;
 const AA = 4.5;
 const WEBP_QUALITY = 80;
+/** How many tightenings of the clamp the encoded backdrop may need before the sheet fails; the last pulls the
+ * bound half the way from its limit to --bg. */
+const WEBP_PASSES = 16;
+const MAX_TIGHTENING = 0.5;
 /** The share of pixels the clamp may leave beyond its bound: the brightest (or darkest) 0.1 %. */
 const TAIL = 0.001;
 const PROVENANCE_FORMAT = "dyeworks-provenance/1";
@@ -234,6 +238,13 @@ export function clampBackdrop(raw, bounds) {
   return { ...raw, data, changed };
 }
 
+/** A bound moved `share` × MAX_TIGHTENING of the way from its limit towards the luminance of its --bg. */
+function tightened(bound, share) {
+  if (share === 0) return bound;
+  const bg = relativeLuminance({ ...bound.toward, a: 1 });
+  return { ...bound, limit: bound.limit + (bg - bound.limit) * share * MAX_TIGHTENING };
+}
+
 /** Resize, check and encode one generated image for its sheet; the bytes to ship, or a reason it fails. */
 async function postProcess(source, sheet, bounds) {
   const { width, height } = sheet.ship;
@@ -245,17 +256,25 @@ async function postProcess(source, sheet, bounds) {
       .toBuffer({ resolveWithObject: true });
     const alpha = checkAlpha({ data, width: info.width, height: info.height, channels: info.channels }, sheet.threshold);
     if (!alpha.ok) return { retry: true, reason: `the alpha check failed (${alpha.detail})` };
-    const png = await sharp(data, { raw: { width: info.width, height: info.height, channels: 4 } })
-      .png({ compressionLevel: 9, adaptiveFiltering: true })
-      .toBuffer();
-    return { bytes: png };
+    const pixels = () => sharp(data, { raw: { width: info.width, height: info.height, channels: 4 } });
+    // Lossless first; a soft glow rarely fits the budget that way, so over it the PNG is quantised to a
+    // 256-colour palette that keeps alpha (fully transparent pixels stay fully transparent).
+    const png = await pixels().png({ compressionLevel: 9, adaptiveFiltering: true }).toBuffer();
+    if (png.length <= SLOT_TABLE[sheet.slot].budget) return { bytes: png };
+    return { bytes: await pixels().png({ compressionLevel: 9, palette: true, quality: 100, effort: 10 }).toBuffer() };
   }
   const { data, info } = await sharp(source).resize(width, height, { fit: "cover" }).removeAlpha().raw().toBuffer({ resolveWithObject: true });
-  const clamped = clampBackdrop({ data, width: info.width, height: info.height, channels: info.channels }, bounds);
-  const webp = await sharp(clamped.data, { raw: { width: info.width, height: info.height, channels: info.channels } })
-    .webp({ quality: WEBP_QUALITY })
-    .toBuffer();
-  return { bytes: webp };
+  const shape = { width: info.width, height: info.height, channels: info.channels };
+  // WebP is lossy: a pixel the clamp put at its bound can come back a step over it. The shipped file is what a
+  // page shows, so its decoded pixels must hold the true bounds; while they do not, the original pixels are
+  // clamped again against bounds pulled a further share of the way towards --bg.
+  for (let pass = 0; pass < WEBP_PASSES; pass++) {
+    const pixels = clampBackdrop({ data, ...shape }, bounds.map((b) => tightened(b, pass / WEBP_PASSES))).data;
+    const webp = await sharp(pixels, { raw: shape }).webp({ quality: WEBP_QUALITY }).toBuffer();
+    const decoded = await sharp(webp).removeAlpha().raw().toBuffer();
+    if (!clampBackdrop({ data: decoded, ...shape }, bounds).changed) return { bytes: webp };
+  }
+  throw new Error(`the backdrop does not hold its clamp through WebP compression after ${WEBP_PASSES} passes`);
 }
 
 /** Write or replace one image's entry in the Theme's `provenance.json`, keeping every other entry. */

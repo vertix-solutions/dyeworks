@@ -80,6 +80,24 @@ async function iconPng({ size = 1024, square = 400, fill = [200, 40, 160], noise
   return sharp(data, { raw: { width: size, height: size, channels: 4 } }).png().toBuffer();
 }
 
+/** An RGBA image like `iconPng` whose opaque square is a gradient with fine noise: too big as a lossless PNG at
+ * 256 × 256, well under the ornament budget as a palette PNG. */
+async function gradientIconPng({ size = 256, square = 200 } = {}) {
+  const data = Buffer.alloc(size * size * 4);
+  const lo = (size - square) >> 1;
+  let seed = 7;
+  const rand = () => ((seed = (Math.imul(seed, 1103515245) + 12345) >>> 0) >>> 16) & 7;
+  for (let y = lo; y < lo + square; y++)
+    for (let x = lo; x < lo + square; x++) {
+      const i = (y * size + x) * 4;
+      data[i] = Math.min(255, x + rand());
+      data[i + 1] = Math.min(255, y + rand());
+      data[i + 2] = 128 + rand();
+      data[i + 3] = 255;
+    }
+  return sharp(data, { raw: { width: size, height: size, channels: 4 } }).png().toBuffer();
+}
+
 /** An opaque RGB raw image of one grey level with a small patch of another. */
 function greyRaw({ width = 120, height = 80, level, patch = level, patchShare = 0 }) {
   const data = Buffer.alloc(width * height * 3, level);
@@ -298,9 +316,33 @@ describe("generating a Theme's assets", () => {
     expect(existsSync(join(themeDir, "ornament.png"))).toBe(true);
   });
 
+  test("quantises a transparent Slot's PNG to a palette with alpha when the lossless PNG is over its budget", async () => {
+    const source = await gradientIconPng();
+    const lossless = await sharp(source).png({ compressionLevel: 9, adaptiveFiltering: true }).toBuffer();
+    expect(lossless.length).toBeGreaterThan(40_000);
+    const { dir, themeDir } = libraryRoot({ sheets: { "ornament.md": ornamentSheet() } });
+    const { failures } = await run(dir, stub(source).generator);
+
+    expect(failures).toEqual([]);
+    const png = readFileSync(join(themeDir, "ornament.png"));
+    expect(png.length).toBeLessThanOrEqual(40_000);
+    const { data, info } = await sharp(png).ensureAlpha().raw().toBuffer({ resolveWithObject: true });
+    expect([info.width, info.height]).toEqual([256, 256]);
+    expect(checkAlpha({ data, width: info.width, height: info.height, channels: info.channels }, 0.3).ok).toBe(true);
+    expect(checkThemeFiles(themeDir)).toEqual([]);
+  });
+
+  test("keeps a transparent Slot's PNG lossless when it is under its budget", async () => {
+    const { dir, themeDir } = libraryRoot({ sheets: { "ornament.md": ornamentSheet() } });
+    await run(dir, stub(await iconPng()).generator);
+    const { data } = await sharp(readFileSync(join(themeDir, "ornament.png"))).raw().toBuffer({ resolveWithObject: true });
+    const centre = (128 * 256 + 128) * 4;
+    expect([...data.subarray(centre, centre + 4)]).toEqual([200, 40, 160, 255]);
+  });
+
   test("fails an image over its budget after compression and writes nothing", async () => {
     const { dir, themeDir } = libraryRoot({ sheets: { "ornament.md": ornamentSheet() } });
-    const { generator } = stub(await iconPng({ size: 256, square: 180, noise: true }));
+    const { generator } = stub(await iconPng({ size: 256, square: 214, noise: true }));
     const { failures } = await run(dir, generator);
 
     expect(failures).toEqual([expect.stringMatching(/themes\/sample\/prompts\/ornament\.md.*over its budget of 40000 bytes/)]);
@@ -322,12 +364,32 @@ describe("generating a Theme's assets", () => {
       expect([info.width, info.height]).toEqual([1536, 1024]);
       return { data, channels: 3 };
     };
-    // the clamp ran on the raw pixels; WebP at quality 80 may move a pixel by a step, never by the clamp's margin
     expect(percentile(await raw("backdrop.dark.webp"), 0.999)).toBeLessThan(percentile(await raw("backdrop.light.webp"), 0.001));
-    expect(percentile(await raw("backdrop.dark.webp"), 0.999)).toBeLessThanOrEqual(backdropBound(tokensFor("dark"), "dark", contract).limit * 1.1);
+    // the shipped file itself, decoded after WebP's lossy step, sits within its Scheme's clamp
+    for (const scheme of ["dark", "light"]) {
+      const { data, info } = await sharp(join(themeDir, `backdrop.${scheme}.webp`)).removeAlpha().raw().toBuffer({ resolveWithObject: true });
+      const again = clampBackdrop({ data, width: info.width, height: info.height, channels: info.channels }, [backdropBound(tokensFor(scheme), scheme, contract)]);
+      expect(again.changed, scheme).toBe(false);
+    }
     const provenance = JSON.parse(readFileSync(join(themeDir, "provenance.json"), "utf8"));
     expect(provenance.images.map((e) => e.file).sort()).toEqual(["backdrop.dark.webp", "backdrop.light.webp"]);
     expect(checkThemeFiles(themeDir)).toEqual([]);
+  });
+
+  test("ships a noisy bright backdrop whose decoded WebP still sits within the dark clamp", async () => {
+    const { dir, themeDir } = libraryRoot({ schemes: ["dark"], sheets: { "backdrop.md": backdropSheet() } });
+    const width = 1536;
+    const height = 1024;
+    const data = Buffer.alloc(width * height * 3);
+    let seed = 11;
+    const rand = () => ((seed = (Math.imul(seed, 1103515245) + 12345) >>> 0) >>> 16) & 255;
+    for (let i = 0; i < data.length; i++) data[i] = rand();
+    const { failures } = await run(dir, stub(await opaquePng({ data, width, height })).generator);
+
+    expect(failures).toEqual([]);
+    const decoded = await sharp(join(themeDir, "backdrop.webp")).removeAlpha().raw().toBuffer({ resolveWithObject: true });
+    const again = clampBackdrop({ data: decoded.data, width, height, channels: decoded.info.channels }, [backdropBound(tokensFor("dark"), "dark", contract)]);
+    expect(again.changed).toBe(false);
   });
 
   test("fails a shared backdrop on a two-Scheme Theme that cannot meet both bounds", async () => {

@@ -4,6 +4,18 @@ Versions are git tags `v<semver>`, published to the npm registry by `release.yml
 kind with an inert default is a minor; generated images are a patch; a renamed or removed Token, a changed
 Slot treatment or a changed manifest shape is a major, recorded here.
 
+## 1.4.1
+
+- The generated images, one per Prompt sheet: `backdrop.webp`, `ornament.png` and `empty.png` for `neon`,
+  `circuit` and `psychedelic`, and `backdrop.light.webp`, `backdrop.dark.webp`, `ornament.png` and `empty.png`
+  for `pylon`. Each manifest now names an `image` beside every fallback, and each Theme's `provenance.json`
+  lists its images with the model, date, the Prompt sheet's digest and the file's digest and size. The
+  fallbacks stay, and still show wherever an image does not load.
+- `npm run theme-assets` asks for the image API's current model (the one it named before was retired); quantises a
+  transparent Slot's PNG to a 256-colour palette with alpha when the lossless file is over its budget; and
+  keeps a backdrop within its clamp after WebP compression, tightening the clamp on the original pixels until
+  the decoded file holds it.
+
 ## 1.4.0
 
 - The `pylon` Theme (light and dark, `intensity: true`), the first expressive Theme on both Schemes and so the
