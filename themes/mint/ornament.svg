@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 28 28" width="28" height="28">
+<!-- mint ornament fallback: one mint leaf on a short stem, tilted. The leaf is the mint Tokens accent (#0f7a5a)
+     with its lit half in theme-second (#6fe3c1) and a midrib in the bg (#f4fbf8). Fills only. -->
+<path d="M5 23C4 13 11 4 24 4C24 17 15 24 5 23Z" fill="#0f7a5a"/>
+<path d="M5 23C10 16 16 10 24 4C24 17 15 24 5 23Z" fill="#6fe3c1"/>
+<path d="M5.6 22.4L22 6" stroke="#f4fbf8" stroke-width="1.2" stroke-linecap="round"/>
+<path d="M5 23L2.5 25.5" stroke="#0f7a5a" stroke-width="1.6" stroke-linecap="round"/>
+</svg>

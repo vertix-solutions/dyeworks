@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 768 512" width="768" height="512">
+<!-- blueprint empty-state fallback: an empty rectangle in the blueprint Tokens theme-second (#ffffff) with a
+     width dimension line below and a height dimension line at its right in accent (#9fe3ff), each ending in
+     filled arrowheads, with short extension lines. Strokes only except the arrowheads. Token names are written without their leading dashes, which an XML comment cannot hold. -->
+<rect x="224" y="136" width="300" height="200" fill="none" stroke="#ffffff" stroke-width="3"/>
+<g stroke="#9fe3ff" stroke-width="2" fill="none">
+<path d="M224 346V392M524 346V392"/>
+<path d="M534 136H580M534 336H580"/>
+<path d="M234 380H514"/>
+<path d="M568 146V326"/>
+</g>
+<g fill="#9fe3ff">
+<path d="M224 380L238 374V386Z"/>
+<path d="M524 380L510 374V386Z"/>
+<path d="M568 136L562 150H574Z"/>
+<path d="M568 336L562 322H574Z"/>
+</g>
+</svg>

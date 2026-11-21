@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 200" width="300" height="200">
+<!-- aurora empty fallback: a quiet mountain horizon with a faint ribbon of light above it and nothing in the
+     valley. Mirrors the aurora Tokens accent (#5cf2b4) and theme-second (#b28cff) for the ribbon, border
+     (#24314f) for the far range and muted (#8d9cbc) for the near ridge line; transparent elsewhere.
+     Token names are written without their leading dashes, which an XML comment cannot hold. -->
+<defs>
+<linearGradient id="band" x1="40" y1="0" x2="260" y2="0" gradientUnits="userSpaceOnUse">
+<stop offset="0" stop-color="#5cf2b4" stop-opacity="0"/>
+<stop offset="0.4" stop-color="#5cf2b4" stop-opacity="0.7"/>
+<stop offset="1" stop-color="#b28cff" stop-opacity="0"/>
+</linearGradient>
+</defs>
+<path d="M40 70C90 40 130 80 170 55S240 40 260 50V62C230 58 200 72 170 70S100 66 40 88Z" fill="url(#band)"/>
+<path d="M20 160L80 110L110 130L150 92L200 136L230 118L280 160Z" fill="#24314f"/>
+<path d="M20 160L80 110L110 130L150 92L200 136L230 118L280 160" fill="none" stroke="#8d9cbc" stroke-width="2" stroke-linejoin="round"/>
+<path d="M20 166H280" stroke="#8d9cbc" stroke-width="2" stroke-linecap="round"/>
+</svg>

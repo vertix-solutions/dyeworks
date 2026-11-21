@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1536 1024" width="1536" height="1024" preserveAspectRatio="xMidYMid slice">
+<!-- terminal backdrop fallback. Mirrors the terminal Tokens bg (#050a06) for the screen, a faint phosphor glow
+     from accent (#33ff77) at 3 % alpha in the centre, horizontal scanlines in a slightly lighter green (#0c1a0f)
+     every 4 units, and a vignette darkening to #000000 at the corners. Token names are written without their leading dashes, which an XML comment cannot hold. -->
+<defs>
+<radialGradient id="glow" cx="768" cy="512" r="900" gradientUnits="userSpaceOnUse">
+<stop offset="0" stop-color="#33ff77" stop-opacity="0.03"/>
+<stop offset="1" stop-color="#33ff77" stop-opacity="0"/>
+</radialGradient>
+<radialGradient id="vignette" cx="768" cy="512" r="980" gradientUnits="userSpaceOnUse">
+<stop offset="0.55" stop-color="#000000" stop-opacity="0"/>
+<stop offset="1" stop-color="#000000" stop-opacity="0.7"/>
+</radialGradient>
+<pattern id="scan" width="4" height="4" patternUnits="userSpaceOnUse">
+<rect width="4" height="1" fill="#0c1a0f"/>
+</pattern>
+</defs>
+<rect width="1536" height="1024" fill="#050a06"/>
+<rect width="1536" height="1024" fill="url(#scan)"/>
+<rect width="1536" height="1024" fill="url(#glow)"/>
+<rect width="1536" height="1024" fill="url(#vignette)"/>
+</svg>

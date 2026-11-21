@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1536 1024" width="1536" height="1024" preserveAspectRatio="xMidYMid slice">
+<!-- ember backdrop fallback. Mirrors the ember Tokens bg (#14100e) for the field; a warm haze, a dark tint of
+     accent (#ff7a1a) toward brown (#3a1a08), rises from the foot of the frame, and a few tiny specks in
+     theme-second (#ffcf5a) at low alpha drift just above it. Token names are written without their leading dashes, which an XML comment cannot hold. -->
+<defs>
+<radialGradient id="haze" cx="768" cy="1100" r="900" gradientTransform="translate(768 1100) scale(1 0.5) translate(-768 -1100)" gradientUnits="userSpaceOnUse">
+<stop offset="0" stop-color="#3a1a08"/>
+<stop offset="0.6" stop-color="#3a1a08" stop-opacity="0.4"/>
+<stop offset="1" stop-color="#3a1a08" stop-opacity="0"/>
+</radialGradient>
+</defs>
+<rect width="1536" height="1024" fill="#14100e"/>
+<rect width="1536" height="1024" fill="url(#haze)"/>
+<g fill="#ffcf5a" fill-opacity="0.18">
+<rect x="212" y="930" width="3" height="3"/>
+<rect x="418" y="962" width="2" height="2"/>
+<rect x="640" y="910" width="3" height="3"/>
+<rect x="902" y="948" width="2" height="2"/>
+<rect x="1118" y="922" width="3" height="3"/>
+<rect x="1330" y="968" width="2" height="2"/>
+</g>
+</svg>

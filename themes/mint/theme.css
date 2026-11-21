@@ -1,0 +1,47 @@
+/* mint: fresh pastel for product pages. A pale mint-white page, green-grey text and a deep mint accent whose
+   glow is a soft bright-mint haze; light only, 12 px corners. Display face Nunito, rounded, with a flagged one.
+   Decoration is written in var(--intensity); the design is its look at 0.5. The gradient leans only a third of
+   the way to the bright mint so text on a primary action stays readable. */
+
+@font-face {
+  font-family: "Nunito";
+  src: url(/themes/mint/nunito-700.woff2) format("woff2");
+  font-display: swap;
+  font-style: normal;
+  font-weight: 400 700;
+}
+
+html[data-theme="mint"] {
+  --radius: 12px;
+  --font-display: "Nunito", var(--font-sans);
+  --theme-second: #6fe3c1;
+  --glow: 0 calc(var(--intensity) * 6px) calc(var(--intensity) * 24px) 0 color-mix(in srgb, var(--theme-second) min(100%, calc(var(--intensity) * 150%)), transparent);
+  --glow-svg: drop-shadow(0 0 calc(var(--intensity) * 8px) color-mix(in srgb, var(--theme-second) min(100%, calc(var(--intensity) * 160%)), transparent));
+  --accent-gradient: linear-gradient(90deg, var(--accent), color-mix(in srgb, var(--theme-second) min(30%, calc(var(--intensity) * 60%)), var(--accent)));
+  --asset-opacity: min(1, calc(var(--intensity) * 1.6));
+}
+
+html[data-theme="mint"][data-scheme="light"] {
+  color-scheme: light;
+  --bg: #f4fbf8;
+  --bg-raised: #e9f6f0;
+  --bg-sunken: #dcefe6;
+  --fg: #17302a;
+  --muted: #4b665e;
+  --border: #c7e2d6;
+  --accent: #0f7a5a;
+  --accent-fg: #ffffff;
+  --selected: #cdeee0;
+  --series-1: #0f7a5a;
+  --series-2: #3559b8;
+  --series-3: #b0491f;
+  --state-active: #1f62b0;
+  --state-quiet: #5a6370;
+  --state-attention: #855600;
+  --state-success: #13703f;
+  --state-failure: #b8302f;
+  --state-halted: #6a45b0;
+  --danger: #b8302f;
+  --warning-bg: #fbeccb;
+  --warning-fg: #6b4a05;
+}

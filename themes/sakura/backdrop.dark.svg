@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1536 1024" width="1536" height="1024" preserveAspectRatio="xMidYMid slice">
+<!-- sakura dark backdrop fallback. Mirrors the sakura dark Tokens: bg (#1c1219) for the field; the petals are a dark tint of accent (#ff8fbf) at #33202d and the branch #261920, both within a few percent of bg.
+     A branch silhouette reaches in from the top right corner and a few petals fall along the edges; the middle of
+     the frame stays empty. Token names are written without their leading dashes, which an XML comment cannot hold. -->
+<rect width="1536" height="1024" fill="#1c1219"/>
+<path d="M1536 40C1440 70 1360 110 1290 170C1250 205 1215 230 1170 248C1214 238 1250 222 1290 200C1270 240 1262 270 1266 300C1280 262 1300 230 1330 200C1390 150 1460 112 1536 90Z" fill="#261920"/>
+<g fill="#33202d">
+<path transform="translate(1180 270) rotate(20) scale(1.6)" d="M0 0C5-7 15-7 18 0C16 6 12 10 9 12C6 10 2 6 0 0Z"/>
+<path transform="translate(1440 210) rotate(-30) scale(1.4)" d="M0 0C5-7 15-7 18 0C16 6 12 10 9 12C6 10 2 6 0 0Z"/>
+<path transform="translate(1490 420) rotate(60) scale(1.2)" d="M0 0C5-7 15-7 18 0C16 6 12 10 9 12C6 10 2 6 0 0Z"/>
+<path transform="translate(70 120) rotate(-15) scale(1.3)" d="M0 0C5-7 15-7 18 0C16 6 12 10 9 12C6 10 2 6 0 0Z"/>
+<path transform="translate(40 640) rotate(40) scale(1.5)" d="M0 0C5-7 15-7 18 0C16 6 12 10 9 12C6 10 2 6 0 0Z"/>
+<path transform="translate(150 900) rotate(-50) scale(1.2)" d="M0 0C5-7 15-7 18 0C16 6 12 10 9 12C6 10 2 6 0 0Z"/>
+<path transform="translate(1400 860) rotate(10) scale(1.5)" d="M0 0C5-7 15-7 18 0C16 6 12 10 9 12C6 10 2 6 0 0Z"/>
+<path transform="translate(1250 960) rotate(75) scale(1.1)" d="M0 0C5-7 15-7 18 0C16 6 12 10 9 12C6 10 2 6 0 0Z"/>
+<path transform="translate(640 980) rotate(-20) scale(1.2)" d="M0 0C5-7 15-7 18 0C16 6 12 10 9 12C6 10 2 6 0 0Z"/>
+</g>
+</svg>

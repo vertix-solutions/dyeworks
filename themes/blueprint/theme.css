@@ -1,0 +1,46 @@
+/* blueprint: a cyanotype drawing. Near-white lines on deep blueprint blue, a pale cyan accent and a white
+   second colour, nearly square corners; dark only. Display face IBM Plex Sans Condensed, a drafting-office
+   condensed sans. Decoration is written in var(--intensity); the design is its look at 0.5, a thin crisp glow. */
+
+@font-face {
+  font-family: "IBM Plex Sans Condensed";
+  src: url(/themes/blueprint/ibm-plex-sans-condensed-600.woff2) format("woff2");
+  font-display: swap;
+  font-style: normal;
+  font-weight: 400 700;
+}
+
+html[data-theme="blueprint"] {
+  --radius: 2px;
+  --font-display: "IBM Plex Sans Condensed", var(--font-sans);
+  --theme-second: #ffffff;
+  --glow: 0 0 calc(var(--intensity) * 6px) calc(var(--intensity) * 1px) color-mix(in srgb, var(--accent) min(100%, calc(var(--intensity) * 100%)), transparent);
+  --glow-svg: drop-shadow(0 0 calc(var(--intensity) * 4px) color-mix(in srgb, var(--accent) min(100%, calc(var(--intensity) * 120%)), transparent));
+  --accent-gradient: linear-gradient(180deg, var(--accent), color-mix(in srgb, var(--theme-second) min(100%, calc(var(--intensity) * 100%)), var(--accent)));
+  --asset-opacity: min(1, calc(var(--intensity) * 1.4));
+}
+
+html[data-theme="blueprint"][data-scheme="dark"] {
+  color-scheme: dark;
+  --bg: #0b2a4a;
+  --bg-raised: #10345a;
+  --bg-sunken: #08223d;
+  --fg: #eef5ff;
+  --muted: #a9c3e0;
+  --border: #2f5a85;
+  --accent: #9fe3ff;
+  --accent-fg: #08223d;
+  --selected: #1d4c7c;
+  --series-1: #9fe3ff;
+  --series-2: #ffd479;
+  --series-3: #ff9fb2;
+  --state-active: #9fe3ff;
+  --state-quiet: #cfc6b8;
+  --state-attention: #ffd479;
+  --state-success: #8ff0b4;
+  --state-failure: #ffa3a3;
+  --state-halted: #d3b8ff;
+  --danger: #ffa3a3;
+  --warning-bg: #3a3215;
+  --warning-fg: #ffd479;
+}

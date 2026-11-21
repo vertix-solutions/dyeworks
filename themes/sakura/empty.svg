@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 768 512" width="768" height="512">
+<!-- sakura empty-state fallback, shared by both Schemes: a bare branch with a single closed bud. The branch is a
+     mid plum-brown (#8a5a72) that reads on both grounds; the bud mirrors the sakura Tokens theme-second (#c4467f)
+     with a tip of accent of night (#ff8fbf). Token names are written without their leading dashes, which an XML
+     comment cannot hold. -->
+<g fill="none" stroke="#8a5a72" stroke-linecap="round" stroke-linejoin="round">
+<path d="M120 400C240 360 330 330 420 280C480 246 540 200 610 170" stroke-width="9"/>
+<path d="M330 330C350 290 360 260 356 222" stroke-width="5"/>
+<path d="M470 254C510 262 548 280 580 306" stroke-width="5"/>
+<path d="M540 204C548 182 548 160 540 140" stroke-width="4"/>
+</g>
+<path d="M610 170C614 150 628 138 646 136C648 154 638 170 618 176Z" fill="#c4467f"/>
+<path d="M646 136C642 146 636 152 628 156C632 146 638 140 646 136Z" fill="#ff8fbf"/>
+</svg>

@@ -1,0 +1,46 @@
+/* riso: a risograph print; light only. Fluorescent pink and print blue on cool off-white paper, square corners.
+   The glow is the blue layer printed out of register: an offset shadow with no blur that drifts further with
+   Intensity. Display face Archivo Black. Decoration is written in var(--intensity); the design is its look at 0.5. */
+
+@font-face {
+  font-family: "Archivo Black";
+  src: url(/themes/riso/archivo-black-400.woff2) format("woff2");
+  font-display: swap;
+  font-style: normal;
+  font-weight: 400 700;
+}
+
+html[data-theme="riso"] {
+  --radius: 0px;
+  --font-display: "Archivo Black", var(--font-sans);
+  --theme-second: #1f56c8;
+  --glow: calc(var(--intensity) * 4px) calc(var(--intensity) * 3px) 0 0 color-mix(in srgb, var(--theme-second) min(100%, calc(var(--intensity) * 120%)), transparent);
+  --glow-svg: drop-shadow(calc(var(--intensity) * 4px) calc(var(--intensity) * 3px) 0 color-mix(in srgb, var(--theme-second) min(100%, calc(var(--intensity) * 120%)), transparent));
+  --accent-gradient: linear-gradient(180deg, var(--accent), color-mix(in srgb, var(--theme-second) min(40%, calc(var(--intensity) * 40%)), var(--accent)));
+  --asset-opacity: min(1, calc(var(--intensity) * 1.4));
+}
+
+html[data-theme="riso"][data-scheme="light"] {
+  color-scheme: light;
+  --bg: #f4f4ef;
+  --bg-raised: #ebebe4;
+  --bg-sunken: #e1e1d8;
+  --fg: #161616;
+  --muted: #55575c;
+  --border: #d3d3c9;
+  --accent: #c0185f;
+  --accent-fg: #ffffff;
+  --selected: #f7d3e3;
+  --series-1: #c0185f;
+  --series-2: #1f56c8;
+  --series-3: #1d6e3e;
+  --state-active: #1f56c8;
+  --state-quiet: #5f6166;
+  --state-attention: #9a5800;
+  --state-success: #1d6e3e;
+  --state-failure: #c4202a;
+  --state-halted: #8a3398;
+  --danger: #c4202a;
+  --warning-bg: #f8e7b0;
+  --warning-fg: #6a4700;
+}

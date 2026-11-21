@@ -1,0 +1,46 @@
+/* aurora: northern lights over a polar night. An aurora-green accent and a violet second colour on deep night
+   blue; dark only. Display face Lexend. The glow is soft and wide, like light on cloud, and the gradient runs
+   green to violet. Decoration is written in var(--intensity); the design is its look at 0.5. */
+
+@font-face {
+  font-family: "Lexend";
+  src: url(/themes/aurora/lexend-500.woff2) format("woff2");
+  font-display: swap;
+  font-style: normal;
+  font-weight: 400 700;
+}
+
+html[data-theme="aurora"] {
+  --radius: 8px;
+  --font-display: "Lexend", var(--font-sans);
+  --theme-second: #b28cff;
+  --glow: 0 0 calc(var(--intensity) * 32px) calc(var(--intensity) * 2px) color-mix(in srgb, var(--accent) min(100%, calc(var(--intensity) * 90%)), transparent);
+  --glow-svg: drop-shadow(0 0 calc(var(--intensity) * 14px) color-mix(in srgb, var(--accent) min(100%, calc(var(--intensity) * 120%)), transparent));
+  --accent-gradient: linear-gradient(90deg, var(--accent), color-mix(in srgb, var(--theme-second) min(100%, calc(var(--intensity) * 150%)), var(--accent)));
+  --asset-opacity: min(1, calc(var(--intensity) * 1.6));
+}
+
+html[data-theme="aurora"][data-scheme="dark"] {
+  color-scheme: dark;
+  --bg: #0a1020;
+  --bg-raised: #111a30;
+  --bg-sunken: #070b17;
+  --fg: #e8f1ff;
+  --muted: #8d9cbc;
+  --border: #24314f;
+  --accent: #5cf2b4;
+  --accent-fg: #06141a;
+  --selected: #173a3a;
+  --series-1: #5cf2b4;
+  --series-2: #b28cff;
+  --series-3: #ffb36b;
+  --state-active: #5ccfff;
+  --state-quiet: #8d9cbc;
+  --state-attention: #ffd166;
+  --state-success: #5cf2b4;
+  --state-failure: #ff6b8a;
+  --state-halted: #b28cff;
+  --danger: #ff6b8a;
+  --warning-bg: #2a2108;
+  --warning-fg: #ffd166;
+}

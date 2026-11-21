@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 28 28" width="28" height="28">
+<!-- riso ornament fallback: two overlapping circles printed in two inks. The left mirrors the riso Tokens accent
+     (#c0185f), the right theme-second (#1f56c8), and their overlap the dark violet (#3a1a5e) the two inks make
+     when overprinted. Token names are written without their leading dashes, which an XML comment cannot hold. -->
+<circle cx="10.5" cy="14" r="8" fill="#c0185f"/>
+<circle cx="17.5" cy="14" r="8" fill="#1f56c8"/>
+<path d="M14 6.8A8 8 0 0 1 14 21.2A8 8 0 0 1 14 6.8Z" fill="#3a1a5e"/>
+</svg>

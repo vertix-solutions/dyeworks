@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1536 1024" width="1536" height="1024" preserveAspectRatio="xMidYMid slice">
+<!-- blueprint backdrop fallback. Mirrors the blueprint Tokens bg (#0b2a4a) for the sheet and theme-second
+     (#ffffff) for a drafting grid: minor lines every 32 units at 3 % alpha and major lines every 160 units at
+     6 % alpha, with a slightly darker band (#08223d) at the edges like an unevenly exposed print. Token names are written without their leading dashes, which an XML comment cannot hold. -->
+<defs>
+<pattern id="minor" width="32" height="32" patternUnits="userSpaceOnUse">
+<path d="M32 0H0V32" fill="none" stroke="#ffffff" stroke-opacity="0.03" stroke-width="1"/>
+</pattern>
+<pattern id="major" width="160" height="160" patternUnits="userSpaceOnUse">
+<path d="M160 0H0V160" fill="none" stroke="#ffffff" stroke-opacity="0.06" stroke-width="1.5"/>
+</pattern>
+<radialGradient id="edge" cx="768" cy="512" r="960" gradientUnits="userSpaceOnUse">
+<stop offset="0.6" stop-color="#08223d" stop-opacity="0"/>
+<stop offset="1" stop-color="#08223d" stop-opacity="0.8"/>
+</radialGradient>
+</defs>
+<rect width="1536" height="1024" fill="#0b2a4a"/>
+<rect width="1536" height="1024" fill="url(#minor)"/>
+<rect width="1536" height="1024" fill="url(#major)"/>
+<rect width="1536" height="1024" fill="url(#edge)"/>
+</svg>

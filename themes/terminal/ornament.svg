@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 28 28" width="28" height="28">
+<!-- terminal ornament fallback: a prompt chevron in the terminal Tokens accent (#33ff77) followed by a block
+     cursor in theme-second (#ffb000). Flat fills and one stroke, no glow. Token names are written without their leading dashes, which an XML comment cannot hold. -->
+<path d="M4 8L11 14L4 20" fill="none" stroke="#33ff77" stroke-width="2.6" stroke-linecap="square"/>
+<rect x="15" y="17" width="9" height="4" fill="#ffb000"/>
+</svg>

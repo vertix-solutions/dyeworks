@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 768 512" width="768" height="512">
+<!-- ember empty-state fallback: a cold hearth drawn in warm grey lines (#8a7466), an arched opening and a
+     grate of four bars, with one small ember on the grate in the ember Tokens accent (#ff7a1a) and its core in
+     theme-second (#ffcf5a). Strokes only except the ember. Token names are written without their leading dashes, which an XML comment cannot hold. -->
+<g fill="none" stroke="#8a7466" stroke-width="3" stroke-linecap="round">
+<path d="M224 400V176H544V400"/>
+<path d="M264 400V280A120 100 0 0 1 504 280V400"/>
+<path d="M184 400H584"/>
+<path d="M304 372H464M304 386H464"/>
+</g>
+<ellipse cx="372" cy="364" rx="12" ry="7" fill="#ff7a1a"/>
+<ellipse cx="372" cy="363" rx="5" ry="3" fill="#ffcf5a"/>
+</svg>

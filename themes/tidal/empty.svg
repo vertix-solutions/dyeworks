@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 200" width="300" height="200">
+<!-- tidal empty fallback, shared by both Schemes: an empty tide pool seen from above, a ring of rounded rocks
+     around still water with nothing in it. Mirrors the tidal Tokens theme-second (#2aa8a0) for the water at 25 %
+     alpha, the day accent (#0b6e78) for its rim line and muted greys (#86a6ab, #4c6669) for the rocks.
+     Token names are written without their leading dashes, which an XML comment cannot hold. -->
+<ellipse cx="150" cy="104" rx="92" ry="52" fill="#2aa8a0" fill-opacity="0.25" stroke="#0b6e78" stroke-width="2"/>
+<path d="M118 100C130 94 144 96 152 100M150 114C162 108 174 110 182 114" fill="none" stroke="#0b6e78" stroke-opacity="0.5" stroke-width="2" stroke-linecap="round"/>
+<g fill="#86a6ab" stroke="#4c6669" stroke-width="2">
+<ellipse cx="62" cy="96" rx="16" ry="12"/><ellipse cx="88" cy="60" rx="18" ry="12"/><ellipse cx="134" cy="48" rx="15" ry="10"/>
+<ellipse cx="180" cy="50" rx="18" ry="11"/><ellipse cx="222" cy="66" rx="16" ry="12"/><ellipse cx="242" cy="106" rx="14" ry="12"/>
+<ellipse cx="216" cy="146" rx="18" ry="12"/><ellipse cx="166" cy="158" rx="16" ry="10"/><ellipse cx="118" cy="156" rx="18" ry="11"/>
+<ellipse cx="76" cy="138" rx="15" ry="12"/>
+</g>
+</svg>

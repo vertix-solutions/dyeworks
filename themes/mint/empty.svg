@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 200" width="300" height="200">
+<!-- mint empty fallback: an empty rounded tray seen from the front, with a single leaf resting on its rim. The
+     tray is the mint Tokens bg-raised (#e9f6f0) outlined in border (#c7e2d6) with a bg-sunken (#dcefe6) floor;
+     the leaf is accent (#0f7a5a) and theme-second (#6fe3c1). -->
+<rect x="70" y="92" width="160" height="72" rx="18" fill="#e9f6f0" stroke="#c7e2d6" stroke-width="3"/>
+<rect x="86" y="106" width="128" height="44" rx="12" fill="#dcefe6"/>
+<path d="M176 92C172 70 186 54 212 50C214 74 200 90 176 92Z" fill="#0f7a5a"/>
+<path d="M176 92C186 78 198 64 212 50C214 74 200 90 176 92Z" fill="#6fe3c1"/>
+</svg>

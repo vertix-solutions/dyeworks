@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 768 512" width="768" height="512">
+<!-- terminal empty-state fallback: an empty terminal window outlined in the terminal Tokens accent (#33ff77),
+     a title bar with three square buttons in muted green (#6fae80), and inside it one prompt chevron and a
+     block cursor in theme-second (#ffb000). Strokes only except the cursor. Token names are written without their leading dashes, which an XML comment cannot hold. -->
+<g fill="none" stroke="#33ff77" stroke-width="3">
+<rect x="164" y="96" width="440" height="320"/>
+<path d="M164 136H604"/>
+<path d="M196 178L214 192L196 206" stroke-linecap="square"/>
+</g>
+<g fill="none" stroke="#6fae80" stroke-width="2">
+<rect x="180" y="110" width="12" height="12"/>
+<rect x="200" y="110" width="12" height="12"/>
+<rect x="220" y="110" width="12" height="12"/>
+</g>
+<rect x="226" y="196" width="18" height="6" fill="#ffb000"/>
+</svg>

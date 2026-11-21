@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1536 1024" width="1536" height="1024" preserveAspectRatio="xMidYMid slice">
+<!-- moss night backdrop fallback. Mirrors the moss dark Tokens bg (#12160f) for the forest-floor field,
+     bg-raised (#1a2016) and bg-sunken (#0c0f0a) for undergrowth mounds along the foot of the frame only, and
+     accent (#8fcf6a) for a few frond tips at 5 % alpha. Nothing lighter than the floor under the canopy.
+     Token names are written without their leading dashes, which an XML comment cannot hold. -->
+<rect width="1536" height="1024" fill="#12160f"/>
+<path d="M0 860C90 820 170 850 250 830S400 800 480 840 640 810 740 836 900 800 1000 830 1180 806 1280 838 1450 812 1536 826V1024H0Z" fill="#1a2016"/>
+<path d="M0 930C120 900 220 924 330 906S520 884 640 914 860 892 980 916 1200 894 1320 920 1480 904 1536 910V1024H0Z" fill="#0c0f0a"/>
+<path d="M120 900C130 860 150 840 170 828M420 890C410 856 396 840 380 830M900 900C912 864 930 846 952 836M1300 896C1292 862 1276 846 1258 836" fill="none" stroke="#8fcf6a" stroke-opacity="0.05" stroke-width="3" stroke-linecap="round"/>
+</svg>

@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 28 28" width="28" height="28">
+<!-- moss ornament fallback, shared by both Schemes: a fern frond curling at its tip, its stem in the moss
+     Tokens theme-second (#7a4a24, bark) and its leaflets in the night accent (#8fcf6a) outlined in the day
+     accent (#3f6b2a), so it reads on pale lichen and on the dark floor alike.
+     Token names are written without their leading dashes, which an XML comment cannot hold. -->
+<path d="M8 26C10 18 13 11 18 6C20 4 22.5 4 22.5 6.2C22.5 7.8 20.8 8.2 20 7.2" fill="none" stroke="#7a4a24" stroke-width="1.6" stroke-linecap="round"/>
+<g fill="#8fcf6a" stroke="#3f6b2a" stroke-width="0.8" stroke-linejoin="round">
+<path d="M9.2 22L4 20.5L9.8 19.8Z"/><path d="M10 19.5L14.8 20.5L10.6 17.4Z"/>
+<path d="M10.8 17L6 14.6L11.6 14.8Z"/><path d="M12 14.4L16.6 15L12.8 12.4Z"/>
+<path d="M13.2 12L9.4 9.4L14.2 10.2Z"/><path d="M14.6 10L18.4 10.2L15.4 8.4Z"/>
+<path d="M15.8 8L13.4 5.4L16.8 6.8Z"/>
+</g>
+</svg>

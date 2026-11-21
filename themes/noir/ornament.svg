@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 28 28" width="28" height="28">
+<!-- noir ornament fallback: a camera aperture, six blades in light grey (#c8c8c8) and mid grey (#7a7a7a)
+     around a hexagonal opening filled with the noir Tokens accent (#ff4d4f). Flat fills, no stroke. Token names are written without their leading dashes, which an XML comment cannot hold. -->
+<circle cx="14" cy="14" r="12.5" fill="#7a7a7a"/>
+<path d="M14 1.5L20.25 3.17L17.5 11.98L10.5 11.98Z" fill="#c8c8c8"/>
+<path d="M24.83 7.75L26.5 14L17.5 16.02L14 9.96Z" fill="#c8c8c8" opacity="0.8"/>
+<path d="M20.25 24.83L14 26.5L10.5 16.02L17.5 16.02Z" fill="#c8c8c8"/>
+<path d="M3.17 20.25L1.5 14L10.5 11.98L14 18.04Z" fill="#c8c8c8" opacity="0.8"/>
+<path d="M17.5 11.98L19.5 14L17.5 16.02H10.5L8.5 14L10.5 11.98Z" fill="#ff4d4f"/>
+</svg>

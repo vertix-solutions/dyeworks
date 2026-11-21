@@ -1,0 +1,78 @@
+/* moss: the forest floor, on both Schemes. Day (light) is pale lichen with a moss-green accent and a bark-brown
+   second colour, its glow a short soft shadow like leaf litter; night (dark) is the dark floor under the canopy
+   with a bright moss accent and a low, close glow. Display face Bitter, 6 px corners. Decoration is written in
+   var(--intensity) and differs per Scheme only in its values; each Scheme's design is its look at 0.5. */
+
+@font-face {
+  font-family: "Bitter";
+  src: url(/themes/moss/bitter-600.woff2) format("woff2");
+  font-display: swap;
+  font-style: normal;
+  font-weight: 400 700;
+}
+
+html[data-theme="moss"] {
+  --radius: 6px;
+  --font-display: "Bitter", var(--font-sans);
+}
+
+html[data-theme="moss"][data-scheme="light"] {
+  color-scheme: light;
+  --bg: #f3f5ee;
+  --bg-raised: #e9ede1;
+  --bg-sunken: #dfe4d4;
+  --fg: #1f2619;
+  --muted: #5a6450;
+  --border: #cfd6c2;
+  --accent: #3f6b2a;
+  --accent-fg: #ffffff;
+  --selected: #dbe8cc;
+  --series-1: #3f6b2a;
+  --series-2: #7a4a24;
+  --series-3: #2e5e8c;
+  --state-active: #2e5e8c;
+  --state-quiet: #5a6450;
+  --state-attention: #855c00;
+  --state-success: #3f6b2a;
+  --state-failure: #a8322a;
+  --state-halted: #6c4aa0;
+  --danger: #a8322a;
+  --warning-bg: #f1e6c2;
+  --warning-fg: #66480a;
+  --theme-second: #7a4a24;
+  /* Day's glow is a short soft shadow, offset down, in the accent. */
+  --glow: 0 calc(var(--intensity) * 3px) calc(var(--intensity) * 8px) 0 color-mix(in srgb, var(--accent) min(100%, calc(var(--intensity) * 70%)), transparent);
+  --glow-svg: drop-shadow(0 calc(var(--intensity) * 2px) calc(var(--intensity) * 4px) color-mix(in srgb, var(--accent) min(100%, calc(var(--intensity) * 90%)), transparent));
+  --accent-gradient: linear-gradient(180deg, var(--accent), color-mix(in srgb, var(--theme-second) min(100%, calc(var(--intensity) * 60%)), var(--accent)));
+  --asset-opacity: min(1, calc(var(--intensity) * 1.4));
+}
+
+html[data-theme="moss"][data-scheme="dark"] {
+  color-scheme: dark;
+  --bg: #12160f;
+  --bg-raised: #1a2016;
+  --bg-sunken: #0c0f0a;
+  --fg: #e7eedd;
+  --muted: #98a68a;
+  --border: #2e3a26;
+  --accent: #8fcf6a;
+  --accent-fg: #10180b;
+  --selected: #2a3f1f;
+  --series-1: #8fcf6a;
+  --series-2: #d9a36b;
+  --series-3: #7fb8e6;
+  --state-active: #7fb8e6;
+  --state-quiet: #98a68a;
+  --state-attention: #e8c35a;
+  --state-success: #8fcf6a;
+  --state-failure: #ff7f6e;
+  --state-halted: #c0a0f0;
+  --danger: #ff7f6e;
+  --warning-bg: #2e2810;
+  --warning-fg: #e8c35a;
+  --theme-second: #d9a36b;
+  --glow: 0 0 calc(var(--intensity) * 14px) 0 color-mix(in srgb, var(--accent) min(100%, calc(var(--intensity) * 90%)), transparent);
+  --glow-svg: drop-shadow(0 0 calc(var(--intensity) * 8px) color-mix(in srgb, var(--accent) min(100%, calc(var(--intensity) * 110%)), transparent));
+  --accent-gradient: linear-gradient(180deg, color-mix(in srgb, var(--theme-second) min(100%, calc(var(--intensity) * 50%)), var(--accent)), var(--accent));
+  --asset-opacity: min(1, calc(var(--intensity) * 1.6));
+}

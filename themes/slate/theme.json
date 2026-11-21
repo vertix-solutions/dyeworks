@@ -1,0 +1,7 @@
+{
+  "id": "slate",
+  "label": "Slate",
+  "schemes": ["light", "dark"],
+  "intensity": false,
+  "assets": {}
+}

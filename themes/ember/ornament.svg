@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 28 28" width="28" height="28">
+<!-- ember ornament fallback: a flame in the ember Tokens accent (#ff7a1a) with a core in theme-second
+     (#ffcf5a), rising from a small coal in dark brown (#4a2410). Flat fills, no stroke. Token names are written without their leading dashes, which an XML comment cannot hold. -->
+<path d="M14 2C17 7 21 10 21 16A7 7 0 0 1 7 16C7 12 9.5 10.5 10.5 7C12 9 12.5 10 13 11C14 8 14 5 14 2Z" fill="#ff7a1a"/>
+<path d="M14 11C15.5 13.5 17.5 15 17.5 17.5A3.5 3.5 0 0 1 10.5 17.5C10.5 15 12.5 14 14 11Z" fill="#ffcf5a"/>
+<path d="M6 24.5C8 22 20 22 22 24.5C20 26.5 8 26.5 6 24.5Z" fill="#4a2410"/>
+</svg>

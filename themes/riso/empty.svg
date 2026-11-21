@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 768 512" width="768" height="512">
+<!-- riso empty-state fallback: one empty frame printed twice, slightly out of register, once in the riso Tokens
+     theme-second (#1f56c8) and once in accent (#c0185f) over it; strokes only, nothing inside.
+     Token names are written without their leading dashes, which an XML comment cannot hold. -->
+<g fill="none" stroke-width="8" stroke-linejoin="miter">
+<rect x="262" y="122" width="250" height="280" stroke="#1f56c8" stroke-opacity="0.8"/>
+<rect x="252" y="112" width="250" height="280" stroke="#c0185f" stroke-opacity="0.85"/>
+<path d="M290 362H470" stroke="#1f56c8" stroke-opacity="0.5" stroke-width="4"/>
+</g>
+</svg>

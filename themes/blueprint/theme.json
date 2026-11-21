@@ -1,0 +1,11 @@
+{
+  "id": "blueprint",
+  "label": "Blueprint",
+  "schemes": ["dark"],
+  "intensity": true,
+  "assets": {
+    "backdrop": { "fallback": "backdrop.svg" },
+    "ornament": { "fallback": "ornament.svg" },
+    "empty": { "fallback": "empty.svg" }
+  }
+}

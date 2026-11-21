@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1536 1024" width="1536" height="1024" preserveAspectRatio="xMidYMid slice">
+<!-- noir backdrop fallback. Mirrors the noir Tokens bg (#0b0b0b) for the room; venetian-blind light falls as
+     faint diagonal slats of #ffffff at 2.5 % alpha across the top right corner only, fading out before the
+     centre, with a deep vignette (#000000). The red accent never appears here. Token names are written without their leading dashes, which an XML comment cannot hold. -->
+<defs>
+<linearGradient id="fall" x1="1536" y1="0" x2="900" y2="560" gradientUnits="userSpaceOnUse">
+<stop offset="0" stop-color="#ffffff" stop-opacity="0.025"/>
+<stop offset="1" stop-color="#ffffff" stop-opacity="0"/>
+</linearGradient>
+<radialGradient id="vignette" cx="768" cy="512" r="960" gradientUnits="userSpaceOnUse">
+<stop offset="0.5" stop-color="#000000" stop-opacity="0"/>
+<stop offset="1" stop-color="#000000" stop-opacity="0.75"/>
+</radialGradient>
+</defs>
+<rect width="1536" height="1024" fill="#0b0b0b"/>
+<path d="M1536 40L1040 0H1120L1536 120ZM1536 200L880 0H960L1536 280ZM1536 360L720 0H800L1536 440ZM1536 520L560 0H640L1536 600Z" fill="url(#fall)"/>
+<rect width="1536" height="1024" fill="url(#vignette)"/>
+</svg>

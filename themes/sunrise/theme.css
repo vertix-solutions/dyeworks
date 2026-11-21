@@ -1,0 +1,47 @@
+/* sunrise: warm dawn on a light ground; light only. A coral accent with an amber second colour on warm off-white,
+   10 px corners and a warm blurred shadow for a glow. Display face Sora. The accent gradient runs from amber into
+   coral but never more than 60 % amber, so its white label stays readable. Decoration is written in
+   var(--intensity); the design is its look at 0.5. */
+
+@font-face {
+  font-family: "Sora";
+  src: url(/themes/sunrise/sora-600.woff2) format("woff2");
+  font-display: swap;
+  font-style: normal;
+  font-weight: 400 700;
+}
+
+html[data-theme="sunrise"] {
+  --radius: 10px;
+  --font-display: "Sora", var(--font-sans);
+  --theme-second: #e08a1c;
+  --glow: 0 calc(var(--intensity) * 8px) calc(var(--intensity) * 24px) 0 color-mix(in srgb, var(--theme-second) min(100%, calc(var(--intensity) * 90%)), transparent);
+  --glow-svg: drop-shadow(0 calc(var(--intensity) * 3px) calc(var(--intensity) * 8px) color-mix(in srgb, var(--theme-second) min(100%, calc(var(--intensity) * 110%)), transparent));
+  --accent-gradient: linear-gradient(120deg, color-mix(in srgb, var(--theme-second) min(60%, calc(var(--intensity) * 80%)), var(--accent)), var(--accent));
+  --asset-opacity: min(1, calc(var(--intensity) * 1.6));
+}
+
+html[data-theme="sunrise"][data-scheme="light"] {
+  color-scheme: light;
+  --bg: #fff8f2;
+  --bg-raised: #fdeee2;
+  --bg-sunken: #f7e3d3;
+  --fg: #3b2216;
+  --muted: #7a5240;
+  --border: #efd6c3;
+  --accent: #b83c25;
+  --accent-fg: #ffffff;
+  --selected: #fbdccb;
+  --series-1: #b83c25;
+  --series-2: #1f6a7a;
+  --series-3: #7d6000;
+  --state-active: #2860a8;
+  --state-quiet: #7a5240;
+  --state-attention: #8f5a00;
+  --state-success: #2e6e3e;
+  --state-failure: #b0202a;
+  --state-halted: #6b45a5;
+  --danger: #b0202a;
+  --warning-bg: #fbe6b8;
+  --warning-fg: #6e4800;
+}
