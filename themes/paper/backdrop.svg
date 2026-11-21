@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1536 1024" width="1536" height="1024" preserveAspectRatio="xMidYMid slice">
+<!-- paper backdrop fallback. Mirrors the paper Tokens bg (#fbfaf7) for the sheet and bg-sunken (#eae7e0) for a
+     few faint fibres; one ruled margin line near the left edge is a pale tint of accent (#2b4c7e) toward red
+     ink (#e3b8b4), as on a ruled pad. No object anywhere in the frame.
+     Token names are written without their leading dashes, which an XML comment cannot hold. -->
+<rect width="1536" height="1024" fill="#fbfaf7"/>
+<path d="M120 0V1024" stroke="#e3b8b4" stroke-width="2" fill="none" opacity="0.7"/>
+<g stroke="#eae7e0" stroke-width="1.5" fill="none" stroke-linecap="round">
+<path d="M310 140c40 6 70 2 104-6M920 88c28 10 60 12 96 4M1260 300c30-8 52-6 84 6M540 520c36 10 70 8 102-4"/>
+<path d="M1120 760c26 8 58 8 90-2M260 860c40-4 70 2 98 12M760 960c30 6 56 4 84-6M1400 620c22 8 44 10 70 4"/>
+<path d="M640 230c20 4 38 2 58-4M1010 430c24 6 46 4 70-2M410 690c22 4 40 2 60-6"/>
+</g>
+</svg>

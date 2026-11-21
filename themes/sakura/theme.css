@@ -1,0 +1,78 @@
+/* sakura: cherry blossom, on both Schemes. Day (light) is blush paper with plum ink and a soft pink bloom around
+   the primary action; night (dark) is a dark plum evening with petal-pink accents and a gentle glow. Display face
+   Zen Maru Gothic, a rounded sans whose figures stay distinct from its letters. Decoration is written in
+   var(--intensity) and differs per Scheme only in its values; each Scheme's design is its look at 0.5. */
+
+@font-face {
+  font-family: "Zen Maru Gothic";
+  src: url(/themes/sakura/zen-maru-gothic-700.woff2) format("woff2");
+  font-display: swap;
+  font-style: normal;
+  font-weight: 400 700;
+}
+
+html[data-theme="sakura"] {
+  --radius: 12px;
+  --font-display: "Zen Maru Gothic", var(--font-sans);
+}
+
+html[data-theme="sakura"][data-scheme="light"] {
+  color-scheme: light;
+  --bg: #fdf6f8;
+  --bg-raised: #f8ebf0;
+  --bg-sunken: #f1dee6;
+  --fg: #3a1d2c;
+  --muted: #7a4a62;
+  --border: #ead0dc;
+  --accent: #a3336b;
+  --accent-fg: #ffffff;
+  --selected: #f6d6e5;
+  --series-1: #a3336b;
+  --series-2: #2f6f5e;
+  --series-3: #8a5a12;
+  --state-active: #2a5fa8;
+  --state-quiet: #7a4a62;
+  --state-attention: #8a5a00;
+  --state-success: #2f6f4a;
+  --state-failure: #b8233a;
+  --state-halted: #6a45a8;
+  --danger: #b8233a;
+  --warning-bg: #f8e6c8;
+  --warning-fg: #6e4a05;
+  --theme-second: #c4467f;
+  /* Day's glow is a soft pink bloom under the action, blurred and lifted a little. */
+  --glow: 0 calc(var(--intensity) * 6px) calc(var(--intensity) * 22px) 0 color-mix(in srgb, var(--theme-second) min(100%, calc(var(--intensity) * 90%)), transparent);
+  --glow-svg: drop-shadow(0 0 calc(var(--intensity) * 8px) color-mix(in srgb, var(--theme-second) min(100%, calc(var(--intensity) * 120%)), transparent));
+  --accent-gradient: linear-gradient(135deg, var(--accent), color-mix(in srgb, var(--theme-second) min(100%, calc(var(--intensity) * 100%)), var(--accent)));
+  --asset-opacity: min(1, calc(var(--intensity) * 1.4));
+}
+
+html[data-theme="sakura"][data-scheme="dark"] {
+  color-scheme: dark;
+  --bg: #1c1219;
+  --bg-raised: #261a23;
+  --bg-sunken: #150d13;
+  --fg: #f8e8ef;
+  --muted: #c497ad;
+  --border: #3d2a37;
+  --accent: #ff8fbf;
+  --accent-fg: #2a0f1d;
+  --selected: #4a2238;
+  --series-1: #ff8fbf;
+  --series-2: #7fd6a8;
+  --series-3: #f2b45a;
+  --state-active: #7cb8ff;
+  --state-quiet: #b49aa8;
+  --state-attention: #f2c14e;
+  --state-success: #6fd39a;
+  --state-failure: #ff6b7a;
+  --state-halted: #b99cff;
+  --danger: #ff6b7a;
+  --warning-bg: #3a2810;
+  --warning-fg: #f2c14e;
+  --theme-second: #ffc2dc;
+  --glow: 0 0 calc(var(--intensity) * 22px) calc(var(--intensity) * 2px) color-mix(in srgb, var(--accent) min(100%, calc(var(--intensity) * 110%)), transparent);
+  --glow-svg: drop-shadow(0 0 calc(var(--intensity) * 12px) color-mix(in srgb, var(--accent) min(100%, calc(var(--intensity) * 140%)), transparent));
+  --accent-gradient: linear-gradient(135deg, var(--accent), color-mix(in srgb, var(--theme-second) min(100%, calc(var(--intensity) * 120%)), var(--accent)));
+  --asset-opacity: min(1, calc(var(--intensity) * 1.6));
+}

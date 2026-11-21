@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 768 512" width="768" height="512">
+<!-- sunrise empty-state fallback: an empty horizon with the outline of a sun just rising over it. The horizon
+     mirrors the sunrise Tokens accent (#b83c25) and the sun's outline theme-second (#e08a1c); strokes only.
+     Token names are written without their leading dashes, which an XML comment cannot hold. -->
+<g fill="none" stroke-linecap="round">
+<path d="M274 340A110 110 0 0 1 494 340" stroke="#e08a1c" stroke-width="5"/>
+<path d="M384 196V176M300 232L286 218M468 232L482 218M250 300H230M518 300H538" stroke="#e08a1c" stroke-width="5" stroke-opacity="0.6"/>
+<path d="M120 340H648" stroke="#b83c25" stroke-width="5"/>
+<path d="M200 372H568M280 400H488" stroke="#b83c25" stroke-width="3" stroke-opacity="0.35"/>
+</g>
+</svg>

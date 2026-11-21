@@ -1,0 +1,46 @@
+/* ember: a forge after dark. Warm white on charcoal, a glowing orange accent and a coal-yellow second colour,
+   small corners; dark only. Display face Chakra Petch, a squared, cut-cornered sans. Decoration is written in
+   var(--intensity); the design is its look at 0.5, a warm glow between neon's and psychedelic's. */
+
+@font-face {
+  font-family: "Chakra Petch";
+  src: url(/themes/ember/chakra-petch-600.woff2) format("woff2");
+  font-display: swap;
+  font-style: normal;
+  font-weight: 400 700;
+}
+
+html[data-theme="ember"] {
+  --radius: 4px;
+  --font-display: "Chakra Petch", var(--font-sans);
+  --theme-second: #ffcf5a;
+  --glow: 0 0 calc(var(--intensity) * 34px) calc(var(--intensity) * 3px) color-mix(in srgb, var(--accent) min(100%, calc(var(--intensity) * 140%)), transparent);
+  --glow-svg: drop-shadow(0 0 calc(var(--intensity) * 16px) color-mix(in srgb, var(--accent) min(100%, calc(var(--intensity) * 170%)), transparent));
+  --accent-gradient: linear-gradient(100deg, var(--accent), color-mix(in srgb, var(--theme-second) min(100%, calc(var(--intensity) * 170%)), var(--accent)));
+  --asset-opacity: min(1, calc(var(--intensity) * 1.8));
+}
+
+html[data-theme="ember"][data-scheme="dark"] {
+  color-scheme: dark;
+  --bg: #14100e;
+  --bg-raised: #1e1815;
+  --bg-sunken: #0d0a09;
+  --fg: #fbefe4;
+  --muted: #b89c88;
+  --border: #3d2e25;
+  --accent: #ff7a1a;
+  --accent-fg: #140a03;
+  --selected: #4a2410;
+  --series-1: #ff7a1a;
+  --series-2: #ffcf5a;
+  --series-3: #6fb7ff;
+  --state-active: #6fb7ff;
+  --state-quiet: #b39d8f;
+  --state-attention: #ffcf5a;
+  --state-success: #7fd48a;
+  --state-failure: #ff5a52;
+  --state-halted: #c9a0ff;
+  --danger: #ff5a52;
+  --warning-bg: #33230a;
+  --warning-fg: #ffcf5a;
+}

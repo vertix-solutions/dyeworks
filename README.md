@@ -4,7 +4,9 @@ A theme library for web projects on any framework: one **Token contract**, a **S
 **Themes** as directories that set nothing but Tokens. A page reads the Tokens; a Theme changes their
 values; the page's layout, components and meanings stay its own.
 
-Status: `1.4.1`. Themes: `default` and `pylon` (light and dark), `neon`, `circuit` and `psychedelic` (dark). See `CHANGELOG.md`.
+Status: `1.5.0`. Themes: `default`, `slate` and `contrast` (plain, light and dark); `pylon`, `tidal`, `moss` and `sakura`
+(light and dark); `paper`, `mint`, `sunrise` and `riso` (light); `neon`, `circuit`, `psychedelic`, `terminal`,
+`blueprint`, `noir`, `ember` and `aurora` (dark). See `CHANGELOG.md`.
 
 ## What is in the package
 
@@ -12,7 +14,7 @@ Status: `1.4.1`. Themes: `default` and `pylon` (light and dark), `neon`, `circui
 |---|---|
 | `tokens.json` | The Token contract (`dyeworks-tokens/1`): every Token with its tier, type, one-sentence meaning and default. The whole surface between a Theme and a page. |
 | `slots.json`, `slots.css` | The Slot vocabulary (`dyeworks-slots/1`): nine kinds of place where decoration may appear, the Tokens each reads, and an optional stylesheet implementing each treatment on `[data-slot="<kind>"]`. |
-| `themes/<id>/` | One directory per Theme: `theme.css` (Token declarations only), `theme.json` (the manifest), and for an expressive Theme its SVG fallbacks, Prompt sheets under `prompts/`, and one display face as woff2 with `OFL.txt` beside it. |
+| `themes/<id>/` | One directory per Theme: `theme.css` (Token declarations only), `theme.json` (the manifest), for an expressive Theme its SVG fallbacks, Prompt sheets under `prompts/` and one display face, and for a plain Theme with its own face (`slate`, `contrast`) one variable body face; each face is a woff2 with `OFL.txt` beside it. |
 | `dist/tokens.css` | Every contract default on `:root`, so a page with no Theme attribute renders as `default` light. |
 | `dist/themes.css` | Every Theme's declarations. |
 | `dist/registry.js` | The generated registry: `themes` (directory order, `default` first) and `options()` for a Theme menu. |
@@ -24,7 +26,7 @@ Status: `1.4.1`. Themes: `default` and `pylon` (light and dark), `neon`, `circui
 
 ## Consuming it
 
-Install an exact version (`npm install --save-exact dyeworks@1.4.1`) and import the stylesheets:
+Install an exact version (`npm install --save-exact dyeworks@1.5.0`) and import the stylesheets:
 
 ```css
 @import "dyeworks/tokens.css";

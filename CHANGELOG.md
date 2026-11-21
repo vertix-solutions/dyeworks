@@ -4,6 +4,29 @@ Versions are git tags `v<semver>`, published to the npm registry by `release.yml
 kind with an inert default is a minor; generated images are a patch; a renamed or removed Token, a changed
 Slot treatment or a changed manifest shape is a major, recorded here.
 
+## 1.5.0
+
+Fourteen new Themes, each with its Token values, manifest, one Latin-subset woff2 face from its `@fontsource`
+package with `OFL.txt` beside it, and (for an expressive Theme) hand-written SVG fallbacks and Prompt sheets. Every
+Theme and Scheme passes the contrast thresholds at Intensity 0.5, and every bundled face passes the figure check (a
+zero unlike O and o, a one unlike I and l); faces that failed it (Saira Condensed, Bebas Neue, Oswald, Young Serif,
+Barlow Semi Condensed and others) were not used.
+
+- Dark, expressive: `terminal` (phosphor green on black, amber second, square corners; JetBrains Mono),
+  `blueprint` (cyanotype blue, white line work, a drafting grid; IBM Plex Sans Condensed), `noir` (black and
+  off-white with one red accent, a hard offset red shadow; Archivo Narrow), `ember` (warm charcoal, glowing
+  orange and coal yellow; Chakra Petch), `aurora` (night sky, green to violet gradient; Lexend).
+- Light and dark, expressive, with a backdrop per Scheme: `tidal` (sea glass by day, deep water by night; Outfit),
+  `moss` (lichen and forest floor, bark-brown second; Bitter), `sakura` (blush and plum, falling petals; Zen Maru
+  Gothic).
+- Light, expressive: `paper` (ink on near-white, the quietest light Theme; Newsreader), `mint` (pastel mint, soft
+  rounded; Nunito), `sunrise` (warm off-white, coral and amber; Sora), `riso` (risograph pink and blue with a
+  misregistered offset shadow; Archivo Black).
+- Plain (`intensity: false`, no images, decoration at the contract defaults), light and dark: `slate` (cool
+  slate greys, cobalt accent; Manrope variable as the body face) and `contrast` (black and white, 7:1 for text,
+  muted, accent and danger on both surfaces in both Schemes; Atkinson Hyperlegible Next variable as the body face).
+- `test/themes.test.mjs` pins each new Theme's design.
+
 ## 1.4.1
 
 - `pylon`'s backdrops carry no crystal, ground shadow or pool of light anywhere in the frame: they are sand, dunes

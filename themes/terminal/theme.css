@@ -1,0 +1,46 @@
+/* terminal: an old phosphor CRT. Pale green text on a near-black screen with a green cast, a phosphor-green
+   accent and an amber second colour, square corners; dark only. Display face JetBrains Mono, whose zero carries a
+   dot. Decoration is written in var(--intensity); the design is its look at 0.5, a medium green bloom. */
+
+@font-face {
+  font-family: "JetBrains Mono";
+  src: url(/themes/terminal/jetbrains-mono-600.woff2) format("woff2");
+  font-display: swap;
+  font-style: normal;
+  font-weight: 400 700;
+}
+
+html[data-theme="terminal"] {
+  --radius: 0px;
+  --font-display: "JetBrains Mono", var(--font-sans);
+  --theme-second: #ffb000;
+  --glow: 0 0 calc(var(--intensity) * 20px) calc(var(--intensity) * 1px) color-mix(in srgb, var(--accent) min(100%, calc(var(--intensity) * 110%)), transparent);
+  --glow-svg: drop-shadow(0 0 calc(var(--intensity) * 10px) color-mix(in srgb, var(--accent) min(100%, calc(var(--intensity) * 140%)), transparent));
+  --accent-gradient: linear-gradient(90deg, var(--accent), color-mix(in srgb, var(--theme-second) min(100%, calc(var(--intensity) * 110%)), var(--accent)));
+  --asset-opacity: min(1, calc(var(--intensity) * 1.6));
+}
+
+html[data-theme="terminal"][data-scheme="dark"] {
+  color-scheme: dark;
+  --bg: #050a06;
+  --bg-raised: #0a140c;
+  --bg-sunken: #030603;
+  --fg: #c8ffd4;
+  --muted: #6fae80;
+  --border: #1c3a22;
+  --accent: #33ff77;
+  --accent-fg: #031007;
+  --selected: #103a1c;
+  --series-1: #33ff77;
+  --series-2: #ffb000;
+  --series-3: #5ccfff;
+  --state-active: #5ccfff;
+  --state-quiet: #7fa58a;
+  --state-attention: #ffb000;
+  --state-success: #33ff77;
+  --state-failure: #ff5c5c;
+  --state-halted: #c79bff;
+  --danger: #ff5c5c;
+  --warning-bg: #2a1d02;
+  --warning-fg: #ffc640;
+}

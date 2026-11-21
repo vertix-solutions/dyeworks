@@ -1,0 +1,74 @@
+/* slate: plain and professional, for client work, light and dark. Cool slate greys with a cobalt accent and no
+   decoration: every decoration Token stays at the contract default, so the Slots show their plain treatment.
+   Manrope, a variable face, carries the whole page. */
+
+@font-face {
+  font-family: "Manrope";
+  src: url(/themes/slate/manrope-variable.woff2) format("woff2");
+  font-display: swap;
+  font-style: normal;
+  font-weight: 200 800;
+}
+
+html[data-theme="slate"] {
+  --radius: 6px;
+  --font-sans: "Manrope", system-ui, -apple-system, sans-serif;
+  --glow: none;
+  --glow-svg: none;
+  --accent-gradient: var(--accent);
+  --font-display: var(--font-sans);
+  --asset-backdrop: none;
+  --asset-ornament: none;
+  --asset-empty: none;
+  --asset-opacity: 1;
+}
+
+html[data-theme="slate"][data-scheme="light"] {
+  color-scheme: light;
+  --bg: #f8fafc;
+  --bg-raised: #f0f3f7;
+  --bg-sunken: #e5e9ef;
+  --fg: #141a22;
+  --muted: #56606e;
+  --border: #d5dbe3;
+  --accent: #2f5fd0;
+  --accent-fg: #ffffff;
+  --selected: #e1e9fa;
+  --series-1: #2f5fd0;
+  --series-2: #1d7a5c;
+  --series-3: #b5501c;
+  --state-active: #2563b8;
+  --state-quiet: #5a6472;
+  --state-attention: #8f5200;
+  --state-success: #1d7a3f;
+  --state-failure: #c0322f;
+  --state-halted: #6346c0;
+  --danger: #c0322f;
+  --warning-bg: #fdf0dc;
+  --warning-fg: #7a4300;
+}
+
+html[data-theme="slate"][data-scheme="dark"] {
+  color-scheme: dark;
+  --bg: #0f141b;
+  --bg-raised: #161d26;
+  --bg-sunken: #0a0e13;
+  --fg: #e6ebf2;
+  --muted: #95a1b2;
+  --border: #2a3442;
+  --accent: #7aa2ff;
+  --accent-fg: #0b1220;
+  --selected: #1f2f4f;
+  --series-1: #7aa2ff;
+  --series-2: #5fd0a0;
+  --series-3: #f09a5a;
+  --state-active: #6aa8ff;
+  --state-quiet: #95a1b2;
+  --state-attention: #f0c050;
+  --state-success: #5fd07a;
+  --state-failure: #ff7070;
+  --state-halted: #b49aff;
+  --danger: #ff7070;
+  --warning-bg: #33270e;
+  --warning-fg: #f0c050;
+}

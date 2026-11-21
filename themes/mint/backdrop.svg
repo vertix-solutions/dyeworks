@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1536 1024" width="1536" height="1024" preserveAspectRatio="xMidYMid slice">
+<!-- mint backdrop fallback. Mirrors the mint Tokens bg (#f4fbf8) for the field, with two soft blobs in opposite
+     corners: a pale tint of theme-second (#6fe3c1) toward the bg at the top right and a pale sky tint (#dcecfb)
+     at the bottom left. Both fade to nothing well before the middle of the frame.
+     Token names are written without their leading dashes, which an XML comment cannot hold. -->
+<defs>
+<radialGradient id="a" cx="1420" cy="80" r="560" gradientUnits="userSpaceOnUse">
+<stop offset="0" stop-color="#c9f3e5"/>
+<stop offset="1" stop-color="#c9f3e5" stop-opacity="0"/>
+</radialGradient>
+<radialGradient id="b" cx="120" cy="980" r="520" gradientUnits="userSpaceOnUse">
+<stop offset="0" stop-color="#dcecfb"/>
+<stop offset="1" stop-color="#dcecfb" stop-opacity="0"/>
+</radialGradient>
+</defs>
+<rect width="1536" height="1024" fill="#f4fbf8"/>
+<rect width="1536" height="1024" fill="url(#a)"/>
+<rect width="1536" height="1024" fill="url(#b)"/>
+</svg>

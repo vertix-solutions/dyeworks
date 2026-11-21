@@ -1,0 +1,7 @@
+{
+  "id": "contrast",
+  "label": "Contrast",
+  "schemes": ["light", "dark"],
+  "intensity": false,
+  "assets": {}
+}

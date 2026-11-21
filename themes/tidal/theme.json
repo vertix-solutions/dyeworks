@@ -1,0 +1,14 @@
+{
+  "id": "tidal",
+  "label": "Tidal",
+  "schemes": ["light", "dark"],
+  "intensity": true,
+  "assets": {
+    "backdrop": {
+      "light": { "fallback": "backdrop.light.svg" },
+      "dark": { "fallback": "backdrop.dark.svg" }
+    },
+    "ornament": { "fallback": "ornament.svg" },
+    "empty": { "fallback": "empty.svg" }
+  }
+}

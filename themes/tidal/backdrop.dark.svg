@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1536 1024" width="1536" height="1024" preserveAspectRatio="xMidYMid slice">
+<!-- tidal night backdrop fallback. Mirrors the tidal dark Tokens bg (#0a1a22) for the deep-water field,
+     bg-raised (#10242e) and bg-sunken (#071319) for gentle wave bands along the foot of the frame only, and
+     accent (#4fd1c5) for faint crest lines at 6 % alpha. Nothing lighter than deep water.
+     Token names are written without their leading dashes, which an XML comment cannot hold. -->
+<rect width="1536" height="1024" fill="#0a1a22"/>
+<path d="M0 820C180 790 340 850 540 818S900 780 1100 816 1420 800 1536 790V1024H0Z" fill="#10242e"/>
+<path d="M0 890C200 862 380 912 600 884S980 850 1180 882 1440 872 1536 864V1024H0Z" fill="#0d1f28"/>
+<path d="M0 950C220 930 420 968 640 946S1020 920 1220 944 1450 936 1536 932V1024H0Z" fill="#071319"/>
+<path d="M0 820C180 790 340 850 540 818S900 780 1100 816 1420 800 1536 790M0 890C200 862 380 912 600 884S980 850 1180 882 1440 872 1536 864" fill="none" stroke="#4fd1c5" stroke-opacity="0.06" stroke-width="2"/>
+</svg>

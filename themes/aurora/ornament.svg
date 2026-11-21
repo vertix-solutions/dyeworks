@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 28 28" width="28" height="28">
+<!-- aurora ornament fallback: a ribbon of light in the aurora Tokens accent (#5cf2b4) fading into
+     theme-second (#b28cff), arched over a four-pointed star in fg (#e8f1ff) with a dark rim (#0a1020, the bg)
+     so it reads on light grounds too. Token names are written without their leading dashes, which an XML
+     comment cannot hold. -->
+<defs>
+<linearGradient id="ribbon" x1="2" y1="0" x2="26" y2="0" gradientUnits="userSpaceOnUse">
+<stop offset="0" stop-color="#5cf2b4"/>
+<stop offset="1" stop-color="#b28cff"/>
+</linearGradient>
+</defs>
+<path d="M2 14C6 6 11 4 14 7S22 6 26 3V8C22 11 18 10 14 12S6 12 2 19Z" fill="url(#ribbon)"/>
+<path d="M14 15L15.6 20.4L21 22L15.6 23.6L14 29L12.4 23.6L7 22L12.4 20.4Z" fill="#e8f1ff" stroke="#0a1020" stroke-width="0.8" transform="translate(0 -2)"/>
+</svg>

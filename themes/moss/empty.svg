@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 200" width="300" height="200">
+<!-- moss empty fallback, shared by both Schemes: an empty clearing, a low mound of moss with one small
+     mushroom at its edge and nothing else. Mirrors the moss Tokens accent (#8fcf6a night, #3f6b2a day) for the
+     moss and its outline, theme-second (#7a4a24) for the mushroom cap and a pale stem (#e7eedd, the night fg).
+     Token names are written without their leading dashes, which an XML comment cannot hold. -->
+<path d="M30 156C60 128 110 120 150 122S240 128 270 156Z" fill="#8fcf6a" fill-opacity="0.35" stroke="#3f6b2a" stroke-width="2" stroke-linejoin="round"/>
+<path d="M30 156H270" stroke="#3f6b2a" stroke-width="2" stroke-linecap="round"/>
+<path d="M214 134V114" stroke="#7a4a24" stroke-width="2"/>
+<path d="M210.5 136V116H217.5V136Z" fill="#e7eedd" stroke="#7a4a24" stroke-width="1.6" stroke-linejoin="round"/>
+<path d="M200 117C200 105 207 99 214 99S228 105 228 117Z" fill="#7a4a24" stroke="#3f6b2a" stroke-width="1.6" stroke-linejoin="round"/>
+<g fill="#e7eedd"><circle cx="209" cy="108" r="1.6"/><circle cx="219" cy="106" r="1.3"/></g>
+</svg>

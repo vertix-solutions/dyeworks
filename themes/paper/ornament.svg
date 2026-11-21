@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 28 28" width="28" height="28">
+<!-- paper ornament fallback: a fountain-pen nib, point down. The nib is the paper Tokens accent (#2b4c7e) with
+     its lit half in theme-second (#3d649e); the breather hole and slit are the bg (#fbfaf7). Fills only. -->
+<path d="M14 26L7.5 12.5L10 5H18L20.5 12.5Z" fill="#2b4c7e"/>
+<path d="M14 26L14 5H18L20.5 12.5Z" fill="#3d649e"/>
+<path d="M13.5 13H14.5V25H13.5Z" fill="#fbfaf7"/>
+<circle cx="14" cy="12" r="1.6" fill="#fbfaf7"/>
+<path d="M9 2.5H19V5H9Z" fill="#1d1c1a"/>
+</svg>

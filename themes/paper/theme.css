@@ -1,0 +1,47 @@
+/* paper: ink on a good sheet, for documentation. A near-white page with the faintest warm-grey bias, ink text and
+   an ink-blue accent; light only. Display face Newsreader, a text serif with lining figures. The quietest of the
+   expressive Themes: its glow is a 1 by 2 px hard ink offset, its gradient nearly flat, its images faint.
+   Decoration is written in var(--intensity); the design is its look at 0.5. */
+
+@font-face {
+  font-family: "Newsreader";
+  src: url(/themes/paper/newsreader-600.woff2) format("woff2");
+  font-display: swap;
+  font-style: normal;
+  font-weight: 400 700;
+}
+
+html[data-theme="paper"] {
+  --radius: 3px;
+  --font-display: "Newsreader", var(--font-sans);
+  --theme-second: #3d649e;
+  --glow: calc(var(--intensity) * 2px) calc(var(--intensity) * 4px) 0 0 color-mix(in srgb, var(--fg) min(100%, calc(var(--intensity) * 50%)), transparent);
+  --glow-svg: drop-shadow(calc(var(--intensity) * 2px) calc(var(--intensity) * 4px) 0 color-mix(in srgb, var(--fg) min(100%, calc(var(--intensity) * 50%)), transparent));
+  --accent-gradient: linear-gradient(180deg, color-mix(in srgb, var(--theme-second) min(100%, calc(var(--intensity) * 60%)), var(--accent)), var(--accent));
+  --asset-opacity: min(1, calc(var(--intensity) * 1.2));
+}
+
+html[data-theme="paper"][data-scheme="light"] {
+  color-scheme: light;
+  --bg: #fbfaf7;
+  --bg-raised: #f3f1ec;
+  --bg-sunken: #eae7e0;
+  --fg: #1d1c1a;
+  --muted: #5e5a52;
+  --border: #d9d5cc;
+  --accent: #2b4c7e;
+  --accent-fg: #ffffff;
+  --selected: #dde5f1;
+  --series-1: #2b4c7e;
+  --series-2: #2f6b4f;
+  --series-3: #9a4a1f;
+  --state-active: #275a9a;
+  --state-quiet: #5e5a52;
+  --state-attention: #8a5a00;
+  --state-success: #2f6b3a;
+  --state-failure: #b0302a;
+  --state-halted: #67449e;
+  --danger: #b0302a;
+  --warning-bg: #f4e8c8;
+  --warning-fg: #6b4a05;
+}

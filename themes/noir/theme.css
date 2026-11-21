@@ -1,0 +1,47 @@
+/* noir: a black-and-white film with one red. Off-white on near-black, greys for everything secondary and a
+   single red accent, square corners; dark only. Display face Archivo Narrow, a tall poster grotesque. The glow
+   is a hard red offset shadow with no blur, like a light thrown across a doorway. Decoration is written in
+   var(--intensity); the design is its look at 0.5. */
+
+@font-face {
+  font-family: "Archivo Narrow";
+  src: url(/themes/noir/archivo-narrow-700.woff2) format("woff2");
+  font-display: swap;
+  font-style: normal;
+  font-weight: 400 700;
+}
+
+html[data-theme="noir"] {
+  --radius: 0px;
+  --font-display: "Archivo Narrow", var(--font-sans);
+  --theme-second: #8f1d22;
+  --glow: calc(var(--intensity) * 3px) calc(var(--intensity) * 6px) 0 0 color-mix(in srgb, var(--accent) min(100%, calc(var(--intensity) * 100%)), transparent);
+  --glow-svg: drop-shadow(calc(var(--intensity) * 3px) calc(var(--intensity) * 6px) 0 color-mix(in srgb, var(--accent) min(100%, calc(var(--intensity) * 100%)), transparent));
+  --accent-gradient: linear-gradient(180deg, var(--accent), color-mix(in srgb, var(--theme-second) min(100%, calc(var(--intensity) * 100%)), var(--accent)));
+  --asset-opacity: min(1, calc(var(--intensity) * 1.4));
+}
+
+html[data-theme="noir"][data-scheme="dark"] {
+  color-scheme: dark;
+  --bg: #0b0b0b;
+  --bg-raised: #151515;
+  --bg-sunken: #060606;
+  --fg: #efefea;
+  --muted: #9a9a96;
+  --border: #2e2e2e;
+  --accent: #ff4d4f;
+  --accent-fg: #0b0b0b;
+  --selected: #3a1415;
+  --series-1: #ff4d4f;
+  --series-2: #c8c8c8;
+  --series-3: #e0b050;
+  --state-active: #8fb3d9;
+  --state-quiet: #a3a3a0;
+  --state-attention: #e0b050;
+  --state-success: #8fc49a;
+  --state-failure: #ff4d4f;
+  --state-halted: #d8a0d0;
+  --danger: #ff4d4f;
+  --warning-bg: #2a2210;
+  --warning-fg: #e0b050;
+}

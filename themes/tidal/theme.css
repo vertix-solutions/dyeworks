@@ -1,0 +1,78 @@
+/* tidal: sea glass and deep water, on both Schemes. Day (light) is pale sea glass with a deep teal accent and a
+   soft, wet shadow below; night (dark) is deep water with an aqua accent and a quiet glow. Display face Outfit,
+   10 px corners. Decoration is written in var(--intensity) and differs per Scheme only in its values; each
+   Scheme's design is its look at 0.5. */
+
+@font-face {
+  font-family: "Outfit";
+  src: url(/themes/tidal/outfit-600.woff2) format("woff2");
+  font-display: swap;
+  font-style: normal;
+  font-weight: 400 700;
+}
+
+html[data-theme="tidal"] {
+  --radius: 10px;
+  --font-display: "Outfit", var(--font-sans);
+}
+
+html[data-theme="tidal"][data-scheme="light"] {
+  color-scheme: light;
+  --bg: #eef6f5;
+  --bg-raised: #e2efed;
+  --bg-sunken: #d5e7e4;
+  --fg: #10282c;
+  --muted: #4c6669;
+  --border: #c2d9d6;
+  --accent: #0b6e78;
+  --accent-fg: #ffffff;
+  --selected: #cde9ea;
+  --series-1: #0b6e78;
+  --series-2: #7a4fa8;
+  --series-3: #a2531c;
+  --state-active: #1660a8;
+  --state-quiet: #4c6669;
+  --state-attention: #8a5a00;
+  --state-success: #1d7044;
+  --state-failure: #b3303a;
+  --state-halted: #7a4fa8;
+  --danger: #b3303a;
+  --warning-bg: #f4e7c4;
+  --warning-fg: #6b4a05;
+  --theme-second: #2aa8a0;
+  /* Day's glow is a soft wet shadow under the accent, falling straight down. */
+  --glow: 0 calc(var(--intensity) * 6px) calc(var(--intensity) * 16px) 0 color-mix(in srgb, var(--accent) min(100%, calc(var(--intensity) * 70%)), transparent);
+  --glow-svg: drop-shadow(0 calc(var(--intensity) * 3px) calc(var(--intensity) * 6px) color-mix(in srgb, var(--accent) min(100%, calc(var(--intensity) * 90%)), transparent));
+  --accent-gradient: linear-gradient(180deg, color-mix(in srgb, var(--theme-second) min(100%, calc(var(--intensity) * 80%)), var(--accent)), var(--accent));
+  --asset-opacity: min(1, calc(var(--intensity) * 1.4));
+}
+
+html[data-theme="tidal"][data-scheme="dark"] {
+  color-scheme: dark;
+  --bg: #0a1a22;
+  --bg-raised: #10242e;
+  --bg-sunken: #071319;
+  --fg: #e2f4f3;
+  --muted: #86a6ab;
+  --border: #21404a;
+  --accent: #4fd1c5;
+  --accent-fg: #061a1c;
+  --selected: #134049;
+  --series-1: #4fd1c5;
+  --series-2: #c3a0ff;
+  --series-3: #f2a65a;
+  --state-active: #5cb8ff;
+  --state-quiet: #86a6ab;
+  --state-attention: #f2c94c;
+  --state-success: #6fdc8c;
+  --state-failure: #ff7a7a;
+  --state-halted: #c3a0ff;
+  --danger: #ff7a7a;
+  --warning-bg: #2c2410;
+  --warning-fg: #f2c94c;
+  --theme-second: #9cf0e6;
+  --glow: 0 0 calc(var(--intensity) * 20px) 0 color-mix(in srgb, var(--accent) min(100%, calc(var(--intensity) * 100%)), transparent);
+  --glow-svg: drop-shadow(0 0 calc(var(--intensity) * 10px) color-mix(in srgb, var(--accent) min(100%, calc(var(--intensity) * 120%)), transparent));
+  --accent-gradient: linear-gradient(180deg, color-mix(in srgb, var(--theme-second) min(100%, calc(var(--intensity) * 120%)), var(--accent)), var(--accent));
+  --asset-opacity: min(1, calc(var(--intensity) * 1.6));
+}

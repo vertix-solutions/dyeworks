@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 28 28" width="28" height="28">
+<!-- sakura ornament fallback, shared by both Schemes: one five-petal blossom. The petals mirror the sakura Tokens
+     theme-second of night (#ffc2dc) edged in day's theme-second (#c4467f); the centre is day's accent (#a3336b)
+     with a ring of night's accent (#ff8fbf), so it reads on blush and on plum. Fills only.
+     Token names are written without their leading dashes, which an XML comment cannot hold. -->
+<g transform="translate(14 14)" fill="#ffc2dc" stroke="#c4467f" stroke-width="0.9" stroke-linejoin="round">
+<path d="M0 -1.5C-3.6 -4.6 -3.2 -10.5 0 -12.2L1 -10.6L2 -12.2C5 -10.5 4 -4.6 0 -1.5Z"/>
+<path transform="rotate(72)" d="M0 -1.5C-3.6 -4.6 -3.2 -10.5 0 -12.2L1 -10.6L2 -12.2C5 -10.5 4 -4.6 0 -1.5Z"/>
+<path transform="rotate(144)" d="M0 -1.5C-3.6 -4.6 -3.2 -10.5 0 -12.2L1 -10.6L2 -12.2C5 -10.5 4 -4.6 0 -1.5Z"/>
+<path transform="rotate(216)" d="M0 -1.5C-3.6 -4.6 -3.2 -10.5 0 -12.2L1 -10.6L2 -12.2C5 -10.5 4 -4.6 0 -1.5Z"/>
+<path transform="rotate(288)" d="M0 -1.5C-3.6 -4.6 -3.2 -10.5 0 -12.2L1 -10.6L2 -12.2C5 -10.5 4 -4.6 0 -1.5Z"/>
+</g>
+<circle cx="14" cy="14" r="2.6" fill="#a3336b" stroke="#ff8fbf" stroke-width="0.8"/>
+</svg>

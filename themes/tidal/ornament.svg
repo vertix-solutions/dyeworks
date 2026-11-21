@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 28 28" width="28" height="28">
+<!-- tidal ornament fallback, shared by both Schemes: a scallop shell, its fan in the tidal Tokens
+     theme-second (#2aa8a0, the day second colour) with ribs and rim in the day accent (#0b6e78), and a hinge in
+     the night accent (#4fd1c5). The dark rim keeps it legible on sea glass, the teal fill on deep water.
+     Token names are written without their leading dashes, which an XML comment cannot hold. -->
+<path d="M14 23L3.5 11C3.5 6 8.2 3 14 3S24.5 6 24.5 11Z" fill="#2aa8a0" stroke="#0b6e78" stroke-width="1.2" stroke-linejoin="round"/>
+<path d="M14 23L7 6.2M14 23L10.3 4.1M14 23V3M14 23L17.7 4.1M14 23L21 6.2" stroke="#0b6e78" stroke-width="1"/>
+<path d="M10.5 22.5H17.5L16.5 25.5H11.5Z" fill="#4fd1c5" stroke="#0b6e78" stroke-width="1" stroke-linejoin="round"/>
+</svg>

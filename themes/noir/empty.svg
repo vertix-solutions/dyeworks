@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 768 512" width="768" height="512">
+<!-- noir empty-state fallback: an empty spotlight pool on a floor, an ellipse of pale grey (#c8c8c8) light
+     with a soft edge, a cone of light from above in #ffffff at low alpha, and a thin floor line in the noir
+     Tokens accent (#ff4d4f). Nothing stands in the light. Token names are written without their leading dashes, which an XML comment cannot hold. -->
+<defs>
+<radialGradient id="pool" cx="384" cy="380" r="170" gradientTransform="translate(384 380) scale(1 0.28) translate(-384 -380)" gradientUnits="userSpaceOnUse">
+<stop offset="0" stop-color="#c8c8c8" stop-opacity="0.9"/>
+<stop offset="0.7" stop-color="#c8c8c8" stop-opacity="0.35"/>
+<stop offset="1" stop-color="#c8c8c8" stop-opacity="0"/>
+</radialGradient>
+<linearGradient id="cone" x1="0" y1="40" x2="0" y2="380" gradientUnits="userSpaceOnUse">
+<stop offset="0" stop-color="#ffffff" stop-opacity="0"/>
+<stop offset="1" stop-color="#ffffff" stop-opacity="0.12"/>
+</linearGradient>
+</defs>
+<path d="M360 40H408L540 380H228Z" fill="url(#cone)"/>
+<rect x="160" y="320" width="448" height="120" fill="url(#pool)"/>
+<path d="M120 380H648" stroke="#ff4d4f" stroke-width="2"/>
+</svg>

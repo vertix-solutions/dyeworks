@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 200" width="300" height="200">
+<!-- paper empty fallback: one blank sheet with its top right corner folded over, lying on nothing. The sheet is
+     the paper Tokens bg (#fbfaf7) outlined in border (#d9d5cc); the fold is bg-sunken (#eae7e0); a ruled margin
+     in a pale tint of red ink (#e3b8b4) and a single short line of accent (#2b4c7e) where writing would start. -->
+<path d="M100 28H180L210 58V176H100Z" fill="#fbfaf7" stroke="#d9d5cc" stroke-width="2" stroke-linejoin="round"/>
+<path d="M180 28V58H210Z" fill="#eae7e0" stroke="#d9d5cc" stroke-width="2" stroke-linejoin="round"/>
+<path d="M116 30V174" stroke="#e3b8b4" stroke-width="1.5"/>
+<path d="M124 76H150" stroke="#2b4c7e" stroke-width="2" stroke-linecap="round"/>
+</svg>

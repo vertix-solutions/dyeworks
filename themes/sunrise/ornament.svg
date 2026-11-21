@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 28 28" width="28" height="28">
+<!-- sunrise ornament fallback: a half sun on a horizon line. The disc mirrors the sunrise Tokens theme-second
+     (#e08a1c) and its rays and the horizon the accent (#b83c25). Token names are written without their leading
+     dashes, which an XML comment cannot hold. -->
+<path d="M6 20A8 8 0 0 1 22 20Z" fill="#e08a1c"/>
+<g stroke="#b83c25" stroke-width="1.8" stroke-linecap="round">
+<path d="M2 20.5H26"/>
+<path d="M14 5V8M5.5 9.5L7.6 11.6M22.5 9.5L20.4 11.6M2.5 15.5H4.5M23.5 15.5H25.5"/>
+</g>
+</svg>

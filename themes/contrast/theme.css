@@ -1,0 +1,76 @@
+/* contrast: accessibility first, light and dark. Black on white and white on black with strong borders and a
+   clearly visible selection; fg, muted, accent and danger aim for 7:1 (WCAG AAA) against bg and bg-raised in
+   both Schemes, every other text and data Token for at least 4.5:1. No decoration: every decoration Token stays
+   at the contract default. Atkinson Hyperlegible Next, a variable face drawn for low vision, with a slashed zero,
+   carries the whole page. */
+
+@font-face {
+  font-family: "Atkinson Hyperlegible Next";
+  src: url(/themes/contrast/atkinson-hyperlegible-next-variable.woff2) format("woff2");
+  font-display: swap;
+  font-style: normal;
+  font-weight: 200 800;
+}
+
+html[data-theme="contrast"] {
+  --radius: 4px;
+  --font-sans: "Atkinson Hyperlegible Next", system-ui, -apple-system, sans-serif;
+  --glow: none;
+  --glow-svg: none;
+  --accent-gradient: var(--accent);
+  --font-display: var(--font-sans);
+  --asset-backdrop: none;
+  --asset-ornament: none;
+  --asset-empty: none;
+  --asset-opacity: 1;
+}
+
+html[data-theme="contrast"][data-scheme="light"] {
+  color-scheme: light;
+  --bg: #ffffff;
+  --bg-raised: #f2f2f2;
+  --bg-sunken: #e6e6e6;
+  --fg: #000000;
+  --muted: #333333;
+  --border: #595959;
+  --accent: #0033a0;
+  --accent-fg: #ffffff;
+  --selected: #cfe0ff;
+  --series-1: #0033a0;
+  --series-2: #005c26;
+  --series-3: #9c2a00;
+  --state-active: #0047b3;
+  --state-quiet: #3d3d3d;
+  --state-attention: #7a4100;
+  --state-success: #005c26;
+  --state-failure: #a80000;
+  --state-halted: #5a1fa8;
+  --danger: #a80000;
+  --warning-bg: #fff1c2;
+  --warning-fg: #4d2e00;
+}
+
+html[data-theme="contrast"][data-scheme="dark"] {
+  color-scheme: dark;
+  --bg: #000000;
+  --bg-raised: #141414;
+  --bg-sunken: #0a0a0a;
+  --fg: #ffffff;
+  --muted: #d0d0d0;
+  --border: #a6a6a6;
+  --accent: #ffd400;
+  --accent-fg: #000000;
+  --selected: #2b3a66;
+  --series-1: #ffd400;
+  --series-2: #66d9ff;
+  --series-3: #ff8fa3;
+  --state-active: #66b3ff;
+  --state-quiet: #c8c8c8;
+  --state-attention: #ffb000;
+  --state-success: #5ee08a;
+  --state-failure: #ff7a7a;
+  --state-halted: #c9a6ff;
+  --danger: #ff7a7a;
+  --warning-bg: #332600;
+  --warning-fg: #ffd966;
+}

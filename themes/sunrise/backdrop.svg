@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1536 1024" width="1536" height="1024" preserveAspectRatio="xMidYMid slice">
+<!-- sunrise backdrop fallback. Mirrors the sunrise Tokens bg (#fff8f2) for the field; along the bottom edge only, a
+     soft dawn glow tinted from theme-second (#e08a1c) toward accent (#b83c25), kept pale (#ffe6cf to #ffd9c4) so text
+     keeps its contrast over it. Token names are written without their leading dashes, which an XML comment cannot hold. -->
+<defs>
+<radialGradient id="dawn" cx="768" cy="1100" r="900" gradientTransform="translate(768 1100) scale(1.4 0.42) translate(-768 -1100)" gradientUnits="userSpaceOnUse">
+<stop offset="0" stop-color="#ffd9c4"/>
+<stop offset="0.45" stop-color="#ffe6cf" stop-opacity="0.8"/>
+<stop offset="1" stop-color="#fff8f2" stop-opacity="0"/>
+</radialGradient>
+</defs>
+<rect width="1536" height="1024" fill="#fff8f2"/>
+<rect width="1536" height="1024" fill="url(#dawn)"/>
+</svg>
